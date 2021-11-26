@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.loginpage.PoolingDashboard"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="33.0" prefWidth="600.0">
+         <children>
+            <Label />
+            <Label />
+            <Label prefHeight="46.0" prefWidth="175.0" text="Car Pooling">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label prefHeight="46.0" prefWidth="181.0" text="Hello User">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="175.0" />
+               </HBox.margin>
+            </Label>
+            <FontAwesomeIconView glyphName="USER" size="44" />
+         </children>
+      </HBox>
+      <HBox prefHeight="352.0" prefWidth="600.0" style="-fx-border-color: black;">
+         <children>
+            <VBox prefHeight="306.0" prefWidth="182.0" style="-fx-border-color: black; -fx-border-width: 0px 1px 0px 0px;">
+               <children>
+                  <Label prefHeight="46.0" prefWidth="182.0" style="-fx-border-color: black; -fx-border-width: 0px 0px 0px 0px;" text="Car Pool Management">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="46.0" prefWidth="182.0" style="-fx-border-color: black; -fx-border-width: 1px 0px 0px 0px;" text="Car Pool Request">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="46.0" prefWidth="182.0" style="-fx-border-color: black; -fx-border-width: 1px 0px 0px 0px;" text="Propose Car Pooling">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="46.0" prefWidth="182.0" style="-fx-border-color: black; -fx-border-width: 1px 0px 1px 0px;" text="Car Pool Information">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
