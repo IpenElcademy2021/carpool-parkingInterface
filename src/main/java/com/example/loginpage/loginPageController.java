@@ -3,7 +3,7 @@ package com.example.loginpage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class loginPageController {
     @FXML
     private Label welcomeText;
 
