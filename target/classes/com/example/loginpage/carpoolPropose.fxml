@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.PoolingDashboardController">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -177,7 +177,7 @@
                         <Insets left="300.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_create" mnemonicParsing="false" text="Create">
+                  <Button fx:id="button_create" mnemonicParsing="false"  onAction="#CreatePooling" text="Create">
                      <HBox.margin>
                         <Insets left="100.0" top="20.0" />
                      </HBox.margin>
