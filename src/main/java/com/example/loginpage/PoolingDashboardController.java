@@ -1,5 +1,7 @@
 package com.example.loginpage;
 
+import com.example.loginpage.models.PoolingPropose;
+import com.example.loginpage.oop.RestAPI.OkHttpGet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,10 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import okhttp3.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class PoolingDashboardController implements Initializable {
@@ -43,7 +50,8 @@ public class PoolingDashboardController implements Initializable {
         comboxBox_seat.setItems(seats);
     }
 
-    OkHttpClient client = new OkHttpClient();
+    OkHttpClient okHttpClient = new OkHttpClient();
+    //OkHttpGet okHttpGet = new OkHttpGet();
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -63,7 +71,7 @@ public class PoolingDashboardController implements Initializable {
 
         System.out.println(json);
 
-        try (Response response = client.newCall(request).execute()){
+        try (Response response = okHttpClient.newCall(request).execute()){
             System.out.println(response.body().string());
         }
 
@@ -74,6 +82,35 @@ public class PoolingDashboardController implements Initializable {
     private void MessageBox(String message, String title) {
         JOptionPane.showMessageDialog(null,message,"" +title,JOptionPane.INFORMATION_MESSAGE);
     }
+
+    /*public ObservableList<PoolingPropose> getAllProposePooling() throws IOException{
+
+        String url = "http://localhost:8080/cppk/getAllProposePooling";
+        System.out.println(okHttpGet.run(url);
+        String response = okHttpGet.run(url);
+        ObservableList<PoolingPropose> poolingReturn = FXCollections.observableArrayList();
+        try {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(response);
+            JSONArray jsonArray = (JSONArray) obj;
+            ObservableList<PoolingPropose> poolingData = FXCollections.observableArrayList();
+            String visa = "", region = "", pickUpPoint = "", pickUpTime = "", departureTime = "";
+            Date date;
+            int seat = 0;
+
+            for (var i = 0; i< jsonArray.toArray().length; i++){
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                JSONObject jsonUserObject = (JSONObject) jsonObject.get("User");
+                JSONObject jsonPoolingObject  =(JSONObject) jsonUserObject.get("PoolingPropose");
+
+                visa = jsonObject.get("visa").toString();
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return poolingReturn;
+    }*/
 
 
 }
