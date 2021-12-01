@@ -10,4 +10,5 @@ module com.example.loginpage {
 
     opens com.example.loginpage to javafx.fxml;
     exports com.example.loginpage;
+    exports com.example.loginpage.models;
 }
