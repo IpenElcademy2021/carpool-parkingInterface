@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -27,8 +28,6 @@ public class loginPageController {
     MethodClass methodClass = new MethodClass();
     Login login = new Login();
 
-    @FXML
-    private Label welcomeText;
 
     @FXML
     private TextField textfieldUsername, passwordfieldPassword;
@@ -69,10 +68,14 @@ public class loginPageController {
             methodClass.messageBox("Please loggin first!", "Not logged in.");
         }
         else {
-            root = FXMLLoader.load(getClass().getResource("parkingDashboard.fxml"));
-            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingApplyForParking.fxml"));
+            root = loader.load();
+            parkingApplyForParkingController parkingApplyForParkingController = loader.getController();
+
+            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            parkingApplyForParkingController.setup(globalVisa);
             stage.show();
         }
     }
