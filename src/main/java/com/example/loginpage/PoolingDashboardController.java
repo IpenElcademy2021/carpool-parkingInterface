@@ -30,6 +30,13 @@ public class PoolingDashboardController implements Initializable {
     @FXML
     private TableColumn column_visa,column_name,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat;
 
+    @FXML
+    String globalVisa;
+    public void GetGlobalVisa(String visa){
+        globalVisa = visa;
+        System.out.println(globalVisa);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Integer> seats = FXCollections.observableArrayList(1,2,3);
@@ -47,7 +54,8 @@ public class PoolingDashboardController implements Initializable {
                 "        \"pickUpPoint\": \"" + textField_pickup_point.getText() + "\",\n" +
                 "        \"pickUpTime\": \"" + textField_pickup_time.getText() + "\",\n" +
                 "        \"departureTime\": \"" + textField_departure_time.getText() + "\",\n" +
-                "        \"seat\": \"" + comboxBox_seat.getSelectionModel().getSelectedItem() + "\"\n" +
+                "        \"seat\": \"" + comboxBox_seat.getSelectionModel().getSelectedItem() + "\",\n" +
+                "        \"user\": {\"visa\":\"" + globalVisa + "\"}\n" +
                 "    }";
 
         RequestBody body = RequestBody.create(JSON, json);

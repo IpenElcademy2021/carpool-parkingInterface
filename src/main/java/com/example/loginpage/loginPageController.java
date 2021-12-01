@@ -84,11 +84,17 @@ public class loginPageController {
             methodClass.messageBox("Please loggin first!", "Not logged in.");
         }
         else {
-            root = FXMLLoader.load(getClass().getResource("carpoolDashboard.fxml"));
-            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolPropose.fxml"));
+            Parent root = loader.load();
+
+            PoolingDashboardController poolingDashboardController = loader.getController();
+            poolingDashboardController.GetGlobalVisa(globalVisa);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
             stage.show();
+
         }
     }
 
