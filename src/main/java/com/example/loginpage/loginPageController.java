@@ -80,18 +80,17 @@ public class loginPageController {
         }
         else {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolPropose.fxml"));
-            Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolDashBoard.fxml"));
+            root = loader.load();
+            CarpoolDashboardController carpoolDashboardController = loader.getController();
 
-            PoolingProposeController poolingDashboardController = loader.getController();
-            poolingDashboardController.GetGlobalVisa(globalVisa);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            carpoolDashboardController.setup(globalVisa);
             stage.show();
 
-            /*FXMLLoader loader1 = new FXMLLoader(getClass().getResource("carpoolDashboard.fxml"));
-            Parent root1 = loader1.load();*/
+
 
 
 

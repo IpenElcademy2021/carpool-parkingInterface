@@ -67,22 +67,22 @@
    <left>
       <VBox spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView pickOnBounds="true" preserveRatio="true">
+            <ImageView pickOnBounds="true" onMouseClicked="#switchToPoolingDashboard" preserveRatio="true">
                <image>
                   <Image url="@images/home_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="10.0" onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/plus_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="160.0" onMouseClicked="#switchToPoolingUserRequest" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/carpool_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="311.0" onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/manage.png" />
                </image>

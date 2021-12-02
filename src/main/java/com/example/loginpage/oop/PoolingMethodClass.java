@@ -57,28 +57,28 @@ public class PoolingMethodClass {
 
     public ObservableList<UserRequest> getUserRequestByVisa() throws IOException {
 
-        String url1 = "http://localhost:8080/cppk/getUserRequestByVisa/JPP";
-        String response1 = okHttpGet.run(url1);
+        String url = "http://localhost:8080/cppk/getUserRequestByVisa/AAA";
+        String response = okHttpGet.run(url);
         ObservableList<UserRequest> userRequestReturn = FXCollections.observableArrayList();
         try {
-            JSONParser parser1 = new JSONParser();
-            Object obj1 = parser1.parse(response1);
-            JSONArray jsonArray1 = (JSONArray) obj1;
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(response);
+            JSONArray jsonArray = (JSONArray) obj;
             ObservableList<UserRequest> userRequestData = FXCollections.observableArrayList();
             String visa ="",date ="",region = "", pickUpPoint = "", pickUpTime = "", departureTime = "",comment = "";
 
-            for (var i = 0; i< jsonArray1.toArray().length; i++){
-                JSONObject jsonObject1 = (JSONObject) jsonArray1.get(i);
-                JSONObject jsonUserObject1 = (JSONObject) jsonObject1.get("user");
-                JSONObject jsonPoolingProposeObject = (JSONObject) jsonObject1.get("poolingPropose");
+            for (var i = 0; i< jsonArray.toArray().length; i++){
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                JSONObject jsonUserObject = (JSONObject) jsonObject.get("user");
+                JSONObject jsonPoolingProposeObject = (JSONObject) jsonObject.get("pooling");
 
-                visa = jsonUserObject1.get("visa").toString();
+                visa = jsonUserObject.get("userVisa").toString();
                 date = jsonPoolingProposeObject.get("date").toString().substring(0,10);
                 region = jsonPoolingProposeObject.get("region").toString();
                 pickUpPoint = jsonPoolingProposeObject.get("pickUpPoint").toString();
                 pickUpTime = jsonPoolingProposeObject.get("pickUpTime").toString();
                 departureTime = jsonPoolingProposeObject.get("departureTime").toString();
-                comment = jsonObject1.get("comment").toString();
+                comment = jsonObject.get("comment").toString();
 
                 userRequestData.add(new UserRequest(comment,visa,date,region,pickUpPoint,pickUpTime,departureTime));
 

@@ -30,10 +30,18 @@ public class CarpoolDashboardController {
 
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
 
-    @FXML
-    public void initialize() throws IOException {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
-        ObservableList<UserRequest> data = poolingMethodClass.getUserRequestByVisa();
+    @FXML
+    String globalVisa;
+
+    public void setup(String visa) throws IOException {
+
+        globalVisa = visa;
+
+        /*ObservableList<UserRequest> data = poolingMethodClass.getUserRequestByVisa();
         column_driver_id.setCellValueFactory(new PropertyValueFactory<User,String>("visa"));
         column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose, Date>("date"));
         column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("region"));
@@ -42,8 +50,67 @@ public class CarpoolDashboardController {
         column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
         column_comment.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("comment"));
 
-        tableView_information.setItems(data);
+        tableView_information.setItems(data);*/
 
         //labelCurrentStatus.setText("Add required Information");
     }
+
+    @FXML
+    public void initialize() throws IOException {
+
+
+    }
+
+    public void switchToPoolingDashboard(MouseEvent e) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolDashBoard.fxml"));
+        root = loader.load();
+
+        CarpoolDashboardController carpoolDashboardController = loader.getController();
+
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        carpoolDashboardController.setup(globalVisa);
+        stage.show();
+
+    }
+
+    public void switchToPoolingPropose(MouseEvent e) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolPropose.fxml"));
+        root = loader.load();
+        PoolingProposeController poolingProposeController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        poolingProposeController.setup(globalVisa);
+        stage.show();
+    }
+
+    public void switchToPoolingUserRequest(MouseEvent e) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolRequest.fxml"));
+        root = loader.load();
+        CarpoolUserRequestController carpoolUserRequestController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        carpoolUserRequestController.setup(globalVisa);
+        stage.show();
+
+    }
+
+    public void switchToPoolingManage(MouseEvent e) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolManagement.fxml"));
+        root = loader.load();
+        CarpoolManagementController carpoolManagementController = loader.getController();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        carpoolManagementController.setup(globalVisa);
+        stage.show();
+    }
+
 }
