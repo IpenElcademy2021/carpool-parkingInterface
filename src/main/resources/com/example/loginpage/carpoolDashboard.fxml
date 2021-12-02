@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.CarpoolDashboardController">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -109,7 +109,7 @@
                   <Image url="@images/carpool_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="311.0" onMouseClicked="#switchToCarpoolManagement" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/manage.png" />
                </image>

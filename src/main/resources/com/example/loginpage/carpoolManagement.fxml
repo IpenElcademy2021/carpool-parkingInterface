@@ -16,6 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox BorderPane.alignment="CENTER">
@@ -65,7 +67,14 @@
                      <children>
                         <TextField fx:id="textField_visa" />
                         <TextField fx:id="textField_date" />
-                        <ComboBox fx:id="comboBox_status" prefHeight="26.0" prefWidth="202.0" promptText="Pending" />
+                        <ComboBox fx:id="comboBox_status" prefHeight="26.0" prefWidth="202.0" promptText="Pending">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Accept"/>
+                                 <String fx:value="Decline"/>
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
                         <TextArea fx:id="textArea_comment" prefHeight="113.0" prefWidth="152.0" promptText="Write a comment...." />
                      </children>
                      <padding>
