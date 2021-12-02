@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.CarpoolDashboardController">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -47,8 +47,8 @@
                   <TableColumn fx:id="column_driver_id" prefWidth="143.1999877691269" text="Driver ID (VISA)" />
                   <TableColumn fx:id="column_region" prefWidth="100.00003051757812" text="Region" />
                   <TableColumn fx:id="column_date" prefWidth="66.39996337890625" text="Date" />
-                  <TableColumn fx:id="column_pickup_point" prefWidth="126.40008544921875" text="PIckup Point" />
-                  <TableColumn fx:id="column_pickup_time" prefWidth="104.80001831054688" text="PIckup Time" />
+                  <TableColumn fx:id="column_pickup_point" prefWidth="126.40008544921875" text="Pickup Point" />
+                  <TableColumn fx:id="column_pickup_time" prefWidth="104.80001831054688" text="Pickup Time" />
                   <TableColumn fx:id="column_departure_time" prefWidth="151.99993896484375" text="Departure Time" />
                   <TableColumn fx:id="column_comment" minWidth="8.79998779296875" prefWidth="119.19989013671875" text="Comment" />
                </columns>
@@ -107,7 +107,7 @@
                   <Image url="@images/carpool_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="311.0" onContextMenuRequested="#initialize" onMouseClicked="#switchToCarpoolManagement" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/manage.png" />
                </image>

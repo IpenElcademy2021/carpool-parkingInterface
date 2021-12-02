@@ -3,19 +3,14 @@ package com.example.loginpage;
 import com.example.loginpage.oop.Login;
 import com.example.loginpage.oop.MethodClass;
 import com.example.loginpage.oop.RestAPI.OkHttpGet;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
@@ -91,12 +86,17 @@ public class loginPageController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolPropose.fxml"));
             Parent root = loader.load();
 
-            PoolingDashboardController poolingDashboardController = loader.getController();
+            PoolingProposeController poolingDashboardController = loader.getController();
             poolingDashboardController.GetGlobalVisa(globalVisa);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+
+            /*FXMLLoader loader1 = new FXMLLoader(getClass().getResource("carpoolDashboard.fxml"));
+            Parent root1 = loader1.load();*/
+
+
 
         }
     }

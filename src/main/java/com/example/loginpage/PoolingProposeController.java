@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Date;
 
 
-public class PoolingDashboardController{
+public class PoolingProposeController {
 
     @FXML
     private DatePicker datePicker_date;
