@@ -107,7 +107,7 @@
                   <Image url="@images/carpool_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="311.0" onContextMenuRequested="#initialize" onMouseClicked="#switchToCarpoolManagement" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="311.0" onMouseClicked="#" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/manage.png" />
                </image>
