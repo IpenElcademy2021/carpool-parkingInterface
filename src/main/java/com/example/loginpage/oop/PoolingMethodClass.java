@@ -1,5 +1,6 @@
 package com.example.loginpage.oop;
 
+import com.example.loginpage.loginPageController;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.UserRequest;
 import com.example.loginpage.oop.RestAPI.OkHttpGet;
@@ -13,6 +14,8 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 
 public class PoolingMethodClass {
+
+    String globalVariable;
 
     OkHttpGet okHttpGet = new OkHttpGet();
 
@@ -57,7 +60,9 @@ public class PoolingMethodClass {
 
     public ObservableList<UserRequest> getUserRequestByVisa() throws IOException {
 
-        String url = "http://localhost:8080/cppk/getUserRequestByVisa/AAA";
+        globalVariable = loginPageController.GlobalVariable.globalVariable;
+
+        String url = "http://localhost:8080/cppk/getUserRequestByVisa/AAA" +globalVariable;
         String response = okHttpGet.run(url);
         ObservableList<UserRequest> userRequestReturn = FXCollections.observableArrayList();
         try {

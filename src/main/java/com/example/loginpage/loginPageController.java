@@ -29,7 +29,7 @@ public class loginPageController {
     @FXML
     private Label labelLoggedVisa;
 
-    String globalVisa;
+    private static String globalVisa;
 
     private Stage stage;
     private Scene scene;
@@ -49,6 +49,10 @@ public class loginPageController {
         String address = jsonObject.get("address").toString();
         String phoneNumber = jsonObject.get("phoneNumber").toString();
 
+    }
+
+    public static class GlobalVariable{
+        public static String globalVariable = globalVisa;
     }
 
 
