@@ -34,7 +34,7 @@ public class PoolingDashboardController{
     private TableView tableView_propose;
 
     @FXML
-    private TableColumn column_visa,column_name,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat;
+    private TableColumn column_visa,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat;
 
     @FXML
     String globalVisa;
