@@ -34,7 +34,7 @@ public class loginPageController {
     @FXML
     private Label labelLoggedVisa;
 
-    private String globalVisa;
+    String globalVisa;
 
     private Stage stage;
     private Scene scene;
@@ -45,10 +45,8 @@ public class loginPageController {
         JSONObject jsonObject = login.login(textfieldUsername.getText(), passwordfieldPassword.getText());
         globalVisa = jsonObject.get("visa").toString();
 
-
         //Changing label of User and his Manager
         labelLoggedVisa.setText(globalVisa);
-
 
         String visa = jsonObject.get("visa").toString();
         String password = jsonObject.get("password").toString();
@@ -62,26 +60,25 @@ public class loginPageController {
 
 
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
-
         if (globalVisa == null)
         {
-            methodClass.messageBox("Please loggin first!", "Not logged in.");
+            methodClass.messageBox("Make sure you are logged in first!", "Not logged in.");
         }
         else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingApplyForParking.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingDashboard.fxml"));
             root = loader.load();
-            parkingApplyForParkingController parkingApplyForParkingController = loader.getController();
+            parkingDashboardController parkingDashboardController = loader.getController();
 
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
-            parkingApplyForParkingController.setup(globalVisa);
+            parkingDashboardController.setup(globalVisa);
             stage.show();
         }
     }
 
     public void switchToCarpoolDashboard(MouseEvent e) throws IOException {
-
         if (globalVisa == null)
         {
             methodClass.messageBox("Please loggin first!", "Not logged in.");
@@ -94,6 +91,4 @@ public class loginPageController {
             stage.show();
         }
     }
-
-
 }
