@@ -105,14 +105,13 @@
                <children>
                   <TableView fx:id="tableView_propose" prefHeight="328.0" prefWidth="816.0">
                      <columns>
-                        <TableColumn fx:id="column_visa" prefWidth="75.0" text="Visa" />
-                        <TableColumn fx:id="column_name" prefWidth="111.20001220703125" text="Driver Name" />
-                        <TableColumn fx:id="column_date" prefWidth="72.79998779296875" text="Date" />
-                        <TableColumn fx:id="column_region" prefWidth="107.20001220703125" text="Region" />
-                        <TableColumn fx:id="column_pickup_point" prefWidth="137.5999755859375" text="PIckup Point" />
-                        <TableColumn fx:id="column_pickup_time" prefWidth="103.20001220703125" text="Pickup Time" />
-                        <TableColumn fx:id="column_departure_time" prefWidth="114.39996337890625" text="Departure Time" />
-                        <TableColumn fx:id="column_seat" prefWidth="100.0" text="Seat" />
+                        <TableColumn fx:id="column_visa" prefWidth="104.79998624324799" text="Visa" />
+                        <TableColumn fx:id="column_date" prefWidth="108.79999542236328" text="Date" />
+                        <TableColumn fx:id="column_region" prefWidth="103.20001220703125" text="Region" />
+                        <TableColumn fx:id="column_pickup_point" prefWidth="148.0" text="PIckup Point" />
+                        <TableColumn fx:id="column_pickup_time" prefWidth="138.39993286132812" text="Pickup Time" />
+                        <TableColumn fx:id="column_departure_time" prefWidth="129.5999755859375" text="Departure Time" />
+                        <TableColumn fx:id="column_seat" prefWidth="79.20001220703125" text="Seat" />
                      </columns>
                      <HBox.margin>
                         <Insets left="50.0" />
@@ -177,7 +176,7 @@
                         <Insets left="300.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_create" mnemonicParsing="false"  onAction="#CreatePooling" text="Create">
+                  <Button fx:id="button_create" mnemonicParsing="false" onAction="#CreatePooling" text="Create">
                      <HBox.margin>
                         <Insets left="100.0" top="20.0" />
                      </HBox.margin>

@@ -1,26 +1,25 @@
 package com.example.loginpage;
 
+
 import com.example.loginpage.models.PoolingPropose;
-import com.example.loginpage.oop.RestAPI.OkHttpGet;
+import com.example.loginpage.models.User;
+import com.example.loginpage.oop.PoolingMethodClass;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import okhttp3.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
-public class PoolingDashboardController implements Initializable {
+
+public class PoolingDashboardController{
 
     @FXML
     private DatePicker datePicker_date;
@@ -44,14 +43,28 @@ public class PoolingDashboardController implements Initializable {
         System.out.println(globalVisa);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
+
+    @FXML
+    public void initialize() throws IOException {
         ObservableList<Integer> seats = FXCollections.observableArrayList(1,2,3);
         comboxBox_seat.setItems(seats);
+
+        ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
+        column_visa.setCellValueFactory(new PropertyValueFactory<User,String>("visa"));
+        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose,Date>("date"));
+        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("region"));
+        column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpPoint"));
+        column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
+        column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
+        column_seat.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("seat"));
+
+        tableView_propose.setItems(data);
+
+
     }
 
     OkHttpClient okHttpClient = new OkHttpClient();
-    //OkHttpGet okHttpGet = new OkHttpGet();
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -82,35 +95,5 @@ public class PoolingDashboardController implements Initializable {
     private void MessageBox(String message, String title) {
         JOptionPane.showMessageDialog(null,message,"" +title,JOptionPane.INFORMATION_MESSAGE);
     }
-
-    /*public ObservableList<PoolingPropose> getAllProposePooling() throws IOException{
-
-        String url = "http://localhost:8080/cppk/getAllProposePooling";
-        System.out.println(okHttpGet.run(url);
-        String response = okHttpGet.run(url);
-        ObservableList<PoolingPropose> poolingReturn = FXCollections.observableArrayList();
-        try {
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(response);
-            JSONArray jsonArray = (JSONArray) obj;
-            ObservableList<PoolingPropose> poolingData = FXCollections.observableArrayList();
-            String visa = "", region = "", pickUpPoint = "", pickUpTime = "", departureTime = "";
-            Date date;
-            int seat = 0;
-
-            for (var i = 0; i< jsonArray.toArray().length; i++){
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                JSONObject jsonUserObject = (JSONObject) jsonObject.get("User");
-                JSONObject jsonPoolingObject  =(JSONObject) jsonUserObject.get("PoolingPropose");
-
-                visa = jsonObject.get("visa").toString();
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return poolingReturn;
-    }*/
-
 
 }
