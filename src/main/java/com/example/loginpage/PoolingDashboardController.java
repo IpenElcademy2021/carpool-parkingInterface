@@ -37,6 +37,9 @@ public class PoolingDashboardController{
     private TableColumn column_visa,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat;
 
     @FXML
+    private Label labelCurrentStatus;
+
+    @FXML
     String globalVisa;
     public void GetGlobalVisa(String visa){
         globalVisa = visa;
@@ -61,7 +64,7 @@ public class PoolingDashboardController{
 
         tableView_propose.setItems(data);
 
-
+        //labelCurrentStatus.setText("Add required Information");
     }
 
     OkHttpClient okHttpClient = new OkHttpClient();
@@ -86,6 +89,7 @@ public class PoolingDashboardController{
 
         try (Response response = okHttpClient.newCall(request).execute()){
             System.out.println(response.body().string());
+            //labelCurrentStatus.setText(response.body().string());
         }
 
         MessageBox("New Pooling added","Propose Pooling");
