@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" fx:controller="com.example.loginpage.CarpoolUserRequestController" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.CarpoolUserRequestController">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +47,6 @@
                   <TableView fx:id="tableView_request" prefHeight="134.0" prefWidth="822.0">
                      <columns>
                         <TableColumn fx:id="column_visa" prefWidth="75.0" text="Visa" />
-                        <TableColumn fx:id="column_name" prefWidth="111.20001220703125" text="Driver Name" />
                         <TableColumn fx:id="column_date" prefWidth="72.79998779296875" text="Date" />
                         <TableColumn fx:id="column_region" prefWidth="107.20001220703125" text="Region" />
                         <TableColumn fx:id="column_pickup_point" prefWidth="137.5999755859375" text="PIckup Point" />
@@ -164,7 +163,7 @@
    <left>
       <VBox spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView pickOnBounds="true" onMouseClicked="#switchToPoolingDashboard" preserveRatio="true">
+            <ImageView onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/home_40px.png" />
                </image>

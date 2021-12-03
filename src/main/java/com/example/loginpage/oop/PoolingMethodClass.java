@@ -3,6 +3,7 @@ package com.example.loginpage.oop;
 import com.example.loginpage.loginPageController;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.UserRequest;
+import com.example.loginpage.models.UserRequestPoolingProposeUser;
 import com.example.loginpage.oop.RestAPI.OkHttpGet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,34 +59,35 @@ public class PoolingMethodClass {
         return poolingReturn;
     }
 
-    public ObservableList<UserRequest> getUserRequestByVisa() throws IOException {
+    public ObservableList<UserRequestPoolingProposeUser> getUserRequestByVisa(String Uservisa) throws IOException {
 
-        globalVariable = loginPageController.GlobalVariable.globalVariable;
-
-        String url = "http://localhost:8080/cppk/getUserRequestByVisa/AAA" +globalVariable;
+        String url = "http://localhost:8080/cppk/getUserRequestByVisa/"  + Uservisa;
         String response = okHttpGet.run(url);
-        ObservableList<UserRequest> userRequestReturn = FXCollections.observableArrayList();
+        ObservableList<UserRequestPoolingProposeUser> userRequestReturn = FXCollections.observableArrayList();
         try {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(response);
             JSONArray jsonArray = (JSONArray) obj;
-            ObservableList<UserRequest> userRequestData = FXCollections.observableArrayList();
-            String visa ="",date ="",region = "", pickUpPoint = "", pickUpTime = "", departureTime = "",comment = "";
+            ObservableList<UserRequestPoolingProposeUser> userRequestData = FXCollections.observableArrayList();
+            String visa ="",date ="",region = "", pickUpPoint = "", pickUpTime = "", departureTime = "",comment = "",reservationStatus="";
 
             for (var i = 0; i< jsonArray.toArray().length; i++){
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                JSONObject jsonUserObject = (JSONObject) jsonObject.get("user");
                 JSONObject jsonPoolingProposeObject = (JSONObject) jsonObject.get("pooling");
+                JSONObject jsonPoolingVisa = (JSONObject) jsonPoolingProposeObject.get("user");
+                JSONObject jsonUserObject = (JSONObject) jsonObject.get("user");
 
-                visa = jsonUserObject.get("userVisa").toString();
-                date = jsonPoolingProposeObject.get("date").toString().substring(0,10);
+
+                visa = jsonPoolingVisa.get("visa").toString();
                 region = jsonPoolingProposeObject.get("region").toString();
+                date = jsonPoolingProposeObject.get("date").toString().substring(0,10);
                 pickUpPoint = jsonPoolingProposeObject.get("pickUpPoint").toString();
                 pickUpTime = jsonPoolingProposeObject.get("pickUpTime").toString();
                 departureTime = jsonPoolingProposeObject.get("departureTime").toString();
+                reservationStatus = jsonObject.get("reservationStatus").toString();
                 comment = jsonObject.get("comment").toString();
 
-                userRequestData.add(new UserRequest(comment,visa,date,region,pickUpPoint,pickUpTime,departureTime));
+                userRequestData.add(new UserRequestPoolingProposeUser(visa,region,date,pickUpPoint,pickUpTime,departureTime,reservationStatus,comment));
 
 
                 userRequestReturn = userRequestData;
