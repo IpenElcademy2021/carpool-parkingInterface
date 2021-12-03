@@ -44,15 +44,13 @@
             </Label>
             <TableView fx:id="tableView_information" prefHeight="178.0" prefWidth="810.0">
                <columns>
-                  <TableColumn fx:id="column_visa" prefWidth="75.0" text="Visa" />
-                  <TableColumn fx:id="column_driver_id" prefWidth="75.0" text="Driver ID" />
-                  <TableColumn fx:id="column_name" prefWidth="108.79998779296875" text="Driver Name" />
-                  <TableColumn fx:id="column_region" prefWidth="105.5999755859375" text="Region" />
-                  <TableColumn fx:id="column_date" prefWidth="73.5999755859375" text="Date" />
-                  <TableColumn fx:id="column_pickup_point" prefWidth="102.4000244140625" text="PIckup Point" />
-                  <TableColumn fx:id="column_pickup_time" prefWidth="86.4000244140625" text="PIckup Time" />
-                  <TableColumn fx:id="column_departure_time" prefWidth="111.199951171875" text="Departure Time" />
-                  <TableColumn fx:id="column_comment" minWidth="8.79998779296875" prefWidth="139.199951171875" text="Comment" />
+                  <TableColumn fx:id="column_driver_id" prefWidth="143.1999877691269" text="Driver ID (VISA)" />
+                  <TableColumn fx:id="column_region" prefWidth="100.00003051757812" text="Region" />
+                  <TableColumn fx:id="column_date" prefWidth="66.39996337890625" text="Date" />
+                  <TableColumn fx:id="column_pickup_point" prefWidth="126.40008544921875" text="Pickup Point" />
+                  <TableColumn fx:id="column_pickup_time" prefWidth="104.80001831054688" text="Pickup Time" />
+                  <TableColumn fx:id="column_departure_time" prefWidth="151.99993896484375" text="Departure Time" />
+                  <TableColumn fx:id="column_comment" minWidth="8.79998779296875" prefWidth="119.19989013671875" text="Comment" />
                </columns>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
@@ -94,22 +92,22 @@
    <left>
       <VBox spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView pickOnBounds="true" preserveRatio="true">
+            <ImageView pickOnBounds="true" onMouseClicked="#switchToPoolingDashboard" preserveRatio="true">
                <image>
                   <Image url="@images/home_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="10.0" onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/plus_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="160.0" pickOnBounds="true" onMouseClicked="#switchToPoolingUserRequest" preserveRatio="true">
                <image>
                   <Image url="@images/carpool_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="311.0" onMouseClicked="#switchToCarpoolManagement" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="311.0" onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/manage.png" />
                </image>

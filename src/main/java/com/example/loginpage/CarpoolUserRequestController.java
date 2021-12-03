@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CarpoolManagementController {
+public class CarpoolUserRequestController {
 
     @FXML
     String globalVisa;
