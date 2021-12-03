@@ -20,7 +20,6 @@
             <TableView fx:id="tableviewDashboard" prefHeight="200.0" prefWidth="200.0">
               <columns>
                 <TableColumn fx:id="tablecolumnDate" prefWidth="75.0" text="Date" />
-                <TableColumn fx:id="tablecolumnParkingSlot" prefWidth="75.0" text="Parking Slot" />
                   <TableColumn fx:id="tablecolumnStatus" prefWidth="75.0" text="Status" />
                   <TableColumn fx:id="tablecolumnCourtesyof" prefWidth="75.0" text="Courtesy of" />
               </columns>

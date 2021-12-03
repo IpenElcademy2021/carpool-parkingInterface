@@ -45,7 +45,7 @@ public class parkingDashboardController {
         //populating tableview
         ObservableList<RequestUserCarOwners> data = methodClass.getMyRequestByUser(labelGlobalvisa.getText());
         tablecolumnDate.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("date"));
-        tablecolumnParkingSlot.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("parkingSlot"));
+//        tablecolumnParkingSlot.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("parkingSlot"));
         tablecolumnStatus.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("status"));
         tablecolumnCourtesyof.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("driverVisa"));
 

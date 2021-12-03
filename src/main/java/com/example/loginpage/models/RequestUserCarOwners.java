@@ -13,6 +13,10 @@ public class RequestUserCarOwners {
     private @Getter @Setter String status;
     private @Getter @Setter String visa;
 
-    public RequestUserCarOwners(String date, String parkingSlot, String status, String driverVisa) {
+
+    public RequestUserCarOwners(String date, String driverVisa, String status) {
+        this.date = date;
+        this.driverVisa = driverVisa;
+        this.status = status;
     }
 }
