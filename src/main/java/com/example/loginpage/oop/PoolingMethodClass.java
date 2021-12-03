@@ -60,7 +60,7 @@ public class PoolingMethodClass {
 
     public ObservableList<UserRequest> getUserRequestByVisa() throws IOException {
 
-        globalVariable = loginPageController.GlobalVariable.globalVariable;
+        //globalVariable = loginPageController.GlobalVariable.globalVariable;
 
         String url = "http://localhost:8080/cppk/getUserRequestByVisa/AAA" +globalVariable;
         String response = okHttpGet.run(url);
