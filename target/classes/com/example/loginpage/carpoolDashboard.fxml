@@ -44,7 +44,7 @@
             </Label>
             <TableView fx:id="tableView_information" prefHeight="178.0" prefWidth="810.0">
                <columns>
-                  <TableColumn fx:id="column_driver_id" prefWidth="112.0" text="Driver ID (VISA)" />
+                  <TableColumn fx:id="column_driver_id" prefWidth="112.0" text="Driver (VISA)" />
                   <TableColumn fx:id="column_region" prefWidth="85.0" text="Region" />
                   <TableColumn fx:id="column_date" prefWidth="112.0" text="Date" />
                   <TableColumn fx:id="column_pickup_point" prefWidth="130.0" text="Pickup Point" />

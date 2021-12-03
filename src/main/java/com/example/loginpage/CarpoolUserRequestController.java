@@ -1,27 +1,109 @@
 package com.example.loginpage;
 
+import com.example.loginpage.models.PoolingPropose;
+import com.example.loginpage.models.User;
+import com.example.loginpage.oop.PoolingMethodClass;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import okhttp3.*;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.util.Date;
 
 public class CarpoolUserRequestController {
 
     @FXML
+    private TableView tableView_request;
+
+    @FXML
+    private TableColumn column_visa,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat;
+
+    @FXML
+    private Label label_visa,label_date,label_region,label_pickup_point,label_pickup_time,label_departure_time;
+
+    @FXML
     String globalVisa;
+
+    @FXML
+    int poolingID = 1;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    @FXML
+    String reservationStatus = "Pending";
+
+    String comment = "No comment";
+
+    PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
+
+    OkHttpClient okHttpClient = new OkHttpClient();
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     public void setup(String visa) throws IOException {
 
         globalVisa = visa;
+
+        ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
+        column_visa.setCellValueFactory(new PropertyValueFactory<User,String>("visa"));
+        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose, Date>("date"));
+        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("region"));
+        column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpPoint"));
+        column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
+        column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
+        column_seat.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("seat"));
+
+        tableView_request.setItems(data);
+
+    }
+
+
+    public void getSelectedRecord(MouseEvent e) throws IOException{
+        PoolingPropose poolingPropose = (PoolingPropose) tableView_request.getSelectionModel().getSelectedItem();
+        label_visa.setText(poolingPropose.getVisa());
+        label_date.setText(poolingPropose.getDate());
+        label_region.setText(poolingPropose.getRegion());
+        label_pickup_point.setText(poolingPropose.getPickUpPoint());
+        label_pickup_time.setText(poolingPropose.getPickUpTime());
+        label_departure_time.setText(poolingPropose.getDepartureTime());
+
+    }
+
+    public void createUserRequest(ActionEvent actionEvent) throws IOException{
+
+        String json = "    {\n        \"reservationStatus\": \"" + reservationStatus + "\",\n" +
+                "        \"pooling\": {\"poolId\": " + poolingID + "},\n" +
+                "        \"user\": {\"visa\":\"" + globalVisa + "\"},\n" +
+                "        \"comment\": \"" + comment + "\"\n" +
+                "    }";
+
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder().url("http://localhost:8080/cppk/createUserRequest").post(body).build();
+
+        System.out.println(json);
+
+        try (Response response = okHttpClient.newCall(request).execute()){
+            System.out.println(response.body().string());
+        }
+
+        MessageBox("New user request added","User Request ");
+    }
+
+    private void MessageBox(String message, String title) {
+        JOptionPane.showMessageDialog(null,message,"" +title,JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void switchToPoolingDashboard(MouseEvent e) throws IOException{
@@ -75,4 +157,5 @@ public class CarpoolUserRequestController {
         carpoolManagementController.setup(globalVisa);
         stage.show();
     }
+
 }
