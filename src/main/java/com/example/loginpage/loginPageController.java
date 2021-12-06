@@ -29,11 +29,12 @@ public class loginPageController {
     @FXML
     private Label labelLoggedVisa;
 
-    private static String globalVisa;
+    private String globalVisa;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
+
 
     public void login(ActionEvent event) throws IOException {
 
@@ -41,7 +42,7 @@ public class loginPageController {
         globalVisa = jsonObject.get("visa").toString();
 
         //Changing label of User and his Manager
-        labelLoggedVisa.setText(globalVisa);
+        //labelLoggedVisa.setText(globalVisa);
 
         String visa = jsonObject.get("visa").toString();
         String password = jsonObject.get("password").toString();
@@ -51,9 +52,6 @@ public class loginPageController {
 
     }
 
-    public static class GlobalVariable{
-        public static String globalVariable = globalVisa;
-    }
 
 
 
