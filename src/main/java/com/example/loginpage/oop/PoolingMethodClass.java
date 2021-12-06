@@ -16,8 +16,6 @@ import java.io.IOException;
 
 public class PoolingMethodClass {
 
-    String globalVariable;
-
     OkHttpGet okHttpGet = new OkHttpGet();
 
     public ObservableList<PoolingPropose> getAllProposePooling() throws IOException {
@@ -35,6 +33,7 @@ public class PoolingMethodClass {
             String date ="";
             String seat = "";
             String visa ="";
+            String poolId = "" ;
 
             for (var i = 0; i< jsonArray.toArray().length; i++){
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
@@ -47,8 +46,10 @@ public class PoolingMethodClass {
                 pickUpTime = jsonObject.get("pickUpTime").toString();
                 departureTime = jsonObject.get("departureTime").toString();
                 seat = jsonObject.get("seat").toString();
+                poolId = jsonObject.get("poolId").toString();
 
-                poolingData.add(new PoolingPropose(date,region,pickUpPoint,pickUpTime,departureTime,seat,visa));
+
+                poolingData.add(new PoolingPropose(date,region,pickUpPoint,pickUpTime,departureTime,seat,visa,poolId));
 
                 poolingReturn = poolingData;
             }

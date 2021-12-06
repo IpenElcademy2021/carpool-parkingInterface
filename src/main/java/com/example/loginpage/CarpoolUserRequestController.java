@@ -28,7 +28,7 @@ public class CarpoolUserRequestController {
     private TableView tableView_request;
 
     @FXML
-    private TableColumn column_visa,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat;
+    private TableColumn column_visa,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat,column_poolId;
 
     @FXML
     private Label label_visa,label_date,label_region,label_pickup_point,label_pickup_time,label_departure_time;
@@ -37,7 +37,7 @@ public class CarpoolUserRequestController {
     String globalVisa;
 
     @FXML
-    int poolingID = 1;
+    int poolingID =0;
 
     private Stage stage;
     private Scene scene;
@@ -65,6 +65,8 @@ public class CarpoolUserRequestController {
         column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
         column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
         column_seat.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("seat"));
+        column_poolId.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("poolId"));
+
 
         tableView_request.setItems(data);
 
@@ -79,7 +81,9 @@ public class CarpoolUserRequestController {
         label_pickup_point.setText(poolingPropose.getPickUpPoint());
         label_pickup_time.setText(poolingPropose.getPickUpTime());
         label_departure_time.setText(poolingPropose.getDepartureTime());
+        poolingID = Integer.parseInt(poolingPropose.getPoolId());
 
+        System.out.println(poolingID);
     }
 
     public void createUserRequest(ActionEvent actionEvent) throws IOException{

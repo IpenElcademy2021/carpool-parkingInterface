@@ -53,6 +53,7 @@
                         <TableColumn fx:id="column_pickup_time" prefWidth="147.19992065429688" text="Pickup Time" />
                         <TableColumn fx:id="column_departure_time" prefWidth="132.79998779296875" text="Departure Time" />
                         <TableColumn fx:id="column_seat" prefWidth="115.2000732421875" text="Seat" />
+                        <TableColumn fx:id="column_poolId" prefWidth="115.2000732421875" text="PoolId" visible="false" />
                      </columns>
                      <HBox.margin>
                         <Insets left="50.0" />
@@ -120,7 +121,7 @@
                         <Insets left="300.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_request" onAction="#createUserRequest" mnemonicParsing="false" text="Request">
+                  <Button fx:id="button_request" mnemonicParsing="false" onAction="#createUserRequest" text="Request">
                      <HBox.margin>
                         <Insets left="100.0" top="20.0" />
                      </HBox.margin>

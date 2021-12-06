@@ -15,5 +15,6 @@ public class PoolingPropose {
     private @Getter @Setter String departureTime;
     private @Getter @Setter String seat;
     private @Getter @Setter String visa;
+    private @Getter @Setter String poolId;
 
 }
