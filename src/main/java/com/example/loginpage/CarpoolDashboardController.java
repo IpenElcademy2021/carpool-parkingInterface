@@ -45,8 +45,8 @@ public class CarpoolDashboardController {
 
         ObservableList<UserRequestPoolingProposeUser> data = poolingMethodClass.getUserRequestByVisa(visa);
         column_driver_id.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("visa"));
-        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose, Date>("region"));
-        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("date"));
+        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose, Date>("region"));
+        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("date"));
         column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpPoint"));
         column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
         column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));

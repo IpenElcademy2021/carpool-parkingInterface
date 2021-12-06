@@ -104,7 +104,10 @@ public class PoolingProposeController {
 
         MessageBox("New Pooling added","Propose Pooling");
 
+
+
     }
+
 
     private void MessageBox(String message, String title) {
         JOptionPane.showMessageDialog(null,message,"" +title,JOptionPane.INFORMATION_MESSAGE);

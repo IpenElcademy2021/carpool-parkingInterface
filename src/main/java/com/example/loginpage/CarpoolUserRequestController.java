@@ -82,8 +82,6 @@ public class CarpoolUserRequestController {
         label_pickup_time.setText(poolingPropose.getPickUpTime());
         label_departure_time.setText(poolingPropose.getDepartureTime());
         poolingID = Integer.parseInt(poolingPropose.getPoolId());
-
-        System.out.println(poolingID);
     }
 
     public void createUserRequest(ActionEvent actionEvent) throws IOException{
@@ -104,6 +102,7 @@ public class CarpoolUserRequestController {
         }
 
         MessageBox("New user request added","User Request ");
+
     }
 
     private void MessageBox(String message, String title) {
