@@ -22,6 +22,7 @@ import okhttp3.*;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -40,7 +41,7 @@ public class PoolingProposeController {
     private TableView tableView_propose;
 
     @FXML
-    private TableColumn column_visa,column_date,column_region,column_pickup_point,column_pickup_time,column_departure_time,column_seat;
+    private TableColumn column_visa, column_date, column_region, column_pickup_point, column_pickup_time, column_departure_time, column_seat;
 
     @FXML
     private Label labelCurrentStatus;
@@ -57,19 +58,23 @@ public class PoolingProposeController {
 
     @FXML
     public void setup(String visa) throws IOException {
-        ObservableList<Integer> seats = FXCollections.observableArrayList(1,2,3);
+        ObservableList<Integer> seats = FXCollections.observableArrayList(1, 2, 3);
         comboxBox_seat.setItems(seats);
+        comboxBox_seat.getSelectionModel().selectFirst();
 
-        globalVisa =visa;
+        datePicker_date.setValue(LocalDate.now());
+
+
+        globalVisa = visa;
 
         ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
-        column_visa.setCellValueFactory(new PropertyValueFactory<User,String>("visa"));
-        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose,Date>("date"));
-        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("region"));
-        column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpPoint"));
-        column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
-        column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
-        column_seat.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("seat"));
+        column_visa.setCellValueFactory(new PropertyValueFactory<User, String>("visa"));
+        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose, Date>("date"));
+        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose, String>("region"));
+        column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose, String>("pickUpPoint"));
+        column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose, String>("pickUpTime"));
+        column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose, String>("departureTime"));
+        column_seat.setCellValueFactory(new PropertyValueFactory<PoolingPropose, String>("seat"));
 
         tableView_propose.setItems(data);
 
@@ -83,6 +88,21 @@ public class PoolingProposeController {
 
     public void CreatePooling(ActionEvent e) throws IOException {
 
+        if (!textField_region.getText().isEmpty()) {
+            if (!textField_pickup_point.getText().isEmpty() && !textField_pickup_time.getText().isEmpty()) {
+                addPooling();
+            } else if (!textField_departure_time.getText().isEmpty()){
+                addPooling();
+            }else {
+                MessageBox("Field pick up point and field pick up time are empty", "Error");
+            }
+        }else {
+            MessageBox("Field region is empty", "Error");
+        }
+
+    }
+
+    public void addPooling() throws IOException {
         String json = "    {\n        \"date\": \"" + datePicker_date.getValue() + "\",\n" +
                 "        \"region\": \"" + textField_region.getText() + "\",\n" +
                 "        \"pickUpPoint\": \"" + textField_pickup_point.getText() + "\",\n" +
@@ -97,16 +117,14 @@ public class PoolingProposeController {
 
         System.out.println(json);
 
-        try (Response response = okHttpClient.newCall(request).execute()){
+        try (Response response = okHttpClient.newCall(request).execute()) {
             System.out.println(response.body().string());
             //labelCurrentStatus.setText(response.body().string());
         }
 
-        MessageBox("New Pooling added","Propose Pooling");
-
-
-
+        MessageBox("New Pooling added", "Propose Pooling");
     }
+
 
 
     private void MessageBox(String message, String title) {
