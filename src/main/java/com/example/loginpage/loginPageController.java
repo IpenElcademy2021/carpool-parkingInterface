@@ -42,7 +42,7 @@ public class loginPageController {
         globalVisa = jsonObject.get("visa").toString();
 
         //Changing label of User and his Manager
-        //labelLoggedVisa.setText(globalVisa);
+        labelLoggedVisa.setText ("Hello "+globalVisa);
 
         String visa = jsonObject.get("visa").toString();
         String password = jsonObject.get("password").toString();

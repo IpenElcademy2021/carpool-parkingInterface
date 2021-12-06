@@ -54,6 +54,8 @@ public class CarpoolManagementController {
     @FXML
     private TextArea textArea_comment;
 
+    String user_request_id;
+
 
     CarpoolManagementMethod carpoolManagementMethod = new CarpoolManagementMethod();
 
@@ -137,6 +139,7 @@ public class CarpoolManagementController {
         textField_visa.setText(carpoolManagement.getVisa());
         textField_date.setText(carpoolManagement.getDate());
 
+
     }
 
     public void cancelBtn (MouseEvent e) throws IOException {
@@ -144,6 +147,10 @@ public class CarpoolManagementController {
         textField_date.setText("");
         comboBox_status.setAccessibleText("Pending");
         textArea_comment.setText("");
+
+    }
+
+    public void confirmBtn (MouseEvent e) throws IOException {
 
 
     }
