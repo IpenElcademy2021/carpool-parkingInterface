@@ -3,6 +3,7 @@ package com.example.loginpage;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.User;
 import com.example.loginpage.models.UserRequest;
+import com.example.loginpage.models.UserRequestPoolingProposeUser;
 import com.example.loginpage.oop.PoolingMethodClass;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class CarpoolDashboardController {
     private TableView tableView_information;
 
     @FXML
-    private TableColumn column_driver_id,column_region,column_date,column_pickup_point,column_pickup_time,column_departure_time,column_comment;
+    private TableColumn column_driver_id,column_region,column_date,column_pickup_point,column_pickup_time,column_departure_time,column_reservation,column_comment;
 
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
 
@@ -41,18 +42,18 @@ public class CarpoolDashboardController {
 
         globalVisa = visa;
 
-        /*ObservableList<UserRequest> data = poolingMethodClass.getUserRequestByVisa();
-        column_driver_id.setCellValueFactory(new PropertyValueFactory<User,String>("visa"));
-        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose, Date>("date"));
-        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("region"));
+
+        ObservableList<UserRequestPoolingProposeUser> data = poolingMethodClass.getUserRequestByVisa(visa);
+        column_driver_id.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("visa"));
+        column_region.setCellValueFactory(new PropertyValueFactory<PoolingPropose, Date>("region"));
+        column_date.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("date"));
         column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpPoint"));
         column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
         column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
-        column_comment.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("comment"));
+        //column_reservation.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("reservationStatus"));
+        column_comment.setCellValueFactory(new PropertyValueFactory<UserRequestPoolingProposeUser,String>("comment"));
 
-        tableView_information.setItems(data);*/
-
-        //labelCurrentStatus.setText("Add required Information");
+        tableView_information.setItems(data);
     }
 
     @FXML
