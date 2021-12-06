@@ -35,8 +35,9 @@ public class CarpoolManagementMethod {
                 String reservationStatus = "";
                 String seat = "";
                 String comment = "";
+                String poolId = "";
 
-                System.out.println(jsonArray.toArray().length);
+                //System.out.println(jsonArray.toArray().length);
                 for (var i = 0; i < jsonArray.toArray().length; i++) {
                     JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                     JSONObject jsonObjectPooling = (JSONObject) jsonObject.get("pooling");
@@ -48,7 +49,8 @@ public class CarpoolManagementMethod {
                     reservationStatus = jsonObject.get("reservationStatus").toString();
                     seat = jsonObjectPooling.get("seat").toString();
                     comment = jsonObject.get("comment").toString();
-                    CarpoolRequestData.add(new CarpoolManagement(visa, date, reservationStatus, seat, comment));
+                    poolId = jsonObjectPooling.get("poolId").toString();
+                    CarpoolRequestData.add(new CarpoolManagement(visa, date, reservationStatus, seat, comment,poolId));
                     CarpoolRequestReturn = CarpoolRequestData;
 
                 }

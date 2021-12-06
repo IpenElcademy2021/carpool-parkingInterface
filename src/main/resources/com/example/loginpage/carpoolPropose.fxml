@@ -119,15 +119,15 @@
             </Label>
             <HBox prefHeight="354.0" prefWidth="816.0">
                <children>
-                  <TableView fx:id="tableView_propose" prefHeight="136.0" prefWidth="802.0">
+                  <TableView fx:id="tableView_propose" prefHeight="136.0" prefWidth="741.0">
                      <columns>
                         <TableColumn fx:id="column_visa" prefWidth="74.0" text="Visa" />
                         <TableColumn fx:id="column_date" prefWidth="91.0" text="Date" />
                         <TableColumn fx:id="column_region" prefWidth="91.0" text="Region" />
                         <TableColumn fx:id="column_pickup_point" prefWidth="133.0" text="PIckup Point" />
                         <TableColumn fx:id="column_pickup_time" prefWidth="149.0" text="Pickup Time" />
-                        <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="146.0" text="Departure Time" />
-                        <TableColumn fx:id="column_seat" prefWidth="79.0" text="Seat" />
+                        <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="51.0" text="Departure Time" />
+                        <TableColumn fx:id="column_seat" prefWidth="174.0" text="Seat" />
                      </columns>
                      <HBox.margin>
                         <Insets left="50.0" />

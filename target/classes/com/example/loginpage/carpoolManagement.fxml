@@ -83,6 +83,7 @@
                         <TableColumn fx:id="column_status" prefWidth="128.0" text="Reservation Status" />
                         <TableColumn fx:id="column_seat" prefWidth="42.0" text="Seat" />
                         <TableColumn fx:id="column_comment" prefWidth="98.0" text="Comment" />
+                        <TableColumn fx:id="column_poolId" prefWidth="98.0" text="poolId" visible="false" />
                      </columns>
                      <HBox.margin>
                         <Insets left="40.0" />
@@ -97,7 +98,7 @@
                         <Insets left="300.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_confirm" mnemonicParsing="false" text="Confirm">
+                  <Button fx:id="button_confirm" mnemonicParsing="false" onMouseClicked="#confirmBtn" text="Confirm">
                      <HBox.margin>
                         <Insets left="100.0" top="20.0" />
                      </HBox.margin>

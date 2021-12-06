@@ -4,6 +4,7 @@ import com.example.loginpage.models.CarpoolManagement;
 import com.example.loginpage.oop.CarpoolManagementMethod;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import okhttp3.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Date;
 
@@ -46,6 +49,9 @@ public class CarpoolManagementController {
     private TableColumn column_comment;
 
     @FXML
+    private TableColumn column_poolId;
+
+    @FXML
     private TextField textField_visa;
     @FXML
     private TextField textField_date;
@@ -54,7 +60,8 @@ public class CarpoolManagementController {
     @FXML
     private TextArea textArea_comment;
 
-    String user_request_id;
+    String selectedPoolId;
+
 
 
     CarpoolManagementMethod carpoolManagementMethod = new CarpoolManagementMethod();
@@ -70,8 +77,12 @@ public class CarpoolManagementController {
         column_status.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, String>("reservationStatus"));
         column_seat.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, String>("seat"));
         column_comment.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, String>("comment"));
+        column_poolId.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, String>("poolId"));
+
 
         tableView_management.setItems(data);
+
+        System.out.println(data);
     }
 
     @FXML
@@ -138,6 +149,9 @@ public class CarpoolManagementController {
         CarpoolManagement carpoolManagement = tableView_management.getSelectionModel().getSelectedItem();
         textField_visa.setText(carpoolManagement.getVisa());
         textField_date.setText(carpoolManagement.getDate());
+        selectedPoolId = carpoolManagement.getPoolId();
+
+
 
 
     }
@@ -150,8 +164,33 @@ public class CarpoolManagementController {
 
     }
 
+    OkHttpClient okHttpClient = new OkHttpClient();
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     public void confirmBtn (MouseEvent e) throws IOException {
+        System.out.println(selectedPoolId);
 
+        String json = "    {\n        \"reservationStatus\": \"" + comboBox_status.getValue().toString() + "\",\n" +
+                "        \"comment\": \"" + textArea_comment.getText() + "\"\n" +
+                "    }";
 
+        RequestBody body = RequestBody.create(JSON, json);
+
+        Request request = new Request.Builder().url("http://localhost:8080/prc/updateRequest/" + selectedPoolId).put(body).build();
+
+        System.out.println(json);
+
+        try (Response response = okHttpClient.newCall(request).execute()){
+            System.out.println(response.body().string());
+            //labelCurrentStatus.setText(response.body().string());
+        }
+
+        MessageBox("Pooling Requested","Requested Pooling");
+
+    }
+
+    private void MessageBox(String message, String title) {
+
+        JOptionPane.showMessageDialog(null,message,"" +title,JOptionPane.INFORMATION_MESSAGE);
     }
 }

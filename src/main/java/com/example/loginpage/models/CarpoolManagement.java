@@ -15,6 +15,7 @@ public class CarpoolManagement {
     private String reservationStatus;
     private String seat;
     private String comment;
+    private String poolId;
 
 
 
