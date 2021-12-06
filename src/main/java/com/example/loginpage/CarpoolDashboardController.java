@@ -50,7 +50,6 @@ public class CarpoolDashboardController {
         column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpPoint"));
         column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
         column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
-        //column_reservation.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("reservationStatus"));
         column_comment.setCellValueFactory(new PropertyValueFactory<UserRequestPoolingProposeUser,String>("comment"));
 
         tableView_information.setItems(data);

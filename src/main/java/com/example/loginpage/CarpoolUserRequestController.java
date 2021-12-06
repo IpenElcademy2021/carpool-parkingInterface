@@ -86,6 +86,8 @@ public class CarpoolUserRequestController {
 
     public void createUserRequest(ActionEvent actionEvent) throws IOException{
 
+        if (poolingID >0){
+
         String json = "    {\n        \"reservationStatus\": \"" + reservationStatus + "\",\n" +
                 "        \"pooling\": {\"poolId\": " + poolingID + "},\n" +
                 "        \"user\": {\"visa\":\"" + globalVisa + "\"},\n" +
@@ -103,6 +105,9 @@ public class CarpoolUserRequestController {
 
         MessageBox("New user request added","User Request ");
 
+        }else {
+            MessageBox("Please select a proposal","No User Request ");
+        }
     }
 
     private void MessageBox(String message, String title) {
