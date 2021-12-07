@@ -84,6 +84,7 @@
                         <TableColumn fx:id="column_seat" prefWidth="42.0" text="Seat" />
                         <TableColumn fx:id="column_comment" prefWidth="98.0" text="Comment" />
                         <TableColumn fx:id="column_poolId" prefWidth="98.0" text="poolId" visible="false" />
+                        <TableColumn fx:id="column_userRequestId" prefWidth="98.0" text="userRequestId" visible="false" />
                      </columns>
                      <HBox.margin>
                         <Insets left="40.0" />
