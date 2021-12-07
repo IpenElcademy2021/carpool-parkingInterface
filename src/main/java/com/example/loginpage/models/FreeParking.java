@@ -11,7 +11,8 @@ import java.util.Date;
 public class FreeParking {
 
     private @Getter @Setter String freeParkingID;
-    private @Getter @Setter String date;
     private @Getter @Setter String visa;
+    private @Getter @Setter String date;
+
 
 }

@@ -46,6 +46,7 @@ public class CarpoolManagementController {
     @FXML
     private TextArea textArea_comment;
 
+    Boolean hasCarBoolean;
 
 
     String selectedPoolId;
@@ -58,7 +59,20 @@ public class CarpoolManagementController {
 
     CarpoolManagementMethod carpoolManagementMethod = new CarpoolManagementMethod();
 
-    public void setup(String visa) throws IOException {
+    public void setup(String visa,Boolean hasCar) throws IOException {
+
+        hasCarBoolean = hasCar;
+        if(hasCar == true)
+        {
+            //imageRequest.setDisable(true);
+            System.out.println("You are a driver");
+        }
+        else
+        {
+            //imagePropose.setDisable(true);
+            //imageManage.setDisable(true);
+            System.out.println("You are not a driver");;
+        }
 
         globalVisa = visa;
 
@@ -108,7 +122,7 @@ public class CarpoolManagementController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa);
+        poolingProposeController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -120,7 +134,7 @@ public class CarpoolManagementController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa);
+        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
         stage.show();
 
     }
@@ -133,7 +147,7 @@ public class CarpoolManagementController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa);
+        carpoolManagementController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -216,7 +230,7 @@ public class CarpoolManagementController {
 
 
 
-        setup(globalVisa);
+        setup(globalVisa,hasCarBoolean);
     }
 
 

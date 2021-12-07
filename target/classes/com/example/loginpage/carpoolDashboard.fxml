@@ -42,13 +42,14 @@
             </Label>
             <TableView fx:id="tableView_information" prefHeight="243.0" prefWidth="785.0">
                <columns>
-                  <TableColumn fx:id="column_driver_id" prefWidth="135.20001828670502" text="Driver ID (VISA)" />
-                  <TableColumn fx:id="column_region" prefWidth="99.20001220703125" text="Region" />
-                  <TableColumn fx:id="column_date" prefWidth="76.0" text="Date" />
-                  <TableColumn fx:id="column_pickup_point" prefWidth="126.40008544921875" text="Pickup Point" />
-                  <TableColumn fx:id="column_pickup_time" prefWidth="104.80001831054688" text="Pickup Time" />
-                  <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="121.0" text="Departure Time" />
-                  <TableColumn fx:id="column_comment" maxWidth="500.0" minWidth="8.79998779296875" prefWidth="118.0" text="Comment" />
+                  <TableColumn fx:id="column_driver_id" prefWidth="101.0" text="Driver ID (VISA)" />
+                  <TableColumn fx:id="column_region" prefWidth="90.0" text="Region" />
+                  <TableColumn fx:id="column_date" prefWidth="83.0" text="Date" />
+                  <TableColumn fx:id="column_pickup_point" prefWidth="116.0" text="Pickup Point" />
+                  <TableColumn fx:id="column_pickup_time" prefWidth="93.0" text="Pickup Time" />
+                  <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="107.0" text="Departure Time" />
+                  <TableColumn fx:id="column_status" minWidth="0.0" prefWidth="112.0" text="Reservation Status" />
+                  <TableColumn fx:id="column_comment" maxWidth="500.0" minWidth="8.79998779296875" prefWidth="82.0" text="Comment" />
                </columns>
                <VBox.margin>
                   <Insets left="25.0" right="25.0" />

@@ -1,6 +1,5 @@
 package com.example.loginpage;
 
-import com.example.loginpage.models.PoolingCarOwners;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.User;
 import com.example.loginpage.oop.PoolingMethodClass;
@@ -15,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import okhttp3.*;
@@ -35,10 +35,13 @@ public class CarpoolUserRequestController {
     private Label label_visa,label_date,label_region,label_pickup_point,label_pickup_time,label_departure_time;
 
     @FXML
-    String globalVisa;
+    private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
+
+
 
     @FXML
-    String carOwnersVisa="";
+    String globalVisa;
+
 
     @FXML
     int poolingID =0;
@@ -52,12 +55,29 @@ public class CarpoolUserRequestController {
 
     String comment = "No comment";
 
+    Boolean hasCarBoolean;
+
+
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
+
+
 
     OkHttpClient okHttpClient = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public void setup(String visa) throws IOException {
+    public void setup(String visa, Boolean hasCar) throws IOException {
+        hasCarBoolean = hasCar;
+        if(hasCar == true)
+        {
+            //imageRequest.setDisable(true);
+            System.out.println("You are a driver");
+        }
+        else
+        {
+            //imagePropose.setDisable(true);
+            //imageManage.setDisable(true);
+            System.out.println("You are not a driver");;
+        }
 
         globalVisa = visa;
 
@@ -73,12 +93,6 @@ public class CarpoolUserRequestController {
 
 
         tableView_request.setItems(data);
-
-        ObservableList<PoolingCarOwners> data1 = poolingMethodClass.getAllCarOwnersForPooling();
-
-
-
-
 
     }
 
@@ -119,7 +133,7 @@ public class CarpoolUserRequestController {
             MessageBox("Please select a proposal","No User Request ");
         }
 
-        setup(globalVisa);
+        setup(globalVisa, hasCarBoolean);
     }
 
     private void MessageBox(String message, String title) {
@@ -149,7 +163,7 @@ public class CarpoolUserRequestController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa);
+        poolingProposeController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
@@ -161,7 +175,7 @@ public class CarpoolUserRequestController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa);
+        carpoolUserRequestController.setup(globalVisa, hasCarBoolean);
         stage.show();
 
     }
@@ -174,7 +188,7 @@ public class CarpoolUserRequestController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa);
+        carpoolManagementController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
