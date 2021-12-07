@@ -16,6 +16,7 @@ public class CarpoolManagement {
     private String seat;
     private String comment;
     private String poolId;
+    private String userRequestId;
 
 
 
