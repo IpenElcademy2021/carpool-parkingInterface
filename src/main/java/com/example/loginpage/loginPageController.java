@@ -3,14 +3,19 @@ package com.example.loginpage;
 import com.example.loginpage.oop.Login;
 import com.example.loginpage.oop.MethodClass;
 import com.example.loginpage.oop.RestAPI.OkHttpGet;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
@@ -29,12 +34,15 @@ public class loginPageController {
     @FXML
     private Label labelLoggedVisa;
 
-    private String globalVisa;
+    String globalVisa = "";
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    public void setup(String logoutvisa) throws IOException {
+        globalVisa = logoutvisa;
+    }
 
     public void login(ActionEvent event) throws IOException {
 
@@ -55,9 +63,8 @@ public class loginPageController {
 
 
 
-
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
-        if (globalVisa == null)
+        if (globalVisa == "")
         {
             methodClass.messageBox("Make sure you are logged in first!", "Not logged in.");
         }
@@ -76,7 +83,7 @@ public class loginPageController {
     }
 
     public void switchToCarpoolDashboard(MouseEvent e) throws IOException {
-        if (globalVisa == null)
+        if (globalVisa == "")
         {
             methodClass.messageBox("Please loggin first!", "Not logged in.");
         }
@@ -91,11 +98,6 @@ public class loginPageController {
             stage.setScene(scene);
             carpoolDashboardController.setup(globalVisa);
             stage.show();
-
-
-
-
-
         }
     }
 }
