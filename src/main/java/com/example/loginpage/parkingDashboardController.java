@@ -3,6 +3,7 @@ package com.example.loginpage;
 import com.example.loginpage.models.FreeParking;
 import com.example.loginpage.models.RequestUserCarOwners;
 import com.example.loginpage.oop.MethodClass;
+import com.example.loginpage.oop.SendEmail;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,26 +13,44 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 public class parkingDashboardController {
     MethodClass methodClass = new MethodClass();
     @FXML
-    private TableColumn tablecolumnDate, tablecolumnParkingSlot, tablecolumnStatus, tablecolumnCourtesyof;
+    private TableColumn tablecolumnDate, tablecolumnParkingSlot, tablecolumnStatus, tablecolumnCourtesyof, tablecolumnParkingOParkingSlot, tablecolumnParkingOName, tablecolumnParkingOPhoneNumber, tablecolumnParkingOVISA;
     @FXML
-    private TableView tableviewDashboard;
+    private TableView tableviewDashboard, tableviewParkingOwners;
     @FXML
-    private Label labelGlobalvisa;
+    private Label labelLoggedVisa, labelCurrentStatus, labelAboveTVDashboard;
+    @FXML
+    private ImageView imageviewUser, sidemenuApplyParking, sidemenuCredits, sidemenuManageParking, sidemenuParkingDashboard;
+    @FXML
+    private TextArea textareaUserInfo;
+
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    String globalVisa;
+    String globalVisa, globalTextAreaData;
+    Boolean hasCarBoolean;
+    Image globaluserImage;
+    List<String> carUsersArray = new ArrayList<String>();
+
 
     @FXML
     protected void initialize() throws IOException {
@@ -39,33 +58,81 @@ public class parkingDashboardController {
     }
 
     public void setup(String globalvisa) throws IOException {
-        labelGlobalvisa.setText(globalvisa);
-        globalVisa = labelGlobalvisa.getText();
+
+        labelLoggedVisa.setText(globalvisa);
+        globalVisa = labelLoggedVisa.getText();
+
+        //Setting image
+        globaluserImage = new Image("file:src/main/resources/com/example/loginpage/visaImages/" + globalVisa + ".png");
+        //Changes Image of User and his Manager
+        imageviewUser.setImage(globaluserImage);
+
+        JSONObject jsonUserObject = methodClass.findUserbyVisa(globalvisa);
+
+        String nom = jsonUserObject.get("name").toString();
+        String address = jsonUserObject.get("address").toString();
+        String phoneNumber = jsonUserObject.get("phoneNumber").toString();
+
+        globalTextAreaData = "Nom: " + nom + "\n" +
+                "Address: " + address + "\n" +
+                "Mobile: "  + phoneNumber + "\n";
+
+        textareaUserInfo.setText(globalTextAreaData);
 
         //populating tableview
-        ObservableList<RequestUserCarOwners> data = methodClass.getMyRequestByUser(labelGlobalvisa.getText());
-        tablecolumnDate.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("date"));
-//        tablecolumnParkingSlot.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("parkingSlot"));
-        tablecolumnStatus.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("status"));
-        tablecolumnCourtesyof.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("driverVisa"));
+        ObservableList<RequestUserCarOwners> data = methodClass.getMyRequestByUser(labelLoggedVisa.getText());
+        ObservableList<RequestUserCarOwners> carusersdata = methodClass.searchAllCarOwners();
 
-        tableviewDashboard.setItems(data);
+        Iterator<RequestUserCarOwners> iterator = carusersdata.iterator();
+        while (iterator.hasNext()) {
+            carUsersArray.add(iterator.next().getVisa());
+        }
+
+        for (int counter = 0; counter < carUsersArray.size(); counter++) {
+            System.out.println(carUsersArray.get(counter));
+        }
+
+        if(carUsersArray.contains(globalvisa.toUpperCase()))
+        {
+            hasCarBoolean = true;
+            sidemenuApplyParking.setDisable(true);
+            tableviewDashboard.setVisible(false);
+            tableviewDashboard.setManaged(false);
+            labelAboveTVDashboard.setVisible(false);
+            labelAboveTVDashboard.setManaged(false);
+        }
+        else
+        {
+            hasCarBoolean = false;
+            sidemenuManageParking.setDisable(true);
+        }
+        carUsersArray.clear();
+
+            tablecolumnDate.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("date"));
+            tablecolumnStatus.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("status"));
+            tablecolumnCourtesyof.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("driverVisa"));
+
+            tableviewDashboard.setItems(data);
+
+
+
+        tablecolumnParkingOName.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("name"));
+        tablecolumnParkingOParkingSlot.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("parkingSlot"));
+        tablecolumnParkingOPhoneNumber.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("phoneNumber"));
+        tablecolumnParkingOVISA.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("visa"));
+        tableviewParkingOwners.setItems(carusersdata);
+
+
+
     }
 
 
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingDashboard.fxml"));
-        root = loader.load();
-        parkingDashboardController parkingDashboardController = loader.getController();
-
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        parkingDashboardController.setup(globalVisa);
-        stage.show();
+        labelCurrentStatus.setText("Already in Parking Dashboard");
     }
 
     public void switchToParkingApply(MouseEvent e) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingApplyForParking.fxml"));
         root = loader.load();
         parkingApplyForParkingController parkingApplyForParkingController = loader.getController();
@@ -73,7 +140,7 @@ public class parkingDashboardController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        parkingApplyForParkingController.setup(globalVisa);
+        parkingApplyForParkingController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
@@ -85,7 +152,31 @@ public class parkingDashboardController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        parkingManageParkingController.setup(globalVisa);
+        parkingManageParkingController.setup(globalVisa, hasCarBoolean);
+        stage.show();
+    }
+
+    public void switchToLoginPageLogOut(MouseEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+        root = loader.load();
+        loginPageController loginPageController = loader.getController();
+
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        loginPageController.setup("");
+        stage.show();
+    }
+
+    public void switchToLoginPageReturn(MouseEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+        root = loader.load();
+        loginPageController loginPageController = loader.getController();
+
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        loginPageController.setup(globalVisa);
         stage.show();
     }
 

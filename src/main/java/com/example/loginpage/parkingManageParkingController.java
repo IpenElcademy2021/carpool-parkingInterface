@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
@@ -50,23 +51,41 @@ public class parkingManageParkingController {
     private Label labelVisaSelected, labelDateSelected;
     @FXML
     private RadioButton radioApprove, radioDecline;
+    @FXML
+    private ImageView imageviewUser, sidemenuApplyParking, sidemenuCredits, sidemenuManageParking, sidemenuParkingDashboard;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     String globalVisa;
-
-    @FXML
-    protected void initialize() throws IOException {
-
-    }
+    Boolean hasCarBoolean;
     List<String> dataArray = new ArrayList<String>();
     List<String> dataArrayA = new ArrayList<String>();
     List<String> dataArrayD = new ArrayList<String>();
+    List<String> carUsersArray = new ArrayList<String>();
 
-    public void setup(String globalvisa) throws IOException {
+
+    @FXML
+    protected void initialize() throws IOException {
+//        setup(globalVisa, carUsersArray);
+    }
+
+    public void setup(String globalvisa, Boolean phasCarBoolean) throws IOException {
+
+        if(phasCarBoolean == true)
+        {
+            sidemenuApplyParking.setDisable(true);
+            labelCurrentStatus.setText("You are a car owner!");
+        }
+        else
+        {
+            sidemenuManageParking.setDisable(true);
+            labelCurrentStatus.setText("You do not havea car!");
+        }
+
         labelGlobalvisa.setText(globalvisa);
+        hasCarBoolean = phasCarBoolean;
         globalVisa = labelGlobalvisa.getText();
 
         //populating tableview
@@ -75,13 +94,13 @@ public class parkingManageParkingController {
         ObservableList<RequestUserCarOwners> dataD = methodClass.getMyParkingDemandsByStatus(globalVisa, "declined");
 
 
-        tablecolumnRequestId.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("requestId"));
-        tablecolumnManageVisa.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("visa"));
-        tablecolumnManageDate.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("date"));
+        tablecolumnRequestId.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("requestId"));
+        tablecolumnManageVisa.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("visa"));
+        tablecolumnManageDate.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("date"));
 
-        tablecolumnRequestIdA.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("requestId"));
-        tablecolumnManageVisaA.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("visa"));
-        tablecolumnManageDateA.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("date"));
+        tablecolumnRequestIdA.setCellValueFactory(new PropertyValueFactory<FreeParkingUserCarOwners,String>("requestId"));
+        tablecolumnManageVisaA.setCellValueFactory(new PropertyValueFactory<FreeParkingUserCarOwners,String>("visa"));
+        tablecolumnManageDateA.setCellValueFactory(new PropertyValueFactory<FreeParkingUserCarOwners,String>("date"));
 
         tablecolumnRequestIdD.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("requestId"));
         tablecolumnManageVisaD.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("visa"));
@@ -92,11 +111,12 @@ public class parkingManageParkingController {
         tableviewDemandD.setItems(dataD);
 
 
+
+
         dataArray.clear();
         Iterator<RequestUserCarOwners> iterator = data.iterator();
         while (iterator.hasNext()) {
             dataArray.add(iterator.next().getDate());
-
         }
         dataArrayA.clear();
         Iterator<RequestUserCarOwners> iteratorA = dataA.iterator();
@@ -110,11 +130,8 @@ public class parkingManageParkingController {
             dataArrayD.add(iteratorD.next().getDate());
         }
 
-//        LocalDate currentDate = java.time.LocalDate.now();
-//        for (String element : dataArray)
-//        {
-//            System.out.println(dataArray.get(1) + "XD");
-//        }
+
+
     }
 
     Integer requestId;
@@ -153,7 +170,7 @@ public class parkingManageParkingController {
                     radioDecline.setSelected(false);
                     radioApprove.setSelected(false);
                     labelCurrentStatus.setText("Request approved!");
-                    setup(globalVisa);
+                    setup(globalVisa, hasCarBoolean);
                 }
 
             }
@@ -166,7 +183,7 @@ public class parkingManageParkingController {
                 radioApprove.setSelected(false);
                 okHttpPut.post(url, updateRequestJson);
                 labelCurrentStatus.setText("Request delined!");
-                setup(globalVisa);
+                setup(globalVisa, hasCarBoolean);
             }
             else {
                 methodClass.messageBox("Please select a Radio Button (Accept/Decline)", "User Error");
@@ -184,7 +201,7 @@ public class parkingManageParkingController {
         String url = "http://localhost:8080/cppk/deleteParkingRequest/" + deleterequestId;
         okHttpDelete.run(url);
         methodClass.messageBox("Request with ID: " + deleterequestId + " has been deleted", "Request deleted");
-        setup(globalVisa);
+        setup(globalVisa, hasCarBoolean);
     }
 
     public void ApplyFreeParking() throws IOException {
@@ -216,6 +233,7 @@ public class parkingManageParkingController {
     }
 
     public void switchToParkingApply(MouseEvent e) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingApplyForParking.fxml"));
         root = loader.load();
         parkingApplyForParkingController parkingApplyForParkingController = loader.getController();
@@ -223,19 +241,35 @@ public class parkingManageParkingController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        parkingApplyForParkingController.setup(globalVisa);
+        parkingApplyForParkingController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
     public void switchToManageParking(MouseEvent e) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingManageParking.fxml"));
+        labelCurrentStatus.setText("Already in Manage Parking");
+    }
+
+    public void switchToLoginPageLogOut(MouseEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
         root = loader.load();
-        parkingManageParkingController parkingManageParkingController = loader.getController();
+        loginPageController loginPageController = loader.getController();
 
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        parkingManageParkingController.setup(globalVisa);
+        loginPageController.setup("");
+        stage.show();
+    }
+
+    public void switchToLoginPageReturn(MouseEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+        root = loader.load();
+        loginPageController loginPageController = loader.getController();
+
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        loginPageController.setup(globalVisa);
         stage.show();
     }
 }

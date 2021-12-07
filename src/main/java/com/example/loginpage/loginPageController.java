@@ -34,11 +34,15 @@ public class loginPageController {
     @FXML
     private Label labelLoggedVisa;
 
-    String globalVisa;
+    String globalVisa = "";
 
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    public void setup(String logoutvisa) throws IOException {
+        globalVisa = logoutvisa;
+    }
 
     public void login(ActionEvent event) throws IOException {
 
@@ -60,7 +64,7 @@ public class loginPageController {
 
 
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
-        if (globalVisa == null)
+        if (globalVisa == "")
         {
             methodClass.messageBox("Make sure you are logged in first!", "Not logged in.");
         }
@@ -79,7 +83,7 @@ public class loginPageController {
     }
 
     public void switchToCarpoolDashboard(MouseEvent e) throws IOException {
-        if (globalVisa == null)
+        if (globalVisa == "")
         {
             methodClass.messageBox("Please loggin first!", "Not logged in.");
         }

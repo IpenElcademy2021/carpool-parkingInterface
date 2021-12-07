@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,15 +16,70 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingDashboardController">
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefWidth="324.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tableviewDashboard" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn fx:id="tablecolumnDate" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="tablecolumnStatus" prefWidth="75.0" text="Status" />
-                  <TableColumn fx:id="tablecolumnCourtesyof" prefWidth="75.0" text="Courtesy of" />
-              </columns>
-            </TableView>
+            <HBox prefHeight="290.0" prefWidth="560.0">
+               <children>
+                  <VBox prefHeight="185.0" prefWidth="319.0">
+                     <children>
+                        <HBox prefHeight="18.0" prefWidth="561.0">
+                           <children>
+                              <Label text="Logged in as :  " />
+                              <Label fx:id="labelLoggedVisa" layoutX="10.0" layoutY="10.0" text="XXX" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="121.0" prefWidth="560.0">
+                           <children>
+                              <ImageView fx:id="imageviewUser" fitHeight="121.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../../@@@@@/testlms1/src/main/resources/com/example/testlms1/images/portrait-white-man-isolated_53876-40306.jpg" />
+                                 </image>
+                              </ImageView>
+                              <TextArea fx:id="textareaUserInfo" disable="true" prefHeight="122.0" prefWidth="190.0" text="Nom:" />
+                              <Region prefHeight="104.0" prefWidth="85.0" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label fx:id="labelAboveTVDashboard" prefHeight="19.0" prefWidth="243.0" text="My current parking request status" textFill="#00aaff">
+                                 <font>
+                                    <Font name="Forte" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="131.0" prefWidth="560.0">
+                           <children>
+                              <TableView fx:id="tableviewDashboard" prefHeight="131.0" prefWidth="296.0">
+                                 <columns>
+                                    <TableColumn fx:id="tablecolumnDate" prefWidth="92.00006103515625" text="Date" />
+                                    <TableColumn fx:id="tablecolumnStatus" prefWidth="93.5999755859375" text="Status" />
+                                    <TableColumn fx:id="tablecolumnCourtesyof" prefWidth="108.00006103515625" text="Courtesy of" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="185.0" prefWidth="237.0">
+                     <children>
+                        <Label prefHeight="19.0" prefWidth="243.0" text="ELCA parking allocation" textFill="#00aaff">
+                           <font>
+                              <Font name="Forte" size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tableviewParkingOwners" prefHeight="290.0" prefWidth="238.0">
+                           <columns>
+                              <TableColumn fx:id="tablecolumnParkingOVISA" prefWidth="31.200011432170868" text="VISA" />
+                              <TableColumn fx:id="tablecolumnParkingOName" prefWidth="74.39996719360352" text="Name" />
+                              <TableColumn fx:id="tablecolumnParkingOParkingSlot" prefWidth="73.60003662109375" text="Parking slot" />
+                              <TableColumn fx:id="tablecolumnParkingOPhoneNumber" prefWidth="53.59991455078125" text="Mobile" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children></VBox>
    </center>
    <bottom>
@@ -46,7 +102,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Region>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
+                  <Button mnemonicParsing="false" onMouseClicked="#switchToLoginPageReturn" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -67,7 +123,7 @@
                      </font>
                   </Label>
                   <Region prefHeight="54.0" prefWidth="352.0" />
-                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" onMouseClicked="#switchToLoginPageLogOut" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/power.png" />
                      </image>
@@ -94,22 +150,22 @@
    <left>
       <VBox spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuParkingDashboard" onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/home_40px.png" />
                </image>
             </ImageView>
-            <ImageView onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuApplyParking" onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/plus_40px.png" />
                </image>
             </ImageView>
-            <ImageView onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuManageParking" onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/carpool_40px.png" />
                </image>
             </ImageView>
-            <ImageView pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuCredits" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/manage.png" />
                </image>
