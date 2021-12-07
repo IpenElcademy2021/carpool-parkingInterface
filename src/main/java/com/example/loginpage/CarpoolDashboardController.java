@@ -115,7 +115,7 @@ public class CarpoolDashboardController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa);
+        poolingProposeController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -127,7 +127,7 @@ public class CarpoolDashboardController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa);
+        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
         stage.show();
 
     }
@@ -140,7 +140,7 @@ public class CarpoolDashboardController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa);
+        carpoolManagementController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 

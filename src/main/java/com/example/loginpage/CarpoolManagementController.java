@@ -2,10 +2,7 @@ package com.example.loginpage;
 
 import com.example.loginpage.models.CarpoolManagement;
 import com.example.loginpage.oop.CarpoolManagementMethod;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import okhttp3.*;
@@ -45,19 +43,37 @@ public class CarpoolManagementController {
     @FXML
     private TextArea textArea_comment;
 
+    @FXML
+    private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
+
     String selectedPoolId;
     String userRequestId;
     String date;
 
     int seat = 0;
 
+    Boolean hasCarBoolean;
+
 
 
     CarpoolManagementMethod carpoolManagementMethod = new CarpoolManagementMethod();
 
-    public void setup(String visa) throws IOException {
+    public void setup(String visa, Boolean hasCar) throws IOException {
 
         globalVisa = visa;
+
+        hasCarBoolean = hasCar;
+        if(hasCar)
+        {
+            imageRequest.setDisable(true);
+            System.out.println("You are a driver");
+        }
+        else
+        {
+            imagePropose.setDisable(true);
+            imageManage.setDisable(true);
+            System.out.println("You are not a driver");;
+        }
 
         ObservableList<CarpoolManagement> data = carpoolManagementMethod.getCarpoolRequestByVisa(globalVisa);
 
@@ -105,7 +121,7 @@ public class CarpoolManagementController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa);
+        poolingProposeController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
@@ -117,7 +133,7 @@ public class CarpoolManagementController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa);
+        carpoolUserRequestController.setup(globalVisa, hasCarBoolean);
         stage.show();
 
     }
@@ -130,7 +146,7 @@ public class CarpoolManagementController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa);
+        carpoolManagementController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
@@ -188,7 +204,7 @@ public class CarpoolManagementController {
 
 
             MessageBox("Pooling Requested", "Requested Pooling");
-            setup(globalVisa);
+            setup(globalVisa, hasCarBoolean);
 
         }
     }
