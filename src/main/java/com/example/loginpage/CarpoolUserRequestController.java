@@ -1,5 +1,6 @@
 package com.example.loginpage;
 
+import com.example.loginpage.models.PoolingCarOwners;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.User;
 import com.example.loginpage.oop.PoolingMethodClass;
@@ -37,6 +38,9 @@ public class CarpoolUserRequestController {
     String globalVisa;
 
     @FXML
+    String carOwnersVisa="";
+
+    @FXML
     int poolingID =0;
 
     private Stage stage;
@@ -69,6 +73,12 @@ public class CarpoolUserRequestController {
 
 
         tableView_request.setItems(data);
+
+        ObservableList<PoolingCarOwners> data1 = poolingMethodClass.getAllCarOwnersForPooling();
+
+
+
+
 
     }
 

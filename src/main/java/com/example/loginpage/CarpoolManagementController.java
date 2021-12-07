@@ -186,6 +186,7 @@ public class CarpoolManagementController {
         }
 
         MessageBox("Pooling Requested","Requested Pooling");
+        setup(globalVisa);
 
     }
 

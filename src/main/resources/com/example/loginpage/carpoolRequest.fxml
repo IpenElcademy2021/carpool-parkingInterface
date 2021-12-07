@@ -39,17 +39,16 @@
             </Label>
             <HBox prefHeight="218.0" prefWidth="783.0">
                <children>
-                  <TableView fx:id="tableView_request" onMouseClicked="#getSelectedRecord" prefHeight="117.0" prefWidth="725.0">
+                  <TableView fx:id="tableView_request" onMouseClicked="#getSelectedRecord" prefHeight="119.0" prefWidth="694.0">
                      <columns>
-                        <TableColumn fx:id="column_visa" prefWidth="61.600004577636355" text="Visa" />
-                        <TableColumn fx:id="column_name" prefWidth="89.60004425048828" text="Driver Name" />
-                        <TableColumn fx:id="column_date" prefWidth="71.20001220703125" text="Date" />
-                        <TableColumn fx:id="column_region" prefWidth="86.39996337890625" text="Region" />
-                        <TableColumn fx:id="column_pickup_point" prefWidth="99.20001220703125" text="PIckup Point" />
-                        <TableColumn fx:id="column_pickup_time" prefWidth="107.99996948242188" text="Pickup Time" />
-                        <TableColumn fx:id="column_departure_time" prefWidth="126.4000244140625" text="Departure Time" />
-                        <TableColumn fx:id="column_seat" maxWidth="85.60000000000002" prefWidth="80.800048828125" text="Seat" />
-                        <TableColumn fx:id="column_poolId" maxWidth="85.60000000000002" prefWidth="80.800048828125" text="PoolId" visible="false" />
+                        <TableColumn fx:id="column_visa" prefWidth="76.0" text="Visa" />
+                        <TableColumn fx:id="column_date" prefWidth="64.0" text="Date" />
+                        <TableColumn fx:id="column_region" prefWidth="90.0" text="Region" />
+                        <TableColumn fx:id="column_pickup_point" prefWidth="106.0" text="Pickup Point" />
+                        <TableColumn fx:id="column_pickup_time" prefWidth="133.0" text="Pickup Time" />
+                        <TableColumn fx:id="column_departure_time" prefWidth="134.0" text="Departure Time" />
+                        <TableColumn fx:id="column_seat" maxWidth="168.0" prefWidth="90.0" text="Seat" />
+                        <TableColumn fx:id="column_poolId" maxWidth="87.0" minWidth="0.0" prefWidth="31.0" text="PoolId" visible="false" />
                      </columns>
                      <HBox.margin>
                         <Insets left="50.0" />
@@ -62,7 +61,7 @@
             </HBox>
             <HBox prefHeight="198.0" prefWidth="920.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                  <VBox prefHeight="87.0" prefWidth="100.0" spacing="20.0">
                      <children>
                         <Label text="Driver Visa" />
                         <Label text="Date" />
@@ -110,7 +109,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="202.0" prefWidth="920.0">
+            <HBox prefHeight="52.0" prefWidth="816.0">
                <children>
                   <Button fx:id="button_cancel" mnemonicParsing="false" text="Cancel">
                      <HBox.margin>
