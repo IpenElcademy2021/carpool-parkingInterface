@@ -19,10 +19,20 @@ import javax.mail.internet.MimeMessage;
 public class SendEmail {
     MethodClass methodClass = new MethodClass();
 
-    public void sendEmailNotfication(String visa, String drivervisa) throws IOException {
+    public void sendEmailNotfication(String sendEmailTitle, String sendEmailMsg, String drivervisa) throws IOException {
 
-        JSONObject jsonUserObject = methodClass.findUserbyVisa(drivervisa);
-        String address = jsonUserObject.get("address").toString();
+        String address;
+
+        if(drivervisa.equals("feedback"))
+        {
+            address = "postpilot130@gmail.com";
+        }
+        else
+        {
+            JSONObject jsonUserObject = methodClass.findUserbyVisa(drivervisa);
+            address = jsonUserObject.get("address").toString();
+        }
+
 
 
         // Recipient's email ID needs to be mentioned.
@@ -68,10 +78,10 @@ public class SendEmail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Hello " + drivervisa + ", You got a new request from " + visa);
+            message.setSubject(sendEmailTitle);
 
             // Now set the actual message
-            message.setText("You have a new parking request from " + visa + ". Please check your iPension Carpool&Parking Application. - Elcademy");
+            message.setText(sendEmailMsg);
 
             System.out.println("sending...");
             // Send message
@@ -80,7 +90,5 @@ public class SendEmail {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
-
-
     }
 }

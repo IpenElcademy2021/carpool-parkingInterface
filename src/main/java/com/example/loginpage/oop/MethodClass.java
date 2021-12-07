@@ -36,6 +36,7 @@ public class MethodClass {
         System.exit(0);
     }
 
+
     public static void messageBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "" + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -272,6 +273,35 @@ public class MethodClass {
                 visa = jsonUsersObject.get("visa").toString();
 
                 data.add(new RequestUserCarOwners(carPlate, parkingSlot, name, address, phoneNumber, visa));
+
+                datareturn = data;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return datareturn;
+    }
+
+    public ObservableList<FreeParking> searchAllRequest() throws IOException {
+        String url = "http://localhost:8080/cppk/getAllFreeParking/";
+        System.out.println(" SD" + okHttpGet.run(url));
+        String response = okHttpGet.run(url);
+        ObservableList<FreeParking> datareturn = FXCollections.observableArrayList();
+
+        try {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(response);
+            JSONArray jsonArray = (JSONArray) obj;
+
+            ObservableList<FreeParking> data = FXCollections.observableArrayList();
+
+            String date = "";
+            for (var i = 0; i < jsonArray.toArray().length; i++) {
+
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+
+                date = jsonObject.get("date").toString().substring(0,10);;
+                data.add(new FreeParking(date));
 
                 datareturn = data;
             }

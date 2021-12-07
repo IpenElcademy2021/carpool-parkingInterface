@@ -34,4 +34,6 @@ public class FreeParkingUserCarOwners {
         this.carPlate = carPlate;
         this.parkingSlot = parkingSlot;
     }
+
+
 }

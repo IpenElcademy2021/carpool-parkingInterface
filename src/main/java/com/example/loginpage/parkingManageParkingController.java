@@ -9,20 +9,29 @@ import com.example.loginpage.oop.RestAPI.OkHttpGet;
 import com.example.loginpage.oop.RestAPI.OkHttpPost;
 import com.example.loginpage.oop.RestAPI.OkHttpPut;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
+
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
 
+import java.awt.*;
+
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,17 +62,21 @@ public class parkingManageParkingController {
     private RadioButton radioApprove, radioDecline;
     @FXML
     private ImageView imageviewUser, sidemenuApplyParking, sidemenuCredits, sidemenuManageParking, sidemenuParkingDashboard;
+    @FXML
+    private TextArea textareaUserInfo;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    String globalVisa;
+    String globalVisa, globalTextAreaData;
+    Image globaluserImage;
     Boolean hasCarBoolean;
     List<String> dataArray = new ArrayList<String>();
     List<String> dataArrayA = new ArrayList<String>();
     List<String> dataArrayD = new ArrayList<String>();
     List<String> carUsersArray = new ArrayList<String>();
+    List<String> requestDataArray = new ArrayList<String>();
 
 
     @FXML
@@ -71,9 +84,9 @@ public class parkingManageParkingController {
 //        setup(globalVisa, carUsersArray);
     }
 
-    public void setup(String globalvisa, Boolean phasCarBoolean) throws IOException {
+    public void setup(String globalvisa, Boolean phasCarBoolean, Image visaImage, String sglobalTextAreaData) throws IOException {
 
-        if(phasCarBoolean == true)
+        if(phasCarBoolean)
         {
             sidemenuApplyParking.setDisable(true);
             labelCurrentStatus.setText("You are a car owner!");
@@ -85,6 +98,9 @@ public class parkingManageParkingController {
         }
 
         labelGlobalvisa.setText(globalvisa);
+        imageviewUser.setImage(visaImage);
+        globalTextAreaData = sglobalTextAreaData;
+        textareaUserInfo.setText(sglobalTextAreaData);
         hasCarBoolean = phasCarBoolean;
         globalVisa = labelGlobalvisa.getText();
 
@@ -170,7 +186,7 @@ public class parkingManageParkingController {
                     radioDecline.setSelected(false);
                     radioApprove.setSelected(false);
                     labelCurrentStatus.setText("Request approved!");
-                    setup(globalVisa, hasCarBoolean);
+                    setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
                 }
 
             }
@@ -183,7 +199,7 @@ public class parkingManageParkingController {
                 radioApprove.setSelected(false);
                 okHttpPut.post(url, updateRequestJson);
                 labelCurrentStatus.setText("Request delined!");
-                setup(globalVisa, hasCarBoolean);
+                setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
             }
             else {
                 methodClass.messageBox("Please select a Radio Button (Accept/Decline)", "User Error");
@@ -198,21 +214,45 @@ public class parkingManageParkingController {
 
 
     public void DeleteRequest() throws IOException {
-        String url = "http://localhost:8080/cppk/deleteParkingRequest/" + deleterequestId;
-        okHttpDelete.run(url);
-        methodClass.messageBox("Request with ID: " + deleterequestId + " has been deleted", "Request deleted");
-        setup(globalVisa, hasCarBoolean);
+        if(deleterequestId == null)
+        {
+            methodClass.messageBox("Please select a record to delete!", "Error no record selected");
+        }
+        else
+        {
+            String url = "http://localhost:8080/cppk/deleteParkingRequest/" + deleterequestId;
+            okHttpDelete.run(url);
+            methodClass.messageBox("Request with ID: " + deleterequestId + " has been deleted", "Request deleted");
+            setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
+            deleterequestId = null;
+        }
     }
 
     public void ApplyFreeParking() throws IOException {
         if(checkboxProposeFreeParking.isSelected())
         {
-            String newFreeParkingjson = "    {\n        \"date\": \"" + dpApplyFreeParking.getValue() + "\",\n" +
-                    "        \"user\": {\"visa\":\"" + globalVisa + "\"}\n" +
-                    "    }";
+            String newFreeParkingjson;
+            ObservableList<FreeParking> requestData = methodClass.searchAllRequest();
 
-            String response = okHttpPost.post("http://localhost:8080/cppk/addFreeParking/", newFreeParkingjson);
-            labelCurrentStatus.setText(response);
+            requestDataArray.clear();
+            Iterator<FreeParking> requestIterator = requestData.iterator();
+            while (requestIterator.hasNext()) {
+                requestDataArray.add(requestIterator.next().getDate());
+            }
+
+            if(requestDataArray.contains(dpApplyFreeParking.getValue().toString()))
+            {
+                methodClass.messageBox("You already proposed a parking slot for this day", "Duplication error");
+            }
+            else
+            {
+                newFreeParkingjson = "    {\n        \"date\": \"" + dpApplyFreeParking.getValue() + "\",\n" +
+                        "        \"user\": {\"visa\":\"" + globalVisa + "\"}\n" +
+                        "    }";
+
+                String response = okHttpPost.post("http://localhost:8080/cppk/addFreeParking/", newFreeParkingjson);
+                labelCurrentStatus.setText(response);
+            }
         }
         else
         {
@@ -241,7 +281,7 @@ public class parkingManageParkingController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        parkingApplyForParkingController.setup(globalVisa, hasCarBoolean);
+        parkingApplyForParkingController.setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
         stage.show();
     }
 
@@ -249,7 +289,8 @@ public class parkingManageParkingController {
         labelCurrentStatus.setText("Already in Manage Parking");
     }
 
-    public void switchToLoginPageLogOut(MouseEvent e) throws IOException {
+
+    public void switchToLoginPageLogOut(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
         root = loader.load();
         loginPageController loginPageController = loader.getController();
@@ -261,7 +302,7 @@ public class parkingManageParkingController {
         stage.show();
     }
 
-    public void switchToLoginPageReturn(MouseEvent e) throws IOException {
+    public void switchToLoginPageReturn(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
         root = loader.load();
         loginPageController loginPageController = loader.getController();
@@ -271,5 +312,24 @@ public class parkingManageParkingController {
         stage.setScene(scene);
         loginPageController.setup(globalVisa);
         stage.show();
+    }
+
+    public void SendFeedBack() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setTitle("Send feedback");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void ShowCredit() throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URI("https://github.com/IpenElcademy2021"));
+    }
+
+    public void Exit() {
+        methodClass.Exit();
     }
 }
