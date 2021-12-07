@@ -18,33 +18,36 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.CarpoolManagementController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.CarpoolManagementController">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Label text="iPension Carpool" textFill="#00aaff">
+            <Label prefHeight="54.0" prefWidth="340.0" text="iPension Carpool" textFill="#00aaff">
                <font>
-                  <Font name="Forte" size="25.0" />
+                  <Font name="System Bold" size="35.0" />
                </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
             </Label>
             <Region prefHeight="54.0" prefWidth="660.0" />
          </children>
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="459.0" prefWidth="789.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="412.0" prefWidth="823.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Car Pool Management">
                <font>
-                  <Font name="System Bold Italic" size="35.0" />
+                  <Font name="System Bold" size="35.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="30.0" left="250.0" top="30.0" />
+                  <Insets bottom="30.0" left="250.0" top="5.0" />
                </VBox.margin>
             </Label>
             <HBox prefHeight="243.0" prefWidth="870.0">
                <children>
-                  <VBox prefHeight="146.0" prefWidth="150.0" spacing="20.0">
+                  <VBox prefHeight="250.0" prefWidth="150.0" spacing="20.0">
                      <children>
                         <Label text="Visa" />
                         <Label text="Date" />
@@ -52,15 +55,18 @@
                         <Label text="Comment" />
                      </children>
                      <padding>
-                        <Insets left="30.0" top="15.0" />
+                        <Insets left="30.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets top="15.0" />
+                        <Insets top="5.0" />
                      </HBox.margin>
                   </VBox>
                   <VBox prefHeight="243.0" prefWidth="203.0" spacing="12.0">
                      <children>
-                        <TextField fx:id="textField_visa" prefWidth="203.0" />
+                        <TextField fx:id="textField_visa" prefWidth="203.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets></TextField>
                         <TextField fx:id="textField_date" />
                         <ComboBox fx:id="comboBox_status" prefHeight="26.0" prefWidth="202.0" promptText="Pending">
                            <items>
@@ -70,10 +76,10 @@
                               </FXCollections>
                            </items>
                         </ComboBox>
-                        <TextArea fx:id="textArea_comment" prefHeight="113.0" prefWidth="152.0" promptText="Write a comment...." />
+                        <TextArea fx:id="textArea_comment" prefHeight="130.0" prefWidth="203.0" promptText="Write a comment...." />
                      </children>
                      <padding>
-                        <Insets top="15.0" />
+                        <Insets top="2.0" />
                      </padding>
                   </VBox>
                   <TableView fx:id="tableView_management" onMouseClicked="#getCellValue" prefHeight="243.0" prefWidth="408.0">
@@ -84,6 +90,7 @@
                         <TableColumn fx:id="column_seat" prefWidth="42.0" text="Seat" />
                         <TableColumn fx:id="column_comment" prefWidth="98.0" text="Comment" />
                         <TableColumn fx:id="column_poolId" prefWidth="98.0" text="poolId" visible="false" />
+                        <TableColumn fx:id="column_userRequestId" prefWidth="98.0" text="userRequestId" visible="false" />
                      </columns>
                      <HBox.margin>
                         <Insets left="40.0" />
@@ -93,14 +100,19 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="button_cancel" mnemonicParsing="false" onMouseClicked="#cancelBtn" text="Cancel">
+                  <Button fx:id="button_cancel" mnemonicParsing="false" onMouseClicked="#cancelBtn" prefHeight="30.0" prefWidth="80.0" text="Cancel">
                      <HBox.margin>
-                        <Insets left="300.0" top="20.0" />
+                        <Insets left="150.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_confirm" mnemonicParsing="false" onMouseClicked="#confirmBtn" text="Confirm">
+                  <Button fx:id="button_confirm" mnemonicParsing="false" onMouseClicked="#confirmBtn" prefHeight="30.0" prefWidth="80.0" text="Confirm">
                      <HBox.margin>
-                        <Insets left="100.0" top="20.0" />
+                        <Insets left="45.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+                     <HBox.margin>
+                        <Insets left="365.0" top="20.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -108,79 +120,100 @@
          </children>
       </VBox>
    </center>
-   <bottom>
-      <VBox prefHeight="37.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </bottom>
    <left>
-      <VBox prefHeight="459.0" prefWidth="97.0" spacing="40.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="423.0" prefWidth="136.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="45.0" prefWidth="97.0">
+            <HBox onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/home_40px.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </ImageView>
                   <Label text="Home">
                      <HBox.margin>
-                        <Insets left="5.0" top="13.0" />
+                        <Insets left="5.0" top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="45.0" prefWidth="124.0">
+            <HBox onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="124.0">
                <children>
                   <ImageView onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/plus_40px.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </ImageView>
                   <Label text="Propose">
                      <HBox.margin>
-                        <Insets left="5.0" top="13.0" />
+                        <Insets left="5.0" top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="45.0" prefWidth="124.0">
+            <HBox onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="124.0">
                <children>
                   <ImageView onMouseClicked="#switchToPoolingUserRequest" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/carpool_40px.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </ImageView>
                   <Label text="Request">
                      <HBox.margin>
-                        <Insets left="5.0" top="13.0" />
+                        <Insets left="5.0" top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="45.0" prefWidth="124.0">
+            <HBox fx:id="hbox_manage" onMouseClicked="#switchToPoolingManage" prefHeight="45.0" prefWidth="124.0" style="-fx-background-color: #00aaff;">
                <children>
                   <ImageView onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/manage.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </ImageView>
                   <Label text="Manage">
                      <HBox.margin>
-                        <Insets left="5.0" top="13.0" />
+                        <Insets left="5.0" top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
