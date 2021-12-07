@@ -14,5 +14,7 @@ public class FreeParking {
     private @Getter @Setter String visa;
     private @Getter @Setter String date;
 
-
+    public FreeParking(String date) {
+        this.date = date;
+    }
 }

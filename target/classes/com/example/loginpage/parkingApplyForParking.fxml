@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,111 +16,67 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingApplyForParkingController">
-   <center>
-      <VBox prefHeight="308.0" prefWidth="534.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox>
-               <children>
-                  <Label text="Apply for a parking:" />
-               </children></HBox>
-            <HBox prefHeight="181.0" prefWidth="560.0">
-               <children>
-                  <TableView fx:id="tableviewFreeSlots" onMouseClicked="#getSelectedRecord" prefHeight="182.0" prefWidth="256.0">
-                    <columns>
-                      <TableColumn fx:id="tablecolumnDateFree" prefWidth="80.00000381469727" text="Date free" />
-                      <TableColumn fx:id="tablecolumnDriverVisa" prefWidth="88.0" text="Driver VISA" />
-                        <TableColumn fx:id="tablecolumnParkingSlot" prefWidth="84.79997253417969" text="Parking slot" />
-                    </columns>
-                  </TableView>
-               </children>
-            </HBox>
-            <HBox prefHeight="58.0" prefWidth="560.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Selected day:" />
-                        <Label text="Parking slot:" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label fx:id="labelSelectedDay" />
-                        <Label fx:id="labelSelectedParkingslot" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox prefHeight="39.0" prefWidth="560.0">
-               <children>
-                  <CheckBox fx:id="checkboxConfirmApplyParking" mnemonicParsing="false" text="Confirm" />
-                  <Region prefHeight="39.0" prefWidth="113.0" />
-                  <Button mnemonicParsing="false" onAction="#RequestFreeParking" prefHeight="26.0" prefWidth="70.0" text="Apply" />
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </VBox>
-   </center>
-   <bottom>
-      <VBox prefHeight="37.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox>
-               <children>
-                  <Label fx:id="label_CS" text="Current status :">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="labelCurrentStatus" textFill="RED">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Region prefHeight="26.0" prefWidth="336.0" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Region>
-                  <Button mnemonicParsing="false" onMouseClicked="#switchToLoginPageReturn" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingApplyForParkingController">
    <left>
-      <VBox spacing="40.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="sidemenuParkingDashboard" onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/home_40px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="sidemenuApplyParking" layoutX="10.0" layoutY="10.0" onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/plus_40px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="sidemenuManageParking" layoutX="10.0" layoutY="160.0" onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/carpool_40px.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="sidemenuCredits" layoutX="10.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/manage.png" />
-               </image>
-            </ImageView>
-         </children>
+      <VBox prefHeight="408.0" prefWidth="75.0" spacing="10.0" BorderPane.alignment="CENTER">
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
+         <children>
+            <VBox alignment="CENTER" prefHeight="58.0" prefWidth="54.0">
+               <children>
+                  <ImageView fx:id="sidemenuParkingDashboard" onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/home_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Dashboard" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuApplyParking" onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/plus_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Apply for" />
+                  <Label text="parking" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuManageParking" onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/carpool_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Propose &amp;" />
+                  <Label text="Manage" />
+                  <Label text="parking" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuCredits" onMouseClicked="#SendFeedBack" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/talk_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Feedback" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuCredits1" onMouseClicked="#ShowCredit" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/raising_hands_48px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Credits" />
+               </children>
+            </VBox>
+         </children>
       </VBox>
    </left>
    <top>
@@ -131,8 +89,8 @@
                         <Font name="Forte" size="25.0" />
                      </font>
                   </Label>
-                  <Region prefHeight="54.0" prefWidth="352.0" />
-                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" onMouseClicked="#switchToLoginPageLogOut" pickOnBounds="true" preserveRatio="true">
+                  <Region prefHeight="54.0" prefWidth="459.0" />
+                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" onMouseClicked="#Exit" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/power.png" />
                      </image>
@@ -141,7 +99,8 @@
             </HBox>
             <HBox>
                <children>
-                  <Label text="Apply to a free parking slot " textFill="#00aaff">
+                  <Region prefWidth="71.0" />
+                  <Label text="Apply for an available parking slot" textFill="#459ac1">
                      <font>
                         <Font name="Forte" size="16.0" />
                      </font>
@@ -156,4 +115,129 @@
          </children>
       </VBox>
    </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="333.0">
+               <children>
+                  <HBox prefHeight="18.0" prefWidth="561.0">
+                     <children>
+                        <Label text="Logged in as :  " />
+                        <Label fx:id="labelLoggedVisa" layoutX="10.0" layoutY="10.0" text="XXX" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="145.0" prefWidth="319.0">
+                     <children>
+                        <ImageView fx:id="imageviewUser" fitHeight="136.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/portrait-white-man-isolated_53876-40306.jpg" />
+                           </image>
+                        </ImageView>
+                        <Region prefHeight="104.0" prefWidth="36.0" />
+                        <TextArea fx:id="textareaUserInfo" disable="true" prefHeight="131.0" prefWidth="162.0" promptText="User data" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="2.0" right="2.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="18.0" prefWidth="560.0">
+                     <children>
+                        <Label text="Select and apply to a free parking slot" textFill="#1eb3c4" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="181.0" prefWidth="560.0">
+                     <children>
+                        <TableView fx:id="tableviewFreeSlots" onMouseClicked="#getSelectedRecord" prefHeight="166.0" prefWidth="333.0">
+                           <columns>
+                              <TableColumn fx:id="tablecolumnDateFree" prefWidth="171.0" text="Date free" />
+                              <TableColumn fx:id="tablecolumnDriverVisa" prefWidth="161.0" text="Driver VISA" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="58.0" prefWidth="560.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Selected day:" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="labelSelectedDay" />
+                           </children>
+                        </VBox>
+                        <Region prefHeight="43.0" prefWidth="31.0" />
+                        <VBox alignment="CENTER" layoutX="110.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Filter table:" />
+                              <TextField fx:id="textfieldFilterFreeParking" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="39.0" prefWidth="560.0">
+                     <children>
+                        <CheckBox fx:id="checkboxConfirmApplyParking" mnemonicParsing="false" text="Confirm" />
+                        <Region prefHeight="25.0" prefWidth="190.0" />
+                        <Button mnemonicParsing="false" onAction="#RequestFreeParking" prefHeight="26.0" prefWidth="70.0" text="Apply" />
+                     </children>
+                     <padding>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="418.0" prefWidth="295.0" />
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <HBox prefHeight="29.0" prefWidth="706.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="37.0" prefWidth="91.0">
+               <children>
+                  <Label fx:id="label_CS" alignment="CENTER" prefHeight="27.0" prefWidth="90.0" text="Current status :">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="434.0">
+               <children>
+                  <Label fx:id="labelCurrentStatus" textFill="RED">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchToLoginPageReturn" onMouseClicked="#switchToLoginPageReturn" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="43.0" prefWidth="76.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchToLoginPageLogOut" onMouseClicked="#switchToLoginPageReturn" prefHeight="26.0" prefWidth="67.0" text="Logout">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

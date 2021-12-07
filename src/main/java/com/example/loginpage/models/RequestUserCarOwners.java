@@ -25,8 +25,6 @@ public class RequestUserCarOwners {
         this.status = status;
     }
 
-
-
     public RequestUserCarOwners(String requestId, String date, String driverVisa, String status, String visa) {
         this.requestId = requestId;
         this.date = date;
