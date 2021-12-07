@@ -2,7 +2,10 @@ package com.example.loginpage;
 
 import com.example.loginpage.models.CarpoolManagement;
 import com.example.loginpage.oop.CarpoolManagementMethod;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,8 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import okhttp3.*;
 
@@ -43,8 +46,8 @@ public class CarpoolManagementController {
     @FXML
     private TextArea textArea_comment;
 
-    @FXML
-    private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
+    Boolean hasCarBoolean;
+
 
     String selectedPoolId;
     String userRequestId;
@@ -52,28 +55,26 @@ public class CarpoolManagementController {
 
     int seat = 0;
 
-    Boolean hasCarBoolean;
-
 
 
     CarpoolManagementMethod carpoolManagementMethod = new CarpoolManagementMethod();
 
-    public void setup(String visa, Boolean hasCar) throws IOException {
-
-        globalVisa = visa;
+    public void setup(String visa,Boolean hasCar) throws IOException {
 
         hasCarBoolean = hasCar;
-        if(hasCar)
+        if(hasCar == true)
         {
-            imageRequest.setDisable(true);
+            //imageRequest.setDisable(true);
             System.out.println("You are a driver");
         }
         else
         {
-            imagePropose.setDisable(true);
-            imageManage.setDisable(true);
+            //imagePropose.setDisable(true);
+            //imageManage.setDisable(true);
             System.out.println("You are not a driver");;
         }
+
+        globalVisa = visa;
 
         ObservableList<CarpoolManagement> data = carpoolManagementMethod.getCarpoolRequestByVisa(globalVisa);
 
@@ -121,7 +122,7 @@ public class CarpoolManagementController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa, hasCarBoolean);
+        poolingProposeController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -133,7 +134,7 @@ public class CarpoolManagementController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa, hasCarBoolean);
+        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
         stage.show();
 
     }
@@ -146,7 +147,7 @@ public class CarpoolManagementController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa, hasCarBoolean);
+        carpoolManagementController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -175,39 +176,53 @@ public class CarpoolManagementController {
 
     public void confirmBtn (MouseEvent e) throws IOException {
 
-        if (seat == 0) { MessageBox("No places left on date "+ date, "Requested Pooling");}
-        else {
+        if (seat > 0) {
 
-            seat = seat -1;
-            String seat1 = String.valueOf(seat);
-
-            String json = "    {\n        \"reservationStatus\": \"" + comboBox_status.getValue().toString() + "\",\n" +
-                    "        \"comment\": \"" + textArea_comment.getText() + "\"\n" +
-                    "    }";
-
-            RequestBody body = RequestBody.create(JSON, json);
-            Request request = new Request.Builder().url("http://localhost:8080/prc/updateRequest/" + userRequestId).put(body).build();
-            try (Response response = okHttpClient.newCall(request).execute()) {
-                System.out.println(response.body().string());
-                //labelCurrentStatus.setText(response.body().string());
+            if (comboBox_status.getValue().toString().equals("Accept")) {
+                seat = seat - 1;
+                update();
+                MessageBox("Pooling Accepted", "Requested Pooling");
+            } else {
+                update();
+                MessageBox("Pooling Rejected", "Requested Pooling");
             }
 
-            String json1 =  "    {\n        \"seat\": \"" + seat1 + "\"\n" +
-
-                    "    }";
-            RequestBody body1 = RequestBody.create(JSON,json1);
-            Request request1 = new Request.Builder().url("http://localhost:8080/cppk/updateSeat/"+ selectedPoolId).put(body1).build();
-            try (Response response1 = okHttpClient.newCall(request1).execute()) {
-                System.out.println(response1.body().string());
-                //labelCurrentStatus.setText(response.body().string());
-            }
-
-
-            MessageBox("Pooling Requested", "Requested Pooling");
-            setup(globalVisa, hasCarBoolean);
-
+        } else {
+            MessageBox("No places left on date "+ date, "Requested Pooling");
         }
+
     }
+
+
+    public void update() throws IOException{
+        String seat1 = String.valueOf(seat);
+        System.out.println(seat1);
+        String json = "    {\n        \"reservationStatus\": \"" + comboBox_status.getValue().toString() + "\",\n" +
+                "        \"comment\": \"" + textArea_comment.getText() + "\"\n" +
+                "    }";
+
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder().url("http://localhost:8080/prc/updateRequest/" + userRequestId).put(body).build();
+        try (Response response = okHttpClient.newCall(request).execute()) {
+            //System.out.println(response.body().string());
+            //labelCurrentStatus.setText(response.body().string());
+        }
+
+        String json1 = "    {\n        \"seat\": \"" + seat1 + "\"\n" +
+
+                "    }";
+        RequestBody body1 = RequestBody.create(JSON, json1);
+        Request request1 = new Request.Builder().url("http://localhost:8080/cppk/updateSeat/" + selectedPoolId).put(body1).build();
+        try (Response response1 = okHttpClient.newCall(request1).execute()) {
+           // System.out.println(response1.body().string());
+            //labelCurrentStatus.setText(response.body().string());
+        }
+
+
+
+        setup(globalVisa,hasCarBoolean);
+    }
+
 
     private void MessageBox(String message, String title) {
 

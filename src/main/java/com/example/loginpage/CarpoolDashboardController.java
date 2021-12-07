@@ -84,14 +84,14 @@ public class CarpoolDashboardController {
         if(carUsersArray.contains(globalVisa.toUpperCase()))
         {
             hasCarBoolean = true;
-            imageRequest.setDisable(true);
+            //imageRequest.setDisable(true);
             System.out.println("You are a driver");
         }
         else
         {
             hasCarBoolean = false;
-            imagePropose.setDisable(true);
-            imageManage.setDisable(true);
+            //imagePropose.setDisable(true);
+            //imageManage.setDisable(true);
             System.out.println("You are not a driver");
         }
         carUsersArray.clear();

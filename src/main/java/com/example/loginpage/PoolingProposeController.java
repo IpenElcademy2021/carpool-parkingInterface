@@ -70,13 +70,13 @@ public class PoolingProposeController {
         hasCarBoolean = hasCar;
         if(hasCar == true)
         {
-            imageRequest.setDisable(true);
+            //imageRequest.setDisable(true);
             System.out.println("You are a driver");
         }
         else
         {
-            imagePropose.setDisable(true);
-            imageManage.setDisable(true);
+            //imagePropose.setDisable(true);
+            //imageManage.setDisable(true);
             System.out.println("You are not a driver");;
         }
 
