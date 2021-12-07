@@ -1,11 +1,10 @@
 package com.example.loginpage;
 
-import com.example.loginpage.models.PoolingPropose;
-import com.example.loginpage.models.User;
-import com.example.loginpage.models.UserRequest;
-import com.example.loginpage.models.UserRequestPoolingProposeUser;
+import com.example.loginpage.models.*;
+import com.example.loginpage.oop.MethodClass;
 import com.example.loginpage.oop.PoolingMethodClass;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,11 +13,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class CarpoolDashboardController {
@@ -29,6 +32,9 @@ public class CarpoolDashboardController {
     @FXML
     private TableColumn column_driver_id,column_region,column_date,column_pickup_point,column_pickup_time,column_departure_time,column_reservation,column_comment;
 
+    @FXML
+    private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
+
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
 
     private Stage stage;
@@ -37,6 +43,10 @@ public class CarpoolDashboardController {
 
     @FXML
     String globalVisa;
+
+    List<String> carUsersArray = new ArrayList<String>();
+    Boolean hasCarBoolean;
+    MethodClass methodClass = new MethodClass();
 
     public void setup(String visa) throws IOException {
 
@@ -53,6 +63,32 @@ public class CarpoolDashboardController {
         column_comment.setCellValueFactory(new PropertyValueFactory<UserRequestPoolingProposeUser,String>("comment"));
 
         tableView_information.setItems(data);
+
+        ObservableList<RequestUserCarOwners> carusersdata = methodClass.searchAllCarOwners();
+
+        Iterator<RequestUserCarOwners> iterator = carusersdata.iterator();
+        while (iterator.hasNext()) {
+            carUsersArray.add(iterator.next().getVisa());
+        }
+
+        for (int counter = 0; counter < carUsersArray.size(); counter++) {
+            System.out.println(carUsersArray.get(counter));
+        }
+
+        if(carUsersArray.contains(globalVisa.toUpperCase()))
+        {
+            hasCarBoolean = true;
+            imageRequest.setDisable(true);
+            System.out.println("You are a driver");
+        }
+        else
+        {
+            hasCarBoolean = false;
+            imagePropose.setDisable(true);
+            imageManage.setDisable(true);
+            System.out.println("You are not a driver");
+        }
+        carUsersArray.clear();
     }
 
 

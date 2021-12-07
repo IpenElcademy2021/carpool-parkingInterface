@@ -1,6 +1,5 @@
 package com.example.loginpage;
 
-import com.example.loginpage.models.PoolingCarOwners;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.User;
 import com.example.loginpage.oop.PoolingMethodClass;
@@ -34,11 +33,11 @@ public class CarpoolUserRequestController {
     @FXML
     private Label label_visa,label_date,label_region,label_pickup_point,label_pickup_time,label_departure_time;
 
+
+
     @FXML
     String globalVisa;
 
-    @FXML
-    String carOwnersVisa="";
 
     @FXML
     int poolingID =0;
@@ -52,7 +51,12 @@ public class CarpoolUserRequestController {
 
     String comment = "No comment";
 
+    Boolean hasCarBoolean;
+
+
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
+
+
 
     OkHttpClient okHttpClient = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -73,12 +77,6 @@ public class CarpoolUserRequestController {
 
 
         tableView_request.setItems(data);
-
-        ObservableList<PoolingCarOwners> data1 = poolingMethodClass.getAllCarOwnersForPooling();
-
-
-
-
 
     }
 
