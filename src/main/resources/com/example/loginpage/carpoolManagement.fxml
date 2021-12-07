@@ -110,7 +110,7 @@
                         <Insets left="45.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+                  <Button mnemonicParsing="false" onMouseClicked="#switchToMainMenu" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
                      <HBox.margin>
                         <Insets left="365.0" top="20.0" />
                      </HBox.margin>
