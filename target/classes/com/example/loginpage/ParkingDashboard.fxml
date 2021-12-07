@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,56 +13,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="iPension Parking" textFill="#00aaff">
-               <font>
-                  <Font name="Forte" size="25.0" />
-               </font>
-            </Label>
-            <Region prefHeight="54.0" prefWidth="352.0" />
-            <ImageView fitHeight="54.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/power.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-   </top>
-   <left>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingDashboardController">
+   <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/home_40px.png" />
-               </image>
-            </ImageView>
-            <ImageView pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/plus_40px.png" />
-               </image>
-            </ImageView>
-            <ImageView pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/carpool_40px.png" />
-               </image>
-            </ImageView>
-            <ImageView pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/manage.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
-   </left>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <TableView fx:id="tableviewDashboard" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="tablecolumnDate" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="tablecolumnParkingSlot" prefWidth="75.0" text="Parking Slot" />
+                  <TableColumn fx:id="tablecolumnStatus" prefWidth="75.0" text="Status" />
+                  <TableColumn fx:id="tablecolumnCourtesyof" prefWidth="75.0" text="Courtesy of" />
+              </columns>
+            </TableView>
+         </children></VBox>
    </center>
    <bottom>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <HBox>
                <children>
@@ -69,7 +37,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="label_currentstatus" textFill="RED">
+                  <Label fx:id="labelCurrentStatus" textFill="RED">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -89,4 +57,65 @@
          </children>
       </VBox>
    </bottom>
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <Label text="iPension Parking" textFill="#00aaff">
+                     <font>
+                        <Font name="Forte" size="25.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="54.0" prefWidth="352.0" />
+                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/power.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="Welcome to parking dashboard!" textFill="#00aaff">
+                     <font>
+                        <Font name="Forte" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelGlobalvisa" layoutX="10.0" layoutY="10.0" textFill="#00aaff">
+                     <font>
+                        <Font name="Forte" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <VBox spacing="40.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home_40px.png" />
+               </image>
+            </ImageView>
+            <ImageView onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/plus_40px.png" />
+               </image>
+            </ImageView>
+            <ImageView onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/carpool_40px.png" />
+               </image>
+            </ImageView>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/manage.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </left>
 </BorderPane>

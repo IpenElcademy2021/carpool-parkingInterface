@@ -8,6 +8,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingManageParkingController">
    <bottom>
       <VBox prefHeight="37.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -50,17 +51,17 @@
    <left>
       <VBox spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView pickOnBounds="true" preserveRatio="true">
+            <ImageView onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/home_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="10.0" onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/plus_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView layoutX="10.0" layoutY="160.0" onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/carpool_40px.png" />
                </image>
@@ -92,16 +93,16 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <DatePicker />
+                              <DatePicker fx:id="dpApplyFreeParking" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                   <HBox prefHeight="36.0" prefWidth="560.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" text="Confirm" />
+                        <CheckBox fx:id="checkboxProposeFreeParking" mnemonicParsing="false" text="Confirm" />
                         <Region prefHeight="36.0" prefWidth="79.0" />
-                        <Button mnemonicParsing="false" text="Propose" />
+                        <Button mnemonicParsing="false" onAction="#ApplyFreeParking" text="Propose" />
                      </children>
                   </HBox>
                </children>
@@ -116,20 +117,31 @@
                   </HBox>
                   <HBox prefHeight="164.0" prefWidth="560.0">
                      <children>
-                        <TableView prefHeight="83.0" prefWidth="200.0">
+                        <TableView fx:id="tableviewDemand" onMouseClicked="#getSelectedRecord" prefHeight="160.0" prefWidth="239.0">
                            <columns>
-                              <TableColumn prefWidth="95.20001220703125" text="Date" />
-                              <TableColumn prefWidth="101.5999755859375" text="VISA" />
+                              <TableColumn fx:id="tablecolumnRequestId" prefWidth="34.40002363920212" text="ID" />
+                              <TableColumn fx:id="tablecolumnManageVisa" prefWidth="50.399967193603516" text="VISA" />
+                              <TableColumn fx:id="tablecolumnManageDate" prefWidth="143.199951171875" text="Date" />
                            </columns>
                         </TableView>
                      </children>
                   </HBox>
                   <HBox prefHeight="45.0" prefWidth="560.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox prefHeight="42.0" prefWidth="226.0">
                            <children>
-                              <Label text="Date selected:" />
-                              <Label layoutX="10.0" layoutY="10.0" text="VISA selected:" />
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Date selected: " />
+                                    <Label fx:id="labelDateSelected" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="VISA selected: " />
+                                    <Label fx:id="labelVisaSelected" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
@@ -137,16 +149,20 @@
                   <HBox prefHeight="45.0" prefWidth="560.0">
                      <children>
                         <Region prefHeight="98.0" prefWidth="14.0" />
-                        <Region prefHeight="46.0" prefWidth="56.0" />
-                        <RadioButton mnemonicParsing="false" text="Approve" />
-                        <RadioButton mnemonicParsing="false" text="Decline" />
+                        <Label />
+                        <Region prefHeight="42.0" prefWidth="34.0" />
+                        <RadioButton fx:id="radioApprove" mnemonicParsing="false" text="Approve">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="tgApproveDecline" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="radioDecline" mnemonicParsing="false" text="Decline" toggleGroup="$tgApproveDecline" />
                      </children>
                   </HBox>
                   <HBox prefHeight="31.0" prefWidth="560.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" text="Confirm" />
+                        <CheckBox fx:id="checkboxConfirmUpdateRequest" mnemonicParsing="false" text="Confirm" />
                         <Region prefHeight="73.0" prefWidth="82.0" />
-                        <Button mnemonicParsing="false" text="Process" />
+                        <Button mnemonicParsing="false" onAction="#setLeaveStatus" text="Process" />
                      </children>
                   </HBox>
                </children>
@@ -165,7 +181,7 @@
                      </font>
                   </Label>
                   <Region prefHeight="54.0" prefWidth="352.0" />
-                  <ImageView fitHeight="54.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/power.png" />
                      </image>
@@ -174,7 +190,12 @@
             </HBox>
             <HBox>
                <children>
-                  <Label text="Propose parking and Manage your request" textFill="#00aaff">
+                  <Label text="Propose parking and Manage your request  " textFill="#00aaff">
+                     <font>
+                        <Font name="Forte" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelGlobalvisa" layoutX="10.0" layoutY="10.0" textFill="#00aaff">
                      <font>
                         <Font name="Forte" size="16.0" />
                      </font>
