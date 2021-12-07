@@ -16,6 +16,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
+
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ public class CarpoolDashboardController {
     private TableView tableView_information;
 
     @FXML
-    private TableColumn column_driver_id,column_region,column_date,column_pickup_point,column_pickup_time,column_departure_time,column_reservation,column_comment;
+    private TableColumn column_driver_id,column_region,column_date,column_pickup_point,column_pickup_time,column_departure_time,column_status,column_comment;
 
     @FXML
     private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
@@ -41,6 +44,7 @@ public class CarpoolDashboardController {
     private Scene scene;
     private Parent root;
 
+
     @FXML
     String globalVisa;
 
@@ -49,6 +53,7 @@ public class CarpoolDashboardController {
     MethodClass methodClass = new MethodClass();
 
     public void setup(String visa) throws IOException {
+
 
         globalVisa = visa;
 
@@ -60,6 +65,7 @@ public class CarpoolDashboardController {
         column_pickup_point.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpPoint"));
         column_pickup_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("pickUpTime"));
         column_departure_time.setCellValueFactory(new PropertyValueFactory<PoolingPropose,String>("departureTime"));
+        column_status.setCellValueFactory(new PropertyValueFactory<UserRequestPoolingProposeUser,String>("reservationStatus"));
         column_comment.setCellValueFactory(new PropertyValueFactory<UserRequestPoolingProposeUser,String>("comment"));
 
         tableView_information.setItems(data);

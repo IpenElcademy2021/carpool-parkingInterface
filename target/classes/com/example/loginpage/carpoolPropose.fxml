@@ -126,8 +126,8 @@
                         <TableColumn fx:id="column_region" prefWidth="91.0" text="Region" />
                         <TableColumn fx:id="column_pickup_point" prefWidth="133.0" text="PIckup Point" />
                         <TableColumn fx:id="column_pickup_time" prefWidth="149.0" text="Pickup Time" />
-                        <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="51.0" text="Departure Time" />
-                        <TableColumn fx:id="column_seat" prefWidth="174.0" text="Seat" />
+                        <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="127.0" text="Departure Time" />
+                        <TableColumn fx:id="column_seat" prefWidth="98.0" text="Seat" />
                      </columns>
                      <HBox.margin>
                         <Insets left="50.0" />
