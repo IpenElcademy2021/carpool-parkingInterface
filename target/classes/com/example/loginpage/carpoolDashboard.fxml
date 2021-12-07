@@ -36,7 +36,7 @@
                   <Insets bottom="30.0" left="250.0" top="30.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="tableView_information" prefHeight="178.0" prefWidth="810.0">
+            <TableView fx:id="tableView_information" prefHeight="316.0" prefWidth="796.0">
                <columns>
                   <TableColumn fx:id="column_driver_id" prefWidth="135.20001828670502" text="Driver ID (VISA)" />
                   <TableColumn fx:id="column_region" prefWidth="99.20001220703125" text="Region" />
