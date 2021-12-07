@@ -108,6 +108,8 @@ public class CarpoolUserRequestController {
         }else {
             MessageBox("Please select a proposal","No User Request ");
         }
+
+        setup(globalVisa);
     }
 
     private void MessageBox(String message, String title) {

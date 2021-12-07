@@ -1,8 +1,6 @@
 package com.example.loginpage.oop;
 
-import com.example.loginpage.loginPageController;
 import com.example.loginpage.models.PoolingPropose;
-import com.example.loginpage.models.UserRequest;
 import com.example.loginpage.models.UserRequestPoolingProposeUser;
 import com.example.loginpage.oop.RestAPI.OkHttpGet;
 import javafx.collections.FXCollections;

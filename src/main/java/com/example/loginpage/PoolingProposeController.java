@@ -43,8 +43,6 @@ public class PoolingProposeController {
     @FXML
     private TableColumn column_visa, column_date, column_region, column_pickup_point, column_pickup_time, column_departure_time, column_seat;
 
-    @FXML
-    private Label labelCurrentStatus;
 
     @FXML
     String globalVisa;
@@ -94,7 +92,7 @@ public class PoolingProposeController {
             } else if (!textField_departure_time.getText().isEmpty()){
                 addPooling();
             }else {
-                MessageBox("Field pick up point and field pick up time are empty", "Error");
+                MessageBox("Field pick up point and field pick up time are empty or enter departure time only", "Error");
             }
         }else {
             MessageBox("Field region is empty", "Error");
@@ -119,8 +117,9 @@ public class PoolingProposeController {
 
         try (Response response = okHttpClient.newCall(request).execute()) {
             System.out.println(response.body().string());
-            //labelCurrentStatus.setText(response.body().string());
         }
+
+        setup(globalVisa);
 
         MessageBox("New Pooling added", "Propose Pooling");
     }

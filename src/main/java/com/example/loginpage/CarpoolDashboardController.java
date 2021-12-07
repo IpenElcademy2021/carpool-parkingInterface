@@ -55,11 +55,6 @@ public class CarpoolDashboardController {
         tableView_information.setItems(data);
     }
 
-    @FXML
-    public void initialize() throws IOException {
-
-
-    }
 
     public void switchToPoolingDashboard(MouseEvent e) throws IOException{
 
