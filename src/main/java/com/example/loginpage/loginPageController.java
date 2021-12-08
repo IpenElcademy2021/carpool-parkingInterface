@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,7 +31,11 @@ public class loginPageController {
 
 
     @FXML
-    private TextField textfieldUsername, passwordfieldPassword;
+    private TextField textFieldUsername;
+
+    @FXML
+    private PasswordField passwordFieldUsername;
+
     @FXML
     private Label labelLoggedVisa;
 
@@ -46,15 +51,15 @@ public class loginPageController {
 
     public void login(ActionEvent event) throws IOException {
 
-        JSONObject jsonObject = login.login(textfieldUsername.getText(), passwordfieldPassword.getText());
+        JSONObject jsonObject = login.login(textFieldUsername.getText(), passwordFieldUsername.getText());
         globalVisa = jsonObject.get("visa").toString();
+        String name = jsonObject.get("name").toString();
 
         //Changing label of User and his Manager
-        labelLoggedVisa.setText ("Hello "+globalVisa);
+        labelLoggedVisa.setText ("Hello "+name);
 
         String visa = jsonObject.get("visa").toString();
         String password = jsonObject.get("password").toString();
-        String name = jsonObject.get("name").toString();
         String address = jsonObject.get("address").toString();
         String phoneNumber = jsonObject.get("phoneNumber").toString();
 
