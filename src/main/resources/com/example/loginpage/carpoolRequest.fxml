@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -149,7 +150,7 @@
                         <Insets left="150.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_request1" mnemonicParsing="false" onAction="#createUserRequest" onMouseClicked="#switchToMainMenu" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+                  <Button fx:id="button_request1" mnemonicParsing="false" onAction="#createUserRequest" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
                      <HBox.margin>
                         <Insets left="140.0" top="5.0" />
                      </HBox.margin>
@@ -162,9 +163,9 @@
    <left>
       <VBox prefHeight="423.0" prefWidth="136.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxDashboard" onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView fx:id="imageDashboard" onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageDashboard" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/home_40px.png" />
                      </image>
@@ -185,9 +186,9 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxPropose" onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView fx:id="imagePropose" onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagePropose" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/plus_40px.png" />
                      </image>
@@ -208,9 +209,9 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </HBox>
-            <HBox onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
+            <HBox fx:id="HBoxRequest" onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
                <children>
-                  <ImageView fx:id="imageRequest" onMouseClicked="#switchToPoolingUserRequest" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageRequest" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/carpool_40px.png" />
                      </image>
@@ -231,9 +232,9 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </HBox>
-            <HBox onMouseClicked="#switchToPoolingManage" prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxManage" onMouseClicked="#switchToPoolingManage" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView fx:id="imageManage" onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageManage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/manage.png" />
                      </image>

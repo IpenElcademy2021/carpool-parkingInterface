@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +37,7 @@ public class CarpoolDashboardController {
     private TableColumn column_driver_id,column_region,column_date,column_pickup_point,column_pickup_time,column_departure_time,column_status,column_comment;
 
     @FXML
-    private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
+    private HBox HBoxDashboard, HBoxPropose, HBoxRequest, HBoxManage;
 
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
 
@@ -84,14 +85,14 @@ public class CarpoolDashboardController {
         if(carUsersArray.contains(globalVisa.toUpperCase()))
         {
             hasCarBoolean = true;
-            //imageRequest.setDisable(true);
+            HBoxRequest.setDisable(true);
             System.out.println("You are a driver");
         }
         else
         {
             hasCarBoolean = false;
-            //imagePropose.setDisable(true);
-            //imageManage.setDisable(true);
+            HBoxPropose.setDisable(true);
+            HBoxManage.setDisable(true);
             System.out.println("You are not a driver");
         }
         carUsersArray.clear();
