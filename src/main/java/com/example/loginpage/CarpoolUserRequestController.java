@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import okhttp3.*;
 
@@ -35,7 +36,7 @@ public class CarpoolUserRequestController {
     private Label label_visa,label_date,label_region,label_pickup_point,label_pickup_time,label_departure_time;
 
     @FXML
-    private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
+    private HBox HBoxDashboard, HBoxPropose, HBoxRequest, HBoxManage;
 
 
 
@@ -69,13 +70,13 @@ public class CarpoolUserRequestController {
         hasCarBoolean = hasCar;
         if(hasCar == true)
         {
-            //imageRequest.setDisable(true);
+            HBoxRequest.setDisable(true);
             System.out.println("You are a driver");
         }
         else
         {
-            //imagePropose.setDisable(true);
-            //imageManage.setDisable(true);
+            HBoxPropose.setDisable(true);
+            HBoxManage.setDisable(true);
             System.out.println("You are not a driver");;
         }
 

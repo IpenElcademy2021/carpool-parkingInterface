@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import okhttp3.*;
 
@@ -45,7 +46,7 @@ public class PoolingProposeController {
     private TableColumn column_visa, column_date, column_region, column_pickup_point, column_pickup_time, column_departure_time, column_seat;
 
     @FXML
-    private ImageView imageDashboard,imagePropose,imageRequest,imageManage;
+    private HBox HBoxDashboard, HBoxPropose, HBoxRequest, HBoxManage;
 
     @FXML
     String globalVisa;
@@ -70,13 +71,13 @@ public class PoolingProposeController {
         hasCarBoolean = hasCar;
         if(hasCar == true)
         {
-            //imageRequest.setDisable(true);
+            HBoxRequest.setDisable(true);
             System.out.println("You are a driver");
         }
         else
         {
-            //imagePropose.setDisable(true);
-            //imageManage.setDisable(true);
+            HBoxPropose.setDisable(true);
+            HBoxManage.setDisable(true);
             System.out.println("You are not a driver");;
         }
 

@@ -2,10 +2,7 @@ package com.example.loginpage;
 
 import com.example.loginpage.models.CarpoolManagement;
 import com.example.loginpage.oop.CarpoolManagementMethod;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,61 +13,54 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Date;
 
+
 public class CarpoolManagementController {
 
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     @FXML
     String globalVisa;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    @FXML
-    private TableView <CarpoolManagement> tableView_management;
-
-    @FXML
-    private TableColumn column_visa, column_date,column_status, column_seat, column_comment, column_poolId, column_userRequestId;
-
-    @FXML
-    private TextField textField_visa, textField_date;
-
-    @FXML
-    private ComboBox comboBox_status;
-
-    @FXML
-    private TextArea textArea_comment;
-
     Boolean hasCarBoolean;
-
-
     String selectedPoolId;
     String userRequestId;
     String date;
-
     int seat = 0;
-
-
-
     CarpoolManagementMethod carpoolManagementMethod = new CarpoolManagementMethod();
+    OkHttpClient okHttpClient = new OkHttpClient();
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    @FXML
+    private TableView<CarpoolManagement> tableView_management;
+    @FXML
+    private TableColumn column_visa, column_date, column_status, column_seat, column_comment, column_poolId, column_userRequestId;
+    @FXML
+    private TextField textField_visa, textField_date;
+    @FXML
+    private ComboBox comboBox_status;
+    @FXML
+    private TextArea textArea_comment;
+    @FXML
+    private HBox HBoxDashboard, HBoxPropose, HBoxRequest, HBoxManage;
 
-    public void setup(String visa,Boolean hasCar) throws IOException {
+    public void setup(String visa, Boolean hasCar) throws IOException {
 
         hasCarBoolean = hasCar;
         if(hasCar == true)
         {
-            //imageRequest.setDisable(true);
+            HBoxRequest.setDisable(true);
             System.out.println("You are a driver");
         }
         else
         {
-            //imagePropose.setDisable(true);
-            //imageManage.setDisable(true);
+            HBoxPropose.setDisable(true);
+            HBoxManage.setDisable(true);
             System.out.println("You are not a driver");;
         }
 
@@ -78,7 +68,7 @@ public class CarpoolManagementController {
 
         ObservableList<CarpoolManagement> data = carpoolManagementMethod.getCarpoolRequestByVisa(globalVisa);
 
-        column_visa.setCellValueFactory(new PropertyValueFactory<CarpoolManagement,String>("visa"));
+        column_visa.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, String>("visa"));
         column_date.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, Date>("date"));
         column_status.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, String>("reservationStatus"));
         column_seat.setCellValueFactory(new PropertyValueFactory<CarpoolManagement, String>("seat"));
@@ -97,16 +87,14 @@ public class CarpoolManagementController {
 
     }
 
-
-
-    public void switchToPoolingDashboard(MouseEvent e) throws IOException{
+    public void switchToPoolingDashboard(MouseEvent e) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolDashBoard.fxml"));
         root = loader.load();
 
         CarpoolDashboardController carpoolDashboardController = loader.getController();
 
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         carpoolDashboardController.setup(globalVisa);
@@ -114,27 +102,27 @@ public class CarpoolManagementController {
 
     }
 
-    public void switchToPoolingPropose(MouseEvent e) throws IOException{
+    public void switchToPoolingPropose(MouseEvent e) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolPropose.fxml"));
         root = loader.load();
         PoolingProposeController poolingProposeController = loader.getController();
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa,hasCarBoolean);
+        poolingProposeController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
-    public void switchToPoolingUserRequest(MouseEvent e) throws IOException{
+    public void switchToPoolingUserRequest(MouseEvent e) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolRequest.fxml"));
         root = loader.load();
         CarpoolUserRequestController carpoolUserRequestController = loader.getController();
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
+        carpoolUserRequestController.setup(globalVisa, hasCarBoolean);
         stage.show();
 
     }
@@ -147,7 +135,7 @@ public class CarpoolManagementController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa,hasCarBoolean);
+        carpoolManagementController.setup(globalVisa, hasCarBoolean);
         stage.show();
     }
 
@@ -163,7 +151,7 @@ public class CarpoolManagementController {
 
     }
 
-    public void cancelBtn (MouseEvent e) throws IOException {
+    public void cancelBtn(MouseEvent e) throws IOException {
         textField_visa.setText("");
         textField_date.setText("");
         comboBox_status.setAccessibleText("Pending");
@@ -171,10 +159,7 @@ public class CarpoolManagementController {
 
     }
 
-    OkHttpClient okHttpClient = new OkHttpClient();
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-    public void confirmBtn (MouseEvent e) throws IOException {
+    public void confirmBtn(MouseEvent e) throws IOException {
 
         if (seat > 0) {
 
@@ -188,13 +173,13 @@ public class CarpoolManagementController {
             }
 
         } else {
-            MessageBox("No places left on date "+ date, "Requested Pooling");
+            MessageBox("No places left on date " + date, "Requested Pooling");
         }
 
     }
 
 
-    public void update() throws IOException{
+    public void update() throws IOException {
         String seat1 = String.valueOf(seat);
         System.out.println(seat1);
         String json = "    {\n        \"reservationStatus\": \"" + comboBox_status.getValue().toString() + "\",\n" +
@@ -214,18 +199,17 @@ public class CarpoolManagementController {
         RequestBody body1 = RequestBody.create(JSON, json1);
         Request request1 = new Request.Builder().url("http://localhost:8080/cppk/updateSeat/" + selectedPoolId).put(body1).build();
         try (Response response1 = okHttpClient.newCall(request1).execute()) {
-           // System.out.println(response1.body().string());
+            // System.out.println(response1.body().string());
             //labelCurrentStatus.setText(response.body().string());
         }
 
 
-
-        setup(globalVisa,hasCarBoolean);
+        setup(globalVisa, hasCarBoolean);
     }
 
 
     private void MessageBox(String message, String title) {
 
-        JOptionPane.showMessageDialog(null,message,"" +title,JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "" + title, JOptionPane.INFORMATION_MESSAGE);
     }
 }
