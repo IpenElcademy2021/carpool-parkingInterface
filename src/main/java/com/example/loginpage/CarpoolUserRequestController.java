@@ -226,4 +226,15 @@ public class CarpoolUserRequestController {
         stage.show();
     }
 
+    public void btnClear(MouseEvent e) throws IOException {
+        label_date.setText("");
+        label_departure_time.setText("");
+        label_pickup_point.setText("");
+        label_region.setText("");
+        label_pickup_time.setText("");
+        label_visa.setText("");
+
+        poolingID = 0;
+    }
+
 }

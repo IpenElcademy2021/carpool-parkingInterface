@@ -176,6 +176,15 @@ public class PoolingProposeController {
 
     }
 
+    public void btnClear(MouseEvent e) throws IOException {
+        textField_departure_time.setText("");
+        textField_pickup_point.setText("");
+        textField_pickup_time.setText("");
+        textField_region.setText("");
+
+    }
+
+
     public void switchToPoolingPropose(MouseEvent e) throws IOException{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolPropose.fxml"));

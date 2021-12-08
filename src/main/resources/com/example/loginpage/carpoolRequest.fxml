@@ -138,7 +138,7 @@
             </HBox>
             <HBox prefHeight="62.0" prefWidth="835.0">
                <children>
-                  <Button fx:id="button_cancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Cancel">
+                  <Button fx:id="button_cancel" mnemonicParsing="false" onMouseClicked="#btnClear" prefHeight="30.0" prefWidth="80.0" text="Clear">
                      <HBox.margin>
                         <Insets left="250.0" top="5.0" />
                      </HBox.margin>

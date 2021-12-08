@@ -12,7 +12,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -233,7 +232,7 @@
             </HBox>
             <HBox prefHeight="315.0" prefWidth="858.0">
                <children>
-                  <Button fx:id="button_cancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Cancel">
+                  <Button fx:id="button_cancel" mnemonicParsing="false" onMouseClicked="#btnClear" prefHeight="30.0" prefWidth="80.0" text="Clear">
                      <HBox.margin>
                         <Insets left="280.0" top="20.0" />
                      </HBox.margin>
