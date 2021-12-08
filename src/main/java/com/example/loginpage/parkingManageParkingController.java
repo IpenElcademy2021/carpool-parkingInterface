@@ -147,7 +147,7 @@ public class parkingManageParkingController {
         }
 
 
-
+        labelCurrentStatus.setText("Your manage parking loaded successfully!");
     }
 
     Integer requestId;
@@ -174,6 +174,7 @@ public class parkingManageParkingController {
                 if(dataArrayA.contains(labelDateSelected.getText()))
                 {
                     methodClass.messageBox("You already have this date booked", "Date already booked!");
+                    labelCurrentStatus.setText("User error");
                 }
                 else
                 {
@@ -198,18 +199,20 @@ public class parkingManageParkingController {
                 radioDecline.setSelected(false);
                 radioApprove.setSelected(false);
                 okHttpPut.post(url, updateRequestJson);
-                labelCurrentStatus.setText("Request delined!");
+                labelCurrentStatus.setText("Request declined!");
                 setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
             }
             else {
                 methodClass.messageBox("Please select a Radio Button (Accept/Decline)", "User Error");
+                labelCurrentStatus.setText("User error");
             }
 
         }
 
         else {
-                 methodClass.messageBox("Please check the Checkbox before Requesting a parking slot", "User error");
-             }
+                 methodClass.messageBox("Please check the Checkbox before Requesting a parking slot", "User error");                labelCurrentStatus.setText("User error");
+                 labelCurrentStatus.setText("User error");
+        }
     }
 
 
@@ -217,6 +220,7 @@ public class parkingManageParkingController {
         if(deleterequestId == null)
         {
             methodClass.messageBox("Please select a record to delete!", "Error no record selected");
+            labelCurrentStatus.setText("Select a record first.");
         }
         else
         {
@@ -225,6 +229,8 @@ public class parkingManageParkingController {
             methodClass.messageBox("Request with ID: " + deleterequestId + " has been deleted", "Request deleted");
             setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
             deleterequestId = null;
+            labelCurrentStatus.setText("Request deleted successfully!");
+
         }
     }
 
@@ -243,6 +249,7 @@ public class parkingManageParkingController {
             if(requestDataArray.contains(dpApplyFreeParking.getValue().toString()))
             {
                 methodClass.messageBox("You already proposed a parking slot for this day", "Duplication error");
+                labelCurrentStatus.setText("Date already proposed.");
             }
             else
             {
@@ -257,6 +264,7 @@ public class parkingManageParkingController {
         else
         {
          methodClass.messageBox("Please check the Checkbox before proposing a free parking slot", "User error");
+            labelCurrentStatus.setText("Checkbox error");
         }
     }
 

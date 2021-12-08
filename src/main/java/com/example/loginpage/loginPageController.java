@@ -66,7 +66,7 @@ public class loginPageController {
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
         if (globalVisa == "")
         {
-            methodClass.messageBox("Make sure you are logged in first!", "Not logged in.");
+            methodClass.messageBox("Please login first!", "Not logged in.");
         }
         else {
 
@@ -85,7 +85,7 @@ public class loginPageController {
     public void switchToCarpoolDashboard(MouseEvent e) throws IOException {
         if (globalVisa == "")
         {
-            methodClass.messageBox("Please loggin first!", "Not logged in.");
+            methodClass.messageBox("Please login first!", "Not logged in.");
         }
         else {
             root = FXMLLoader.load(getClass().getResource("carpoolDashboard.fxml"));

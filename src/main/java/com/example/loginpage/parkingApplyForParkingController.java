@@ -120,6 +120,7 @@ public class parkingApplyForParkingController {
         SortedList<FreeParkingUserCarOwners> sortedData = new SortedList(filteredData);
         sortedData.comparatorProperty().bind(this.tableviewFreeSlots.comparatorProperty());
         this.tableviewFreeSlots.setItems(sortedData);
+        labelCurrentStatus.setText("Your apply parking dashboard loaded successfully!");
     }
 
 
@@ -177,11 +178,12 @@ public class parkingApplyForParkingController {
             String sendEmailTitle = "Hello " + drivervisa + ", You got a new request from " + globalVisa;
             String sendEmailMsg = "You have a new parking request from " + globalVisa + ". Please check your iPension Carpool&Parking Application. - Elcademy";
             sendEmail.sendEmailNotfication(sendEmailTitle, sendEmailMsg, drivervisa);
-            labelCurrentStatus.setText("Email sent to driver");
+            labelCurrentStatus.setText("Email sent to car owner.");
         }
         else
         {
             methodClass.messageBox("Please check the Checkbox before Requesting a parking slot", "User error");
+            labelCurrentStatus.setText("Checkbox error");
         }
     }
 
