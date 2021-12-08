@@ -139,13 +139,15 @@ public class CarpoolManagementController {
         stage.show();
     }
 
-    public void switchToMainMenu(MouseEvent e) throws IOException {
+    public void switchToMainMenu (MouseEvent e) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
         root = loader.load();
-        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        loginPageController loginPageController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        loginPageController.setup(globalVisa);
         stage.show();
     }
 
@@ -199,8 +201,7 @@ public class CarpoolManagementController {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder().url("http://localhost:8080/prc/updateRequest/" + userRequestId).put(body).build();
         try (Response response = okHttpClient.newCall(request).execute()) {
-            //System.out.println(response.body().string());
-            //labelCurrentStatus.setText(response.body().string());
+
         }
 
         String json1 = "    {\n        \"seat\": \"" + seat1 + "\"\n" +
@@ -209,8 +210,7 @@ public class CarpoolManagementController {
         RequestBody body1 = RequestBody.create(JSON, json1);
         Request request1 = new Request.Builder().url("http://localhost:8080/cppk/updateSeat/" + selectedPoolId).put(body1).build();
         try (Response response1 = okHttpClient.newCall(request1).execute()) {
-            // System.out.println(response1.body().string());
-            //labelCurrentStatus.setText(response.body().string());
+
         }
 
 
@@ -221,5 +221,16 @@ public class CarpoolManagementController {
     private void MessageBox(String message, String title) {
 
         JOptionPane.showMessageDialog(null, message, "" + title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void logout(MouseEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+        root = loader.load();
+        loginPageController loginPageController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        loginPageController.setup("");
+        stage.show();
     }
 }

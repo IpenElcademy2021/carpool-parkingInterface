@@ -40,6 +40,7 @@ public class loginPageController {
     private Label labelLoggedVisa;
 
     String globalVisa = "";
+    String name = " ";
 
     private Stage stage;
     private Scene scene;
@@ -47,13 +48,23 @@ public class loginPageController {
 
     public void setup(String logoutvisa) throws IOException {
         globalVisa = logoutvisa;
+
+        if (globalVisa == "")
+        {
+            labelLoggedVisa.setText ("Please Login!");
+        }
+        else
+        {
+            labelLoggedVisa.setText ("Hello "+globalVisa);
+        }
     }
+
 
     public void login(ActionEvent event) throws IOException {
 
         JSONObject jsonObject = login.login(textFieldUsername.getText(), passwordFieldUsername.getText());
         globalVisa = jsonObject.get("visa").toString();
-        String name = jsonObject.get("name").toString();
+        name = jsonObject.get("name").toString();
 
         //Changing label of User and his Manager
         labelLoggedVisa.setText ("Hello "+name);

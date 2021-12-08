@@ -12,7 +12,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,7 +27,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <HBox prefHeight="51.0" prefWidth="135.0">
+            <HBox onMouseClicked="#logout" prefHeight="51.0" prefWidth="135.0">
                <children>
                   <Label prefHeight="48.0" prefWidth="82.0" text="Logout">
                      <HBox.margin>
@@ -38,7 +37,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <ImageView onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/logout.png" />
                      </image>
@@ -243,7 +242,7 @@
                         <Insets left="180.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_create1" mnemonicParsing="false" onAction="#CreatePooling" onMouseClicked="#switchToMainMenu" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+                  <Button fx:id="button_create1" mnemonicParsing="false" onMouseClicked="#switchToMainMenu" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
                      <HBox.margin>
                         <Insets left="95.0" top="20.0" />
                      </HBox.margin>
