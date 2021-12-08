@@ -12,10 +12,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<<<< Temporary merge branch 1:src/main/resources/com/example/loginpage/carpoolProposeCarpool.fxml
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+=========
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.PoolingProposeController">
+>>>>>>>>> Temporary merge branch 2:src/main/resources/com/example/loginpage/carpoolPropose.fxml
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -27,6 +32,70 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
+<<<<<<<<< Temporary merge branch 1:src/main/resources/com/example/loginpage/carpoolProposeCarpool.fxml
+            <Region prefHeight="54.0" prefWidth="667.0" />
+            <ImageView fitHeight="54.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/power.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <VBox prefHeight="37.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <Label fx:id="label_CS" text="Current status :">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="label_currentstatus" textFill="RED">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="26.0" prefWidth="336.0" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Region>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <left>
+      <VBox spacing="40.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home_40px.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/plus_40px.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="10.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/carpool_40px.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="10.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/manage.png" />
+               </image>
+            </ImageView>
+=========
             <HBox onMouseClicked="#logout" prefHeight="51.0" prefWidth="135.0">
                <children>
                   <Label prefHeight="48.0" prefWidth="82.0" text="Logout">
@@ -148,6 +217,7 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </HBox>
+>>>>>>>>> Temporary merge branch 2:src/main/resources/com/example/loginpage/carpoolPropose.fxml
          </children>
       </VBox>
    </left>
@@ -164,8 +234,18 @@
             </Label>
             <HBox prefHeight="354.0" prefWidth="816.0">
                <children>
-                  <TableView fx:id="tableView_propose" prefHeight="136.0" prefWidth="741.0">
+                  <TableView fx:id="tableView_propose" prefHeight="328.0" prefWidth="816.0">
                      <columns>
+<<<<<<<<< Temporary merge branch 1:src/main/resources/com/example/loginpage/carpoolProposeCarpool.fxml
+                        <TableColumn fx:id="column_visa" prefWidth="75.0" text="Visa" />
+                        <TableColumn fx:id="column_name" prefWidth="111.20001220703125" text="Driver Name" />
+                        <TableColumn fx:id="column_date" prefWidth="72.79998779296875" text="Date" />
+                        <TableColumn fx:id="column_region" prefWidth="107.20001220703125" text="Region" />
+                        <TableColumn fx:id="column_pickup_point" prefWidth="137.5999755859375" text="PIckup Point" />
+                        <TableColumn fx:id="column_pickup_time" prefWidth="103.20001220703125" text="Pickup Time" />
+                        <TableColumn fx:id="column_departure_time" prefWidth="114.39996337890625" text="Departure Time" />
+                        <TableColumn fx:id="column_seat" prefWidth="100.0" text="Seat" />
+=========
                         <TableColumn fx:id="column_visa" prefWidth="74.0" text="Visa" />
                         <TableColumn fx:id="column_date" prefWidth="91.0" text="Date" />
                         <TableColumn fx:id="column_region" prefWidth="97.0" text="Region" />
@@ -173,6 +253,7 @@
                         <TableColumn fx:id="column_pickup_time" prefWidth="109.0" text="Pickup Time" />
                         <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="136.0" text="Departure Time" />
                         <TableColumn fx:id="column_seat" prefWidth="116.0" text="Seat" />
+>>>>>>>>> Temporary merge branch 2:src/main/resources/com/example/loginpage/carpoolPropose.fxml
                      </columns>
                      <HBox.margin>
                         <Insets left="50.0" />
@@ -232,12 +313,16 @@
             </HBox>
             <HBox prefHeight="315.0" prefWidth="858.0">
                <children>
-                  <Button fx:id="button_cancel" mnemonicParsing="false" onMouseClicked="#btnClear" prefHeight="30.0" prefWidth="80.0" text="Clear">
+                  <Button fx:id="button_cancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Cancel">
                      <HBox.margin>
                         <Insets left="280.0" top="20.0" />
                      </HBox.margin>
                   </Button>
+<<<<<<<<< Temporary merge branch 1:src/main/resources/com/example/loginpage/carpoolProposeCarpool.fxml
+                  <Button fx:id="button_create" mnemonicParsing="false" text="Create">
+=========
                   <Button fx:id="button_create" mnemonicParsing="false" onAction="#CreatePooling" prefHeight="30.0" prefWidth="80.0" text="Create">
+>>>>>>>>> Temporary merge branch 2:src/main/resources/com/example/loginpage/carpoolPropose.fxml
                      <HBox.margin>
                         <Insets left="180.0" top="20.0" />
                      </HBox.margin>

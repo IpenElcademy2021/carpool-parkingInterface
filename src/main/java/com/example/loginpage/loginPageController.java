@@ -12,7 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+<<<<<<<<< Temporary merge branch 1
+=========
 import javafx.scene.control.PasswordField;
+>>>>>>>>> Temporary merge branch 2
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,7 +43,10 @@ public class loginPageController {
     private Label labelLoggedVisa;
 
     String globalVisa = "";
+<<<<<<<<< Temporary merge branch 1
+=========
     String name = " ";
+>>>>>>>>> Temporary merge branch 2
 
     private Stage stage;
     private Scene scene;
@@ -58,7 +64,10 @@ public class loginPageController {
             labelLoggedVisa.setText ("Hello "+globalVisa);
         }
     }
+<<<<<<<<< Temporary merge branch 1
+=========
 
+>>>>>>>>> Temporary merge branch 2
 
     public void login(ActionEvent event) throws IOException {
 
@@ -67,7 +76,11 @@ public class loginPageController {
         name = jsonObject.get("name").toString();
 
         //Changing label of User and his Manager
+<<<<<<<<< Temporary merge branch 1
+        labelLoggedVisa.setText(globalVisa);
+=========
         labelLoggedVisa.setText ("Hello "+name);
+>>>>>>>>> Temporary merge branch 2
 
         String visa = jsonObject.get("visa").toString();
         String password = jsonObject.get("password").toString();
@@ -82,7 +95,7 @@ public class loginPageController {
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
         if (globalVisa == "")
         {
-            methodClass.messageBox("Make sure you are logged in first!", "Not logged in.");
+            methodClass.messageBox("Please login first!", "Not logged in.");
         }
         else {
 
@@ -101,18 +114,13 @@ public class loginPageController {
     public void switchToCarpoolDashboard(MouseEvent e) throws IOException {
         if (globalVisa == "")
         {
-            methodClass.messageBox("Please loggin first!", "Not logged in.");
+            methodClass.messageBox("Please login first!", "Not logged in.");
         }
         else {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("carpoolDashBoard.fxml"));
-            root = loader.load();
-            CarpoolDashboardController carpoolDashboardController = loader.getController();
-
-            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("carpoolDashboard.fxml"));
+            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
-            carpoolDashboardController.setup(globalVisa);
             stage.show();
         }
     }

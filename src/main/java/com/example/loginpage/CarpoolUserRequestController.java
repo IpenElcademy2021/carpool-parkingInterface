@@ -1,5 +1,6 @@
 package com.example.loginpage;
 
+import com.example.loginpage.models.PoolingCarOwners;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.User;
 import com.example.loginpage.oop.PoolingMethodClass;
@@ -14,18 +15,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Date;
 
-@Slf4j
 public class CarpoolUserRequestController {
 
     @FXML
@@ -38,15 +35,10 @@ public class CarpoolUserRequestController {
     private Label label_visa,label_date,label_region,label_pickup_point,label_pickup_time,label_departure_time;
 
     @FXML
-    private HBox HBoxDashboard, HBoxPropose, HBoxRequest, HBoxManage;
-
-
-
-    @FXML
     String globalVisa;
 
-    int seat = 0;
-
+    @FXML
+    String carOwnersVisa="";
 
     @FXML
     int poolingID =0;
@@ -60,30 +52,14 @@ public class CarpoolUserRequestController {
 
     String comment = "No comment";
 
-    Boolean hasCarBoolean;
-
-
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
-
-
 
     OkHttpClient okHttpClient = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public void setup(String visa, Boolean hasCar) throws IOException {
+    public void setup(String visa) throws IOException {
+
         globalVisa = visa;
-        hasCarBoolean = hasCar;
-        if(hasCar == true)
-        {
-            HBoxRequest.setDisable(true);
-            log.info("You are a driver");
-        }
-        else
-        {
-            HBoxPropose.setDisable(true);
-            HBoxManage.setDisable(true);
-            log.info("You are not a driver");
-        }
 
         ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
         column_visa.setCellValueFactory(new PropertyValueFactory<User,String>("visa"));
@@ -98,6 +74,12 @@ public class CarpoolUserRequestController {
 
         tableView_request.setItems(data);
 
+        ObservableList<PoolingCarOwners> data1 = poolingMethodClass.getAllCarOwnersForPooling();
+
+
+
+
+
     }
 
 
@@ -110,41 +92,34 @@ public class CarpoolUserRequestController {
         label_pickup_time.setText(poolingPropose.getPickUpTime());
         label_departure_time.setText(poolingPropose.getDepartureTime());
         poolingID = Integer.parseInt(poolingPropose.getPoolId());
-        seat = Integer.parseInt(poolingPropose.getSeat());
     }
 
     public void createUserRequest(ActionEvent actionEvent) throws IOException{
 
         if (poolingID >0){
-            if (seat>0) {
 
-                String json = "    {\n        \"reservationStatus\": \"" + reservationStatus + "\",\n" +
-                        "        \"pooling\": {\"poolId\": " + poolingID + "},\n" +
-                        "        \"user\": {\"visa\":\"" + globalVisa + "\"},\n" +
-                        "        \"comment\": \"" + comment + "\"\n" +
-                        "    }";
+        String json = "    {\n        \"reservationStatus\": \"" + reservationStatus + "\",\n" +
+                "        \"pooling\": {\"poolId\": " + poolingID + "},\n" +
+                "        \"user\": {\"visa\":\"" + globalVisa + "\"},\n" +
+                "        \"comment\": \"" + comment + "\"\n" +
+                "    }";
 
-                RequestBody body = RequestBody.create(JSON, json);
-                Request request = new Request.Builder().url("http://localhost:8080/cppk/createUserRequest").post(body).build();
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder().url("http://localhost:8080/cppk/createUserRequest").post(body).build();
 
-                log.debug(json);
+        System.out.println(json);
 
-                try (Response response = okHttpClient.newCall(request).execute()) {
-                    log.debug(response.body().string());
-                }
-
-                MessageBox("New user request added", "User Request ");
-                log.info("New user request added");
-            }else {
-                MessageBox("No seat available", "User Request ");
-                log.info("No seat available");
-            }
-        }else {
-            MessageBox("Please select a proposal","No User Request ");
-            log.error("Please select a proposal");
+        try (Response response = okHttpClient.newCall(request).execute()){
+            System.out.println(response.body().string());
         }
 
-        setup(globalVisa, hasCarBoolean);
+        MessageBox("New user request added","User Request ");
+
+        }else {
+            MessageBox("Please select a proposal","No User Request ");
+        }
+
+        setup(globalVisa);
     }
 
     private void MessageBox(String message, String title) {
@@ -174,7 +149,7 @@ public class CarpoolUserRequestController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa,hasCarBoolean);
+        poolingProposeController.setup(globalVisa);
         stage.show();
     }
 
@@ -186,7 +161,7 @@ public class CarpoolUserRequestController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
+        carpoolUserRequestController.setup(globalVisa);
         stage.show();
 
     }
@@ -199,42 +174,8 @@ public class CarpoolUserRequestController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa,hasCarBoolean);
+        carpoolManagementController.setup(globalVisa);
         stage.show();
-    }
-
-    public void switchToMainMenu (MouseEvent e) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
-        root = loader.load();
-        loginPageController loginPageController = loader.getController();
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        loginPageController.setup(globalVisa);
-        stage.show();
-    }
-
-    public void logout(MouseEvent e) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
-        root = loader.load();
-        loginPageController loginPageController = loader.getController();
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        loginPageController.setup("");
-        stage.show();
-    }
-
-    public void btnClear(MouseEvent e) throws IOException {
-        label_date.setText("");
-        label_departure_time.setText("");
-        label_pickup_point.setText("");
-        label_region.setText("");
-        label_pickup_time.setText("");
-        label_visa.setText("");
-
-        poolingID = 0;
     }
 
 }
