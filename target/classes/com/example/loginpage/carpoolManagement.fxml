@@ -14,7 +14,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -30,7 +29,29 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <Region prefHeight="54.0" prefWidth="660.0" />
+            <HBox prefHeight="51.0" prefWidth="135.0">
+               <children>
+                  <Label prefHeight="48.0" prefWidth="82.0" text="Logout">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logout.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets left="450.0" />
+               </HBox.margin>
+            </HBox>
          </children>
       </HBox>
    </top>
