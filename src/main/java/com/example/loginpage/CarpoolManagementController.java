@@ -158,6 +158,7 @@ public class CarpoolManagementController {
         textField_visa.setText(carpoolManagement.getVisa());
         date = carpoolManagement.getDate();
         textField_date.setText(date);
+        comboBox_status.setPromptText(carpoolManagement.getReservationStatus());
         selectedPoolId = carpoolManagement.getPoolId();
         userRequestId = carpoolManagement.getUserRequestId();
         seat = Integer.parseInt(carpoolManagement.getSeat());
@@ -167,7 +168,7 @@ public class CarpoolManagementController {
     public void cancelBtn(MouseEvent e) throws IOException {
         textField_visa.setText("");
         textField_date.setText("");
-        comboBox_status.setAccessibleText("Pending");
+        comboBox_status.setPromptText("Pending");
         textArea_comment.setText("");
 
     }
