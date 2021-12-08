@@ -45,7 +45,6 @@
                   <TableView fx:id="tableView_request" onMouseClicked="#getSelectedRecord" prefHeight="179.0" prefWidth="725.0">
                      <columns>
                         <TableColumn fx:id="column_visa" prefWidth="61.600004577636355" text="Visa" />
-                        <TableColumn fx:id="column_name" prefWidth="89.60004425048828" text="Driver Name" />
                         <TableColumn fx:id="column_date" prefWidth="71.20001220703125" text="Date" />
                         <TableColumn fx:id="column_region" prefWidth="86.39996337890625" text="Region" />
                         <TableColumn fx:id="column_pickup_point" prefWidth="99.20001220703125" text="PIckup Point" />

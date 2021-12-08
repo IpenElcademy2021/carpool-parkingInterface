@@ -73,14 +73,13 @@ public class PoolingProposeController {
         if(hasCar == true)
         {
             HBoxRequest.setDisable(true);
-            log.info("LOG: You are a driver");
-            //System.out.println("You are a driver");
+            log.info("You are a driver");
         }
         else
         {
             HBoxPropose.setDisable(true);
             HBoxManage.setDisable(true);
-            System.out.println("You are not a driver");;
+            log.info("You are not a driver");
         }
 
 
@@ -95,8 +94,6 @@ public class PoolingProposeController {
 
         tableView_propose.setItems(data);
 
-
-        //labelCurrentStatus.setText("Add required Information");
     }
 
     OkHttpClient okHttpClient = new OkHttpClient();
@@ -112,9 +109,11 @@ public class PoolingProposeController {
                 addPooling();
             }else {
                 MessageBox("Field pick up point and field pick up time are empty or enter departure time only", "Error");
+                log.error("Field pick up point and field pick up time are empty or enter departure time only");
             }
         }else {
             MessageBox("Field region is empty", "Error");
+            log.error("Field region is empty");
         }
 
     }
@@ -132,15 +131,16 @@ public class PoolingProposeController {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder().url("http://localhost:8080/cppk/createPooling").post(body).build();
 
-        System.out.println(json);
+        log.debug(json);
 
         try (Response response = okHttpClient.newCall(request).execute()) {
-            System.out.println(response.body().string());
+            log.debug(response.body().string());
         }
 
         setup(globalVisa, hasCarBoolean);
 
         MessageBox("New Pooling added", "Propose Pooling");
+        log.info("New Pooling added");
     }
 
 

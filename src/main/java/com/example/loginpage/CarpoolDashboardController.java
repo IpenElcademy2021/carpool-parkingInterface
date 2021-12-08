@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-
+@Slf4j
 public class CarpoolDashboardController {
 
     @FXML
@@ -79,21 +79,21 @@ public class CarpoolDashboardController {
         }
 
         for (int counter = 0; counter < carUsersArray.size(); counter++) {
-            System.out.println(carUsersArray.get(counter));
+            log.debug(carUsersArray.get(counter));
         }
 
         if(carUsersArray.contains(globalVisa.toUpperCase()))
         {
             hasCarBoolean = true;
             HBoxRequest.setDisable(true);
-            System.out.println("You are a driver");
+            log.info("You are a driver");
         }
         else
         {
             hasCarBoolean = false;
             HBoxPropose.setDisable(true);
             HBoxManage.setDisable(true);
-            System.out.println("You are not a driver");
+            log.info("You are not a driver");
         }
         carUsersArray.clear();
     }

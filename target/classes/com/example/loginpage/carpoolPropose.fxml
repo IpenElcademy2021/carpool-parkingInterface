@@ -221,7 +221,7 @@
                         <Insets left="180.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_create1" mnemonicParsing="false" onAction="#CreatePooling" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+                  <Button fx:id="button_create1" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
                      <HBox.margin>
                         <Insets left="95.0" top="20.0" />
                      </HBox.margin>
