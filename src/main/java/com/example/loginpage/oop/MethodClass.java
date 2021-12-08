@@ -26,23 +26,18 @@ import java.util.Optional;
 public class MethodClass {
     //OOP
     OkHttpGet okHttpGet = new OkHttpGet();
-    OkHttpPost okHttpPost = new OkHttpPost();
-    OkHttpDelete okHttpDelete = new OkHttpDelete();
-    OkHttpPut okHttpPut = new OkHttpPut();
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSX");
 
     public void Exit() {
         messageBox("Goodbye", "Exit");
         System.exit(0);
     }
 
-
     public static void messageBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "" + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public ObservableList<FreeParkingUserCarOwners> getAllFreeParking() throws IOException {
 
+    public ObservableList<FreeParkingUserCarOwners> getAllFreeParking() throws IOException {
         String url = "http://localhost:8080/cppk/getAllFreeParking/";
         System.out.println(okHttpGet.run(url));
         String response = okHttpGet.run(url);
@@ -81,6 +76,7 @@ public class MethodClass {
         return datareturn;
     }
 
+
     public ObservableList<RequestUserCarOwners> getMyParkingDemands(String drivervisa) throws IOException {
 
         String url = "http://localhost:8080/cppk/searchRequestByDriverVisa/" + drivervisa;
@@ -115,7 +111,6 @@ public class MethodClass {
         }
         return datareturn;
     }
-
 
 
     public ObservableList<RequestUserCarOwners> getMyParkingDemandsByStatus(String drivervisa, String status1) throws IOException {
@@ -153,6 +148,7 @@ public class MethodClass {
         return datareturn;
     }
 
+
     public ObservableList<RequestUserCarOwners> searchAllUsers() throws IOException {
         String url = "http://localhost:8080/cppk/getAllUser/";
         System.out.println(" HERE" + okHttpGet.run(url));
@@ -185,7 +181,6 @@ public class MethodClass {
 
                 }
 
-
                 data.add(new RequestUserCarOwners(visa, password, name, address, phoneNumber, carPlate, parkingSlot, carOwners));
                 carPlate = ""; parkingSlot = "";
                 datareturn = data;
@@ -195,6 +190,7 @@ public class MethodClass {
         }
         return datareturn;
     }
+
 
     public ObservableList<RequestUserCarOwners> getMyRequestByUser(String user) throws IOException {
 
@@ -227,6 +223,7 @@ public class MethodClass {
         return datareturn;
     }
 
+
     public JSONObject findUserbyVisa(String providedvisa) throws IOException {
         JSONObject rjsonObject = null;
         String url = "http://localhost:8080/cppk/findbyvisa/" + providedvisa;
@@ -245,6 +242,7 @@ public class MethodClass {
         }
         return rjsonObject;
     }
+
 
     public ObservableList<RequestUserCarOwners> searchAllCarOwners() throws IOException {
         String url = "http://localhost:8080/cppk/getAllCarOwners/";
@@ -281,6 +279,7 @@ public class MethodClass {
         }
         return datareturn;
     }
+
 
     public ObservableList<FreeParking> searchAllRequest() throws IOException {
         String url = "http://localhost:8080/cppk/getAllFreeParking/";

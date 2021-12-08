@@ -26,6 +26,8 @@ import javafx.scene.input.MouseEvent;
 
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 
@@ -40,7 +42,6 @@ import java.util.List;
 
 public class parkingManageParkingController {
     //OOP
-    OkHttpGet okHttpGet = new OkHttpGet();
     OkHttpPut okHttpPut = new OkHttpPut();
     OkHttpDelete okHttpDelete = new OkHttpDelete();
     OkHttpPost okHttpPost = new OkHttpPost();
@@ -49,15 +50,13 @@ public class parkingManageParkingController {
     @FXML
     private DatePicker dpApplyFreeParking;
     @FXML
-    private Label labelCurrentStatus, labelGlobalvisa;
-    @FXML
     private CheckBox checkboxProposeFreeParking, checkboxConfirmUpdateRequest;
     @FXML
     private TableColumn tablecolumnManageDate, tablecolumnManageVisa, tablecolumnRequestId, tablecolumnManageDateA, tablecolumnManageVisaA, tablecolumnRequestIdA, tablecolumnManageDateD, tablecolumnManageVisaD, tablecolumnRequestIdD;
     @FXML
     private TableView tableviewDemand, tableviewDemandA, tableviewDemandD;
     @FXML
-    private Label labelVisaSelected, labelDateSelected;
+    private Label labelVisaSelected, labelDateSelected, labelCurrentStatus, labelLoggedVisa;
     @FXML
     private RadioButton radioApprove, radioDecline;
     @FXML
@@ -75,40 +74,35 @@ public class parkingManageParkingController {
     List<String> dataArray = new ArrayList<String>();
     List<String> dataArrayA = new ArrayList<String>();
     List<String> dataArrayD = new ArrayList<String>();
-    List<String> carUsersArray = new ArrayList<String>();
     List<String> requestDataArray = new ArrayList<String>();
+    private final Logger logger = LoggerFactory.getLogger(parkingManageParkingController.class);
 
-
-    @FXML
-    protected void initialize() throws IOException {
-//        setup(globalVisa, carUsersArray);
-    }
 
     public void setup(String globalvisa, Boolean phasCarBoolean, Image visaImage, String sglobalTextAreaData) throws IOException {
-
+        //Check if user has car
         if(phasCarBoolean)
         {
             sidemenuApplyParking.setDisable(true);
-            labelCurrentStatus.setText("You are a car owner!");
+            labelCurrentStatus.setText("CarOwner Detected, Apply parking disabled.");
         }
         else
         {
             sidemenuManageParking.setDisable(true);
-            labelCurrentStatus.setText("You do not havea car!");
+            labelCurrentStatus.setText("Non-CarOwner Detected, Manage parking disabled.");
         }
 
-        labelGlobalvisa.setText(globalvisa);
+        //Initial setup
+        labelLoggedVisa.setText(globalvisa);
         imageviewUser.setImage(visaImage);
         globalTextAreaData = sglobalTextAreaData;
         textareaUserInfo.setText(sglobalTextAreaData);
         hasCarBoolean = phasCarBoolean;
-        globalVisa = labelGlobalvisa.getText();
+        globalVisa = labelLoggedVisa.getText();
 
-        //populating tableview
+        //Populating tableview
         ObservableList<RequestUserCarOwners> data = methodClass.getMyParkingDemandsByStatus(globalVisa, "applied");
         ObservableList<RequestUserCarOwners> dataA = methodClass.getMyParkingDemandsByStatus(globalVisa, "approved");
         ObservableList<RequestUserCarOwners> dataD = methodClass.getMyParkingDemandsByStatus(globalVisa, "declined");
-
 
         tablecolumnRequestId.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("requestId"));
         tablecolumnManageVisa.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("visa"));
@@ -126,9 +120,7 @@ public class parkingManageParkingController {
         tableviewDemandA.setItems(dataA);
         tableviewDemandD.setItems(dataD);
 
-
-
-
+        //Adding data to an Array (Applied, Accept and Declined)
         dataArray.clear();
         Iterator<RequestUserCarOwners> iterator = data.iterator();
         while (iterator.hasNext()) {
@@ -146,10 +138,12 @@ public class parkingManageParkingController {
             dataArrayD.add(iteratorD.next().getDate());
         }
 
-
+        //logging
         labelCurrentStatus.setText("Your manage parking loaded successfully!");
+        logger.info("Your manage parking loaded successfully!");
     }
 
+    //Listening and getting the current selected record (Applied)
     Integer requestId;
     public void getSelectedRecord(MouseEvent mouseEvent) throws IOException {
         RequestUserCarOwners requestUserCarOwners = (RequestUserCarOwners) tableviewDemand.getSelectionModel().getSelectedItem();
@@ -158,6 +152,7 @@ public class parkingManageParkingController {
         requestId = Integer.parseInt(requestUserCarOwners.getRequestId());
     }
 
+    //Listening and getting the current selected record (Approved and Declined)
     Integer deleterequestId;
     public void getSelectedRecordA(MouseEvent mouseEvent) throws IOException {
         RequestUserCarOwners requestUserCarOwners = (RequestUserCarOwners) tableviewDemandA.getSelectionModel().getSelectedItem();
@@ -168,59 +163,66 @@ public class parkingManageParkingController {
         deleterequestId = Integer.parseInt(requestUserCarOwners.getRequestId());
     }
 
+    //Setting a status to a leave
     public void setLeaveStatus() throws IOException {
         if(checkboxConfirmUpdateRequest.isSelected()) {
-            if(radioApprove.isSelected()) {
-                if(dataArrayA.contains(labelDateSelected.getText()))
-                {
-                    methodClass.messageBox("You already have this date booked", "Date already booked!");
-                    labelCurrentStatus.setText("User error");
+                if(radioApprove.isSelected()) {
+                    if(dataArrayA.contains(labelDateSelected.getText()))
+                        {
+                            methodClass.messageBox("You already have this date booked", "Date already booked!");
+                            labelCurrentStatus.setText("User error");
+                        }
+                        else
+                        {
+                            String url = "http://localhost:8080/cppk/update/" + requestId;
+                            String updateRequestJson = "    {\n        \"status\": \"" + "Approved" + "\"\n" +
+                                    "    }";
+
+                            okHttpPut.post(url, updateRequestJson);
+                            checkboxConfirmUpdateRequest.setSelected(false);
+                            radioDecline.setSelected(false);
+                            radioApprove.setSelected(false);
+                            labelCurrentStatus.setText("Request approved!");
+                            setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
+                        }
                 }
-                else
-                {
+
+                else if (radioDecline.isSelected()) {
                     String url = "http://localhost:8080/cppk/update/" + requestId;
-                    String updateRequestJson = "    {\n        \"status\": \"" + "Approved" + "\"\n" +
+                    String updateRequestJson = "    {\n        \"status\": \"" + "Declined" + "\"\n" +
                             "    }";
-                    System.out.println(updateRequestJson);
-                    okHttpPut.post(url, updateRequestJson);
                     checkboxConfirmUpdateRequest.setSelected(false);
                     radioDecline.setSelected(false);
                     radioApprove.setSelected(false);
-                    labelCurrentStatus.setText("Request approved!");
+                    okHttpPut.post(url, updateRequestJson);
+                    labelCurrentStatus.setText("Request declined!");
                     setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
                 }
 
-            }
-            else if (radioDecline.isSelected()) {
-                String url = "http://localhost:8080/cppk/update/" + requestId;
-                String updateRequestJson = "    {\n        \"status\": \"" + "Declined" + "\"\n" +
-                        "    }";
-                checkboxConfirmUpdateRequest.setSelected(false);
-                radioDecline.setSelected(false);
-                radioApprove.setSelected(false);
-                okHttpPut.post(url, updateRequestJson);
-                labelCurrentStatus.setText("Request declined!");
-                setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
-            }
-            else {
+                else {
                 methodClass.messageBox("Please select a Radio Button (Accept/Decline)", "User Error");
-                labelCurrentStatus.setText("User error");
-            }
 
+                //logging
+                logger.debug("Radiobutton error");
+                labelCurrentStatus.setText("Radiobutton error");
+            }
         }
 
         else {
                  methodClass.messageBox("Please check the Checkbox before Requesting a parking slot", "User error");                labelCurrentStatus.setText("User error");
-                 labelCurrentStatus.setText("User error");
+                 logger.debug("Checkbox error");
+                 labelCurrentStatus.setText("Checkbox error");
         }
     }
 
 
+    //Delete selected Applied/Declined request
     public void DeleteRequest() throws IOException {
         if(deleterequestId == null)
         {
             methodClass.messageBox("Please select a record to delete!", "Error no record selected");
             labelCurrentStatus.setText("Select a record first.");
+            logger.info("Select a record first.");
         }
         else
         {
@@ -230,16 +232,19 @@ public class parkingManageParkingController {
             setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
             deleterequestId = null;
             labelCurrentStatus.setText("Request deleted successfully!");
-
+            logger.info("Request deleted successfully!");
         }
     }
 
+    //Proposing a free parking on a date
     public void ApplyFreeParking() throws IOException {
         if(checkboxProposeFreeParking.isSelected())
         {
             String newFreeParkingjson;
             ObservableList<FreeParking> requestData = methodClass.searchAllRequest();
 
+            //Checking if date is already in database
+            //Putting all date of Table free parking to an Array
             requestDataArray.clear();
             Iterator<FreeParking> requestIterator = requestData.iterator();
             while (requestIterator.hasNext()) {
@@ -259,15 +264,40 @@ public class parkingManageParkingController {
 
                 String response = okHttpPost.post("http://localhost:8080/cppk/addFreeParking/", newFreeParkingjson);
                 labelCurrentStatus.setText(response);
+                logger.debug(response);
             }
         }
         else
         {
          methodClass.messageBox("Please check the Checkbox before proposing a free parking slot", "User error");
+            logger.debug("Checkbox error");
             labelCurrentStatus.setText("Checkbox error");
         }
     }
 
+    public void SendFeedBack() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setTitle("Send feedback");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void ShowCredit() throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URI("https://github.com/IpenElcademy2021"));
+    }
+
+    public void Exit() {
+        methodClass.Exit();
+    }
+
+
+
+
+    //Switching and Communicating with other Scenes/FXMLs
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingDashboard.fxml"));
         root = loader.load();
@@ -322,22 +352,5 @@ public class parkingManageParkingController {
         stage.show();
     }
 
-    public void SendFeedBack() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
-        Scene scene = new Scene(root);
 
-        Stage stage = new Stage();
-        stage.setTitle("Send feedback");
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-    public void ShowCredit() throws IOException, URISyntaxException {
-        Desktop.getDesktop().browse(new URI("https://github.com/IpenElcademy2021"));
-    }
-
-    public void Exit() {
-        methodClass.Exit();
-    }
 }

@@ -1,6 +1,9 @@
 package com.example.loginpage.oop;
 
+import com.example.loginpage.parkingManageParkingController;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
@@ -17,12 +20,16 @@ import javax.mail.internet.MimeMessage;
 
 
 public class SendEmail {
+    //OOP
     MethodClass methodClass = new MethodClass();
+
+    private final Logger logger = LoggerFactory.getLogger(SendEmail.class);
 
     public void sendEmailNotfication(String sendEmailTitle, String sendEmailMsg, String drivervisa) throws IOException {
 
         String address;
 
+        //Checking it is a feedback email
         if(drivervisa.equals("feedback"))
         {
             address = "postpilot130@gmail.com";
@@ -32,7 +39,6 @@ public class SendEmail {
             JSONObject jsonUserObject = methodClass.findUserbyVisa(drivervisa);
             address = jsonUserObject.get("address").toString();
         }
-
 
 
         // Recipient's email ID needs to be mentioned.
@@ -57,9 +63,7 @@ public class SendEmail {
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 
             protected PasswordAuthentication getPasswordAuthentication() {
-
                 return new PasswordAuthentication("postpilot130@gmail.com", "rauelcadb");
-
             }
 
         });
@@ -83,10 +87,10 @@ public class SendEmail {
             // Now set the actual message
             message.setText(sendEmailMsg);
 
-            System.out.println("sending...");
+            logger.debug("sending...");
             // Send message
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+            logger.debug("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
