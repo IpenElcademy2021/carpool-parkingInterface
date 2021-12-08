@@ -20,7 +20,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.Date;
 
-
+@Slf4j
 public class CarpoolManagementController {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -56,13 +56,13 @@ public class CarpoolManagementController {
         if(hasCar == true)
         {
             HBoxRequest.setDisable(true);
-            System.out.println("You are a driver");
+            log.info("You are a driver");
         }
         else
         {
             HBoxPropose.setDisable(true);
             HBoxManage.setDisable(true);
-            System.out.println("You are not a driver");;
+            log.info("You are not a driver");
         }
 
 
@@ -79,7 +79,8 @@ public class CarpoolManagementController {
 
         tableView_management.setItems(data);
 
-        System.out.println(data);
+
+        log.debug(String.valueOf(data));
     }
 
     @FXML
@@ -179,13 +180,16 @@ public class CarpoolManagementController {
                 seat = seat - 1;
                 update();
                 MessageBox("Pooling Accepted", "Requested Pooling");
+                log.info("Pooling Accepted");
             } else {
                 update();
                 MessageBox("Pooling Rejected", "Requested Pooling");
+                log.error("Pooling Rejected");
             }
 
         } else {
             MessageBox("No places left on date " + date, "Requested Pooling");
+            log.info("No places left on date " + date);
         }
 
     }
@@ -201,6 +205,7 @@ public class CarpoolManagementController {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder().url("http://localhost:8080/prc/updateRequest/" + userRequestId).put(body).build();
         try (Response response = okHttpClient.newCall(request).execute()) {
+            log.debug(response.body().string());
 
         }
 
@@ -210,7 +215,7 @@ public class CarpoolManagementController {
         RequestBody body1 = RequestBody.create(JSON, json1);
         Request request1 = new Request.Builder().url("http://localhost:8080/cppk/updateSeat/" + selectedPoolId).put(body1).build();
         try (Response response1 = okHttpClient.newCall(request1).execute()) {
-
+            log.debug(response1.body().string());
         }
 
 

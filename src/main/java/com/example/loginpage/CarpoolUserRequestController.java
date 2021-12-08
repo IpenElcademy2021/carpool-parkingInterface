@@ -18,12 +18,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Date;
 
+@Slf4j
 public class CarpoolUserRequestController {
 
     @FXML
@@ -42,6 +44,8 @@ public class CarpoolUserRequestController {
 
     @FXML
     String globalVisa;
+
+    int seat = 0;
 
 
     @FXML
@@ -72,13 +76,13 @@ public class CarpoolUserRequestController {
         if(hasCar == true)
         {
             HBoxRequest.setDisable(true);
-            System.out.println("You are a driver");
+            log.info("You are a driver");
         }
         else
         {
             HBoxPropose.setDisable(true);
             HBoxManage.setDisable(true);
-            System.out.println("You are not a driver");;
+            log.info("You are not a driver");
         }
 
         ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
@@ -106,31 +110,38 @@ public class CarpoolUserRequestController {
         label_pickup_time.setText(poolingPropose.getPickUpTime());
         label_departure_time.setText(poolingPropose.getDepartureTime());
         poolingID = Integer.parseInt(poolingPropose.getPoolId());
+        seat = Integer.parseInt(poolingPropose.getSeat());
     }
 
     public void createUserRequest(ActionEvent actionEvent) throws IOException{
 
         if (poolingID >0){
+            if (seat>0) {
 
-        String json = "    {\n        \"reservationStatus\": \"" + reservationStatus + "\",\n" +
-                "        \"pooling\": {\"poolId\": " + poolingID + "},\n" +
-                "        \"user\": {\"visa\":\"" + globalVisa + "\"},\n" +
-                "        \"comment\": \"" + comment + "\"\n" +
-                "    }";
+                String json = "    {\n        \"reservationStatus\": \"" + reservationStatus + "\",\n" +
+                        "        \"pooling\": {\"poolId\": " + poolingID + "},\n" +
+                        "        \"user\": {\"visa\":\"" + globalVisa + "\"},\n" +
+                        "        \"comment\": \"" + comment + "\"\n" +
+                        "    }";
 
-        RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder().url("http://localhost:8080/cppk/createUserRequest").post(body).build();
+                RequestBody body = RequestBody.create(JSON, json);
+                Request request = new Request.Builder().url("http://localhost:8080/cppk/createUserRequest").post(body).build();
 
-        System.out.println(json);
+                log.debug(json);
 
-        try (Response response = okHttpClient.newCall(request).execute()){
-            System.out.println(response.body().string());
-        }
+                try (Response response = okHttpClient.newCall(request).execute()) {
+                    log.debug(response.body().string());
+                }
 
-        MessageBox("New user request added","User Request ");
-
+                MessageBox("New user request added", "User Request ");
+                log.info("New user request added");
+            }else {
+                MessageBox("No seat available", "User Request ");
+                log.info("No seat available");
+            }
         }else {
             MessageBox("Please select a proposal","No User Request ");
+            log.error("Please select a proposal");
         }
 
         setup(globalVisa, hasCarBoolean);
