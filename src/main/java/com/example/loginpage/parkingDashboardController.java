@@ -163,7 +163,7 @@ public class parkingDashboardController {
         SortedList<RequestUserCarOwners> sortedData = new SortedList(filteredData);
         sortedData.comparatorProperty().bind(this.tableviewDashboard.comparatorProperty());
         this.tableviewDashboard.setItems(sortedData);
-
+        labelCurrentStatus.setText("Your parking dashboard loaded successfully!");
     }
 
     public void clearFilter() {
