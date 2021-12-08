@@ -17,7 +17,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import javax.swing.*;
@@ -25,7 +27,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
-
+@Slf4j
 public class PoolingProposeController {
 
     @FXML
@@ -43,6 +45,8 @@ public class PoolingProposeController {
     @FXML
     private TableColumn column_visa, column_date, column_region, column_pickup_point, column_pickup_time, column_departure_time, column_seat;
 
+    @FXML
+    private HBox HBoxDashboard, HBoxPropose, HBoxRequest, HBoxManage;
 
     @FXML
     String globalVisa;
@@ -51,19 +55,33 @@ public class PoolingProposeController {
     private Scene scene;
     private Parent root;
 
+    Boolean hasCarBoolean;
+
 
     PoolingMethodClass poolingMethodClass = new PoolingMethodClass();
 
     @FXML
-    public void setup(String visa) throws IOException {
+    public void setup(String visa, Boolean hasCar) throws IOException {
+        globalVisa = visa;
         ObservableList<Integer> seats = FXCollections.observableArrayList(1, 2, 3);
         comboxBox_seat.setItems(seats);
         comboxBox_seat.getSelectionModel().selectFirst();
 
         datePicker_date.setValue(LocalDate.now());
 
+        hasCarBoolean = hasCar;
+        if(hasCar == true)
+        {
+            HBoxRequest.setDisable(true);
+            log.info("You are a driver");
+        }
+        else
+        {
+            HBoxPropose.setDisable(true);
+            HBoxManage.setDisable(true);
+            log.info("You are not a driver");
+        }
 
-        globalVisa = visa;
 
         ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
         column_visa.setCellValueFactory(new PropertyValueFactory<User, String>("visa"));
@@ -76,8 +94,6 @@ public class PoolingProposeController {
 
         tableView_propose.setItems(data);
 
-
-        //labelCurrentStatus.setText("Add required Information");
     }
 
     OkHttpClient okHttpClient = new OkHttpClient();
@@ -93,9 +109,11 @@ public class PoolingProposeController {
                 addPooling();
             }else {
                 MessageBox("Field pick up point and field pick up time are empty or enter departure time only", "Error");
+                log.error("Field pick up point and field pick up time are empty or enter departure time only");
             }
         }else {
             MessageBox("Field region is empty", "Error");
+            log.error("Field region is empty");
         }
 
     }
@@ -113,21 +131,34 @@ public class PoolingProposeController {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder().url("http://localhost:8080/cppk/createPooling").post(body).build();
 
-        System.out.println(json);
+        log.debug(json);
 
         try (Response response = okHttpClient.newCall(request).execute()) {
-            System.out.println(response.body().string());
+            log.debug(response.body().string());
         }
 
-        setup(globalVisa);
+        setup(globalVisa, hasCarBoolean);
 
         MessageBox("New Pooling added", "Propose Pooling");
+        log.info("New Pooling added");
     }
 
 
 
     private void MessageBox(String message, String title) {
         JOptionPane.showMessageDialog(null,message,"" +title,JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void switchToMainMenu (MouseEvent e) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+        root = loader.load();
+        loginPageController loginPageController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        loginPageController.setup(globalVisa);
+        stage.show();
     }
 
     public void switchToPoolingDashboard(MouseEvent e) throws IOException{
@@ -153,7 +184,7 @@ public class PoolingProposeController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa);
+        poolingProposeController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -165,7 +196,7 @@ public class PoolingProposeController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa);
+        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
         stage.show();
 
     }
@@ -178,7 +209,18 @@ public class PoolingProposeController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa);
+        carpoolManagementController.setup(globalVisa,hasCarBoolean);
+        stage.show();
+    }
+
+    public void logout(MouseEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+        root = loader.load();
+        loginPageController loginPageController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        loginPageController.setup("");
         stage.show();
     }
 

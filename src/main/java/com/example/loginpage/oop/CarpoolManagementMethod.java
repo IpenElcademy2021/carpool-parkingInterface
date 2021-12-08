@@ -20,7 +20,6 @@ public class CarpoolManagementMethod {
         public ObservableList<CarpoolManagement> getCarpoolRequestByVisa (String globalVisa) throws IOException {
 
             String url = "http://localhost:8080/prc/getRequestByVisa/"+globalVisa;
-            System.out.println(url);
             String response = okHttpGet.run(url);
             ObservableList<CarpoolManagement> CarpoolRequestReturn = FXCollections.observableArrayList();
 
@@ -38,7 +37,7 @@ public class CarpoolManagementMethod {
                 String poolId = "";
                 String userRequestId = "";
 
-                //System.out.println(jsonArray.toArray().length);
+
                 for (var i = 0; i < jsonArray.toArray().length; i++) {
                     JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                     JSONObject jsonObjectPooling = (JSONObject) jsonObject.get("pooling");

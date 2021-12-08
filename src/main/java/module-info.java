@@ -7,6 +7,9 @@ module com.example.loginpage {
     requires json.simple;
     requires okhttp3;
     requires lombok;
+    requires java.mail;
+    requires slf4j.api;
+
 
     opens com.example.loginpage to javafx.fxml;
     exports com.example.loginpage;

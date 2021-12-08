@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingManageParkingController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingManageParkingController">
    <bottom>
       <VBox prefHeight="37.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -38,7 +38,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Region>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
+                  <Button mnemonicParsing="false" onMouseClicked="#switchToLoginPageReturn" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -51,22 +51,22 @@
    <left>
       <VBox spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuParkingDashboard" onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/home_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="10.0" onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuApplyParking" layoutX="10.0" layoutY="10.0" onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/plus_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="160.0" onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuManageParking" layoutX="10.0" layoutY="160.0" onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/carpool_40px.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="10.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sidemenuCredits" layoutX="10.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/manage.png" />
                </image>
@@ -105,6 +105,39 @@
                         <Button mnemonicParsing="false" onAction="#ApplyFreeParking" text="Propose" />
                      </children>
                   </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="Approved Request" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tableviewDemandA" onMouseClicked="#getSelectedRecordA" prefHeight="160.0" prefWidth="239.0">
+                                 <columns>
+                                    <TableColumn fx:id="tablecolumnRequestIdA" prefWidth="34.40002363920212" text="ID" />
+                                    <TableColumn fx:id="tablecolumnManageVisaA" prefWidth="50.399967193603516" text="VISA" />
+                                    <TableColumn fx:id="tablecolumnManageDateA" prefWidth="143.199951171875" text="Date" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <Label layoutX="10.0" layoutY="10.0" text="Declined Request" />
+                        <HBox prefHeight="100.0" prefWidth="222.0">
+                           <children>
+                              <TableView fx:id="tableviewDemandD" onMouseClicked="#getSelectedRecordD" prefHeight="160.0" prefWidth="222.0">
+                                 <columns>
+                                    <TableColumn fx:id="tablecolumnRequestIdD" prefWidth="34.40002363920212" text="ID" />
+                                    <TableColumn fx:id="tablecolumnManageVisaD" prefWidth="50.399967193603516" text="VISA" />
+                                    <TableColumn fx:id="tablecolumnManageDateD" prefWidth="143.199951171875" text="Date" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="222.0">
+                           <children>
+                              <Button fx:id="buttonDeleteRequest" mnemonicParsing="false" onAction="#DeleteRequest" text="Delete request" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
             <Region prefHeight="308.0" prefWidth="93.0" />
@@ -181,7 +214,7 @@
                      </font>
                   </Label>
                   <Region prefHeight="54.0" prefWidth="352.0" />
-                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" onMouseClicked="#switchToLoginPageLogOut" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/power.png" />
                      </image>

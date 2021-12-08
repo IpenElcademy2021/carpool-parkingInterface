@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -25,8 +24,33 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <Region prefHeight="54.0" prefWidth="665.0" />
+            <HBox onMouseClicked="#logout" prefHeight="51.0" prefWidth="135.0">
+               <children>
+                  <Label prefHeight="48.0" prefWidth="82.0" text="Logout">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logout.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets left="530.0" />
+               </HBox.margin>
+            </HBox>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </HBox>
    </top>
    <center>
@@ -42,19 +66,20 @@
             </Label>
             <TableView fx:id="tableView_information" prefHeight="243.0" prefWidth="785.0">
                <columns>
-                  <TableColumn fx:id="column_driver_id" prefWidth="135.20001828670502" text="Driver ID (VISA)" />
-                  <TableColumn fx:id="column_region" prefWidth="99.20001220703125" text="Region" />
-                  <TableColumn fx:id="column_date" prefWidth="76.0" text="Date" />
-                  <TableColumn fx:id="column_pickup_point" prefWidth="126.40008544921875" text="Pickup Point" />
-                  <TableColumn fx:id="column_pickup_time" prefWidth="104.80001831054688" text="Pickup Time" />
-                  <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="121.0" text="Departure Time" />
-                  <TableColumn fx:id="column_comment" maxWidth="500.0" minWidth="8.79998779296875" prefWidth="118.0" text="Comment" />
+                  <TableColumn fx:id="column_driver_id" prefWidth="101.0" text="Driver ID (VISA)" />
+                  <TableColumn fx:id="column_region" prefWidth="90.0" text="Region" />
+                  <TableColumn fx:id="column_date" prefWidth="83.0" text="Date" />
+                  <TableColumn fx:id="column_pickup_point" prefWidth="116.0" text="Pickup Point" />
+                  <TableColumn fx:id="column_pickup_time" prefWidth="93.0" text="Pickup Time" />
+                  <TableColumn fx:id="column_departure_time" minWidth="0.0" prefWidth="107.0" text="Departure Time" />
+                  <TableColumn fx:id="column_status" minWidth="0.0" prefWidth="112.0" text="Reservation Status" />
+                  <TableColumn fx:id="column_comment" maxWidth="500.0" minWidth="8.79998779296875" prefWidth="82.0" text="Comment" />
                </columns>
                <VBox.margin>
                   <Insets left="25.0" right="25.0" />
                </VBox.margin>
             </TableView>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+            <Button mnemonicParsing="false" onMouseClicked="#switchToMainMenu" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
                <VBox.margin>
                   <Insets left="730.0" top="20.0" />
                </VBox.margin>
@@ -65,9 +90,9 @@
    <left>
       <VBox prefHeight="423.0" prefWidth="136.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
+            <HBox fx:id="HBoxDashboard" onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/home_40px.png" />
                      </image>
@@ -88,9 +113,9 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxPropose" onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/plus_40px.png" />
                      </image>
@@ -111,9 +136,9 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </HBox>
-            <HBox onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxRequest" onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingUserRequest" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/carpool_40px.png" />
                      </image>
@@ -134,9 +159,9 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxManage" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/manage.png" />
                      </image>

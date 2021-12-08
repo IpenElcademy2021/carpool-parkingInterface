@@ -1,6 +1,5 @@
 package com.example.loginpage.oop;
 
-import com.example.loginpage.models.PoolingCarOwners;
 import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.UserRequestPoolingProposeUser;
 import com.example.loginpage.oop.RestAPI.OkHttpGet;
@@ -98,41 +97,5 @@ public class PoolingMethodClass {
         }
         return userRequestReturn;
     }
-
-    public ObservableList<PoolingCarOwners> getAllCarOwnersForPooling() throws IOException{
-
-        String url = "http://localhost:8080/cppk/getAllCarOwnersForPooling";
-        String response = okHttpGet.run(url);
-
-        ObservableList<PoolingCarOwners> poolingCarOwnersReturn = FXCollections.observableArrayList();
-        try {
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(response);
-            JSONArray jsonArray = (JSONArray) obj;
-
-
-            ObservableList<PoolingCarOwners> poolingCarOwnersData = FXCollections.observableArrayList();
-            String visa = "";
-            String carPlate = "";
-
-            for (var i=0; i<jsonArray.toArray().length; i++){
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                JSONObject jsonUserObject = (JSONObject) jsonObject.get("user");
-
-                visa = jsonUserObject.get("visa").toString();
-                carPlate = jsonObject.get("carPlate").toString();
-
-                poolingCarOwnersData.add(new PoolingCarOwners(visa,carPlate));
-
-                poolingCarOwnersReturn = poolingCarOwnersData;
-
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-            return poolingCarOwnersReturn;
-    }
-
 
 }

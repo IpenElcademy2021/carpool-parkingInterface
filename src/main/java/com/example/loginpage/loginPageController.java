@@ -3,14 +3,20 @@ package com.example.loginpage;
 import com.example.loginpage.oop.Login;
 import com.example.loginpage.oop.MethodClass;
 import com.example.loginpage.oop.RestAPI.OkHttpGet;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
@@ -25,28 +31,46 @@ public class loginPageController {
 
 
     @FXML
-    private TextField textfieldUsername, passwordfieldPassword;
+    private TextField textFieldUsername;
+
+    @FXML
+    private PasswordField passwordFieldUsername;
+
     @FXML
     private Label labelLoggedVisa;
 
-    private String globalVisa;
+    String globalVisa = "";
+    String name = " ";
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    public void setup(String logoutvisa) throws IOException {
+        globalVisa = logoutvisa;
+
+        if (globalVisa == "")
+        {
+            labelLoggedVisa.setText ("Please Login!");
+        }
+        else
+        {
+            labelLoggedVisa.setText ("Hello "+globalVisa);
+        }
+    }
+
 
     public void login(ActionEvent event) throws IOException {
 
-        JSONObject jsonObject = login.login(textfieldUsername.getText(), passwordfieldPassword.getText());
+        JSONObject jsonObject = login.login(textFieldUsername.getText(), passwordFieldUsername.getText());
         globalVisa = jsonObject.get("visa").toString();
+        name = jsonObject.get("name").toString();
 
         //Changing label of User and his Manager
-        labelLoggedVisa.setText ("Hello "+globalVisa);
+        labelLoggedVisa.setText ("Hello "+name);
 
         String visa = jsonObject.get("visa").toString();
         String password = jsonObject.get("password").toString();
-        String name = jsonObject.get("name").toString();
         String address = jsonObject.get("address").toString();
         String phoneNumber = jsonObject.get("phoneNumber").toString();
 
@@ -55,9 +79,8 @@ public class loginPageController {
 
 
 
-
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
-        if (globalVisa == null)
+        if (globalVisa == "")
         {
             methodClass.messageBox("Make sure you are logged in first!", "Not logged in.");
         }
@@ -76,7 +99,7 @@ public class loginPageController {
     }
 
     public void switchToCarpoolDashboard(MouseEvent e) throws IOException {
-        if (globalVisa == null)
+        if (globalVisa == "")
         {
             methodClass.messageBox("Please loggin first!", "Not logged in.");
         }
@@ -91,11 +114,6 @@ public class loginPageController {
             stage.setScene(scene);
             carpoolDashboardController.setup(globalVisa);
             stage.show();
-
-
-
-
-
         }
     }
 }
