@@ -68,7 +68,7 @@
          <children>
             <HBox fx:id="HBoxDashboard" onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/home_40px.png" />
                      </image>
@@ -91,7 +91,7 @@
             </HBox>
             <HBox fx:id="HBoxPropose" onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/plus_40px.png" />
                      </image>
@@ -114,7 +114,7 @@
             </HBox>
             <HBox fx:id="HBoxRequest" onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingUserRequest" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/carpool_40px.png" />
                      </image>
@@ -137,7 +137,7 @@
             </HBox>
             <HBox fx:id="HBoxManage" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
+                  <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/manage.png" />
                      </image>

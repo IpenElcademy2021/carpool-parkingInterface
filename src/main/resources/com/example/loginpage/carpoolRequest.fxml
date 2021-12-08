@@ -128,7 +128,7 @@
                         <Insets left="150.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_request1" mnemonicParsing="false" onAction="#createUserRequest" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+                  <Button fx:id="buttonMainMenu" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
                      <HBox.margin>
                         <Insets left="140.0" top="5.0" />
                      </HBox.margin>
@@ -143,7 +143,7 @@
          <children>
             <HBox fx:id="HBoxDashboard" onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView fx:id="imageDashboard" onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageDashboard" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/home_40px.png" />
                      </image>
@@ -166,7 +166,7 @@
             </HBox>
             <HBox fx:id="HBoxPropose" onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView fx:id="imagePropose" onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagePropose" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/plus_40px.png" />
                      </image>
@@ -189,7 +189,7 @@
             </HBox>
             <HBox fx:id="HBoxRequest" onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
                <children>
-                  <ImageView fx:id="imageRequest" onMouseClicked="#switchToPoolingUserRequest" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageRequest" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/carpool_40px.png" />
                      </image>
@@ -212,7 +212,7 @@
             </HBox>
             <HBox fx:id="HBoxManage" onMouseClicked="#switchToPoolingManage" prefHeight="45.0" prefWidth="97.0">
                <children>
-                  <ImageView fx:id="imageManage" onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageManage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/manage.png" />
                      </image>

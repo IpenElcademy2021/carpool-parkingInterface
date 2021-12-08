@@ -16,10 +16,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
-
+@Slf4j
 public class PoolingProposeController {
 
     @FXML
@@ -62,6 +62,7 @@ public class PoolingProposeController {
 
     @FXML
     public void setup(String visa, Boolean hasCar) throws IOException {
+        globalVisa = visa;
         ObservableList<Integer> seats = FXCollections.observableArrayList(1, 2, 3);
         comboxBox_seat.setItems(seats);
         comboxBox_seat.getSelectionModel().selectFirst();
@@ -72,7 +73,8 @@ public class PoolingProposeController {
         if(hasCar == true)
         {
             HBoxRequest.setDisable(true);
-            System.out.println("You are a driver");
+            log.info("LOG: You are a driver");
+            //System.out.println("You are a driver");
         }
         else
         {
@@ -81,8 +83,6 @@ public class PoolingProposeController {
             System.out.println("You are not a driver");;
         }
 
-
-        globalVisa = visa;
 
         ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
         column_visa.setCellValueFactory(new PropertyValueFactory<User, String>("visa"));
@@ -172,7 +172,7 @@ public class PoolingProposeController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa, hasCarBoolean);
+        poolingProposeController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -184,7 +184,7 @@ public class PoolingProposeController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa, hasCarBoolean);
+        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
         stage.show();
 
     }
@@ -197,7 +197,7 @@ public class PoolingProposeController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa, hasCarBoolean);
+        carpoolManagementController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 

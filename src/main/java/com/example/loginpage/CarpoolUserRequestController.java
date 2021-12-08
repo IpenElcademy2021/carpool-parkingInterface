@@ -67,6 +67,7 @@ public class CarpoolUserRequestController {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public void setup(String visa, Boolean hasCar) throws IOException {
+        globalVisa = visa;
         hasCarBoolean = hasCar;
         if(hasCar == true)
         {
@@ -79,8 +80,6 @@ public class CarpoolUserRequestController {
             HBoxManage.setDisable(true);
             System.out.println("You are not a driver");;
         }
-
-        globalVisa = visa;
 
         ObservableList<PoolingPropose> data = poolingMethodClass.getAllProposePooling();
         column_visa.setCellValueFactory(new PropertyValueFactory<User,String>("visa"));
@@ -164,7 +163,7 @@ public class CarpoolUserRequestController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        poolingProposeController.setup(globalVisa, hasCarBoolean);
+        poolingProposeController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
@@ -176,7 +175,7 @@ public class CarpoolUserRequestController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolUserRequestController.setup(globalVisa, hasCarBoolean);
+        carpoolUserRequestController.setup(globalVisa,hasCarBoolean);
         stage.show();
 
     }
@@ -189,7 +188,7 @@ public class CarpoolUserRequestController {
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        carpoolManagementController.setup(globalVisa, hasCarBoolean);
+        carpoolManagementController.setup(globalVisa,hasCarBoolean);
         stage.show();
     }
 
