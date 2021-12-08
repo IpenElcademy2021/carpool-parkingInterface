@@ -35,7 +35,7 @@
    <left>
       <VBox prefHeight="423.0" prefWidth="136.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxDashboard" onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0">
                <children>
                   <ImageView onMouseClicked="#switchToPoolingDashboard" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
+            <HBox fx:id="HBoxPropose" onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
                <children>
                   <ImageView onMouseClicked="#switchToPoolingPropose" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -81,7 +81,7 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </HBox>
-            <HBox onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxRequest" onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0">
                <children>
                   <ImageView onMouseClicked="#switchToPoolingUserRequest" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -104,7 +104,7 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="45.0" prefWidth="97.0">
+            <HBox fx:id="HBoxManage" prefHeight="45.0" prefWidth="97.0">
                <children>
                   <ImageView onMouseClicked="#switchToPoolingManage" pickOnBounds="true" preserveRatio="true">
                      <image>
