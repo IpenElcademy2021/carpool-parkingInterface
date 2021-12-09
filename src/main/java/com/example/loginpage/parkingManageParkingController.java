@@ -5,7 +5,6 @@ import com.example.loginpage.models.FreeParkingUserCarOwners;
 import com.example.loginpage.models.RequestUserCarOwners;
 import com.example.loginpage.oop.MethodClass;
 import com.example.loginpage.oop.RestAPI.OkHttpDelete;
-import com.example.loginpage.oop.RestAPI.OkHttpGet;
 import com.example.loginpage.oop.RestAPI.OkHttpPost;
 import com.example.loginpage.oop.RestAPI.OkHttpPut;
 import javafx.collections.ObservableList;
@@ -25,7 +24,6 @@ import javafx.scene.input.MouseEvent;
 
 
 import javafx.stage.Stage;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +32,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -294,6 +290,11 @@ public class parkingManageParkingController {
         methodClass.Exit();
     }
 
+    public void ExportToExcel() {
+        methodClass.exportToExcel(tableviewDemandA, tableviewDemandD);
+        labelCurrentStatus.setText("An excel file has been created!");
+        logger.debug("Excel file created");
+    }
 
 
 

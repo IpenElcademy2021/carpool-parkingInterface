@@ -1,0 +1,25 @@
+2021-12-09 08:50:24,142 INFO  - Dashboard loaded successfully
+2021-12-09 08:50:25,940 DEBUG - Non-CarOwner Detected, Manage parking disabled.
+2021-12-09 08:50:25,953 INFO  - Apply parking loaded successfully
+2021-12-09 08:50:33,087 DEBUG - sending...
+2021-12-09 08:50:36,802 DEBUG - Sent message successfully....
+2021-12-09 08:56:30,301 INFO  - Dashboard loaded successfully
+2021-12-09 08:56:32,920 INFO  - Your manage parking loaded successfully!
+2021-12-09 08:58:00,644 INFO  - Dashboard loaded successfully
+2021-12-09 08:58:01,759 DEBUG - Non-CarOwner Detected, Manage parking disabled.
+2021-12-09 08:58:01,771 INFO  - Apply parking loaded successfully
+2021-12-09 08:58:13,055 INFO  - Dashboard loaded successfully
+2021-12-09 08:58:14,372 INFO  - Your manage parking loaded successfully!
+2021-12-09 08:58:23,892 DEBUG - {"message":"FreeParking Slot proposed successfully!"}
+2021-12-09 08:58:26,145 DEBUG - {"message":"FreeParking Slot proposed successfully!"}
+2021-12-09 08:58:32,148 INFO  - Dashboard loaded successfully
+2021-12-09 08:58:33,465 DEBUG - Non-CarOwner Detected, Manage parking disabled.
+2021-12-09 08:58:33,479 INFO  - Apply parking loaded successfully
+2021-12-09 08:58:35,944 DEBUG - sending...
+2021-12-09 08:58:38,774 DEBUG - Sent message successfully....
+2021-12-09 08:58:38,774 DEBUG - {"message":"Requested successfully!, status:Applied"}
+2021-12-09 08:58:47,494 INFO  - Dashboard loaded successfully
+2021-12-09 08:58:48,194 INFO  - Your manage parking loaded successfully!
+2021-12-09 08:58:57,588 INFO  - Your manage parking loaded successfully!
+2021-12-09 08:59:24,281 INFO  - Dashboard loaded successfully
+2021-12-09 08:59:26,713 INFO  - Your manage parking loaded successfully!

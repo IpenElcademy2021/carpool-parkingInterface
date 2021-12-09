@@ -22,11 +22,12 @@ public class FeedbackController {
     @FXML
     private TextArea textareaEnterFeedback;
     @FXML
-    private Button buttonCancel;
+    private Button buttonCancel, buttonSendFeedback;
 
     public void SendFeedBack() throws IOException {
         sendEmail.sendEmailNotfication("New feedback on iPension Carpool&Parking (Anonymous)", textareaEnterFeedback.getText(), "feedback");
-        System.exit(0);
+        Stage stage = (Stage) buttonSendFeedback.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

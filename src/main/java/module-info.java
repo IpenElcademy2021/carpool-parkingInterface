@@ -9,6 +9,7 @@ module com.example.loginpage {
     requires lombok;
     requires java.mail;
     requires slf4j.api;
+    requires org.apache.poi.poi;
 
     opens com.example.loginpage to javafx.fxml;
     exports com.example.loginpage;

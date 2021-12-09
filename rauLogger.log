@@ -1,0 +1,35 @@
+2021-12-09 09:01:58,263 INFO  - Dashboard loaded successfully
+2021-12-09 09:02:04,232 INFO  - Dashboard loaded successfully
+2021-12-09 09:02:05,133 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:03:32,693 INFO  - Dashboard loaded successfully
+2021-12-09 09:03:37,370 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:05:33,309 INFO  - Dashboard loaded successfully
+2021-12-09 09:05:35,136 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:06:06,817 INFO  - Dashboard loaded successfully
+2021-12-09 09:06:07,705 DEBUG - Non-CarOwner Detected, Manage parking disabled.
+2021-12-09 09:06:07,723 INFO  - Apply parking loaded successfully
+2021-12-09 09:06:10,544 DEBUG - sending...
+2021-12-09 09:06:13,487 DEBUG - Sent message successfully....
+2021-12-09 09:06:13,487 DEBUG - {"message":"Requested successfully!, status:Applied"}
+2021-12-09 09:06:19,314 INFO  - Dashboard loaded successfully
+2021-12-09 09:06:20,421 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:06:23,245 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:17:38,930 INFO  - Dashboard loaded successfully
+2021-12-09 09:17:39,663 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:22:31,023 INFO  - Dashboard loaded successfully
+2021-12-09 09:22:32,901 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:30:04,567 INFO  - Dashboard loaded successfully
+2021-12-09 09:30:05,743 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:31:23,035 INFO  - Dashboard loaded successfully
+2021-12-09 09:31:32,675 DEBUG - Non-CarOwner Detected, Manage parking disabled.
+2021-12-09 09:31:32,687 INFO  - Apply parking loaded successfully
+2021-12-09 09:31:40,101 INFO  - Dashboard loaded successfully
+2021-12-09 09:31:41,699 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:32:50,440 INFO  - Dashboard loaded successfully
+2021-12-09 09:32:51,714 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:35:46,416 INFO  - Dashboard loaded successfully
+2021-12-09 09:35:47,978 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:38:55,582 INFO  - Dashboard loaded successfully
+2021-12-09 09:38:57,248 INFO  - Your manage parking loaded successfully!
+2021-12-09 09:39:01,605 DEBUG - Excel file created
+2021-12-09 09:39:23,743 DEBUG - Excel file created

@@ -10,11 +10,21 @@ import com.example.loginpage.oop.RestAPI.OkHttpPost;
 import com.example.loginpage.oop.RestAPI.OkHttpPut;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.poi.ss.formula.functions.T;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import javafx.scene.control.TableView;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -26,6 +36,8 @@ import java.util.Optional;
 public class MethodClass {
     //OOP
     OkHttpGet okHttpGet = new OkHttpGet();
+
+    private Stage stage;
 
     public void Exit() {
         messageBox("Goodbye", "Exit");
@@ -308,5 +320,62 @@ public class MethodClass {
             e.printStackTrace();
         }
         return datareturn;
+    }
+
+    public void exportToExcel(TableView<T> tableViewA, TableView<T> tableViewD){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save as an .xls file");
+        fileChooser.setInitialFileName("Parking export.xls");
+        File selectedFile = fileChooser.showSaveDialog(stage);
+
+        HSSFWorkbook hssfWorkbook=new HSSFWorkbook();
+        HSSFSheet hssfSheetA =  hssfWorkbook.createSheet("Approved");
+        HSSFSheet hssfSheetD =  hssfWorkbook.createSheet("Declined");
+
+        HSSFRow firstRowA= hssfSheetA.createRow(0);
+        HSSFRow firstRowD= hssfSheetD.createRow(0);
+
+        ///set titles of columns
+        for (int i=0; i<tableViewA.getColumns().size();i++){
+            firstRowA.createCell(i).setCellValue(tableViewA.getColumns().get(i).getText());
+        }
+        for (int i=0; i<tableViewD.getColumns().size();i++){
+            firstRowD.createCell(i).setCellValue(tableViewD.getColumns().get(i).getText());
+        }
+
+        for (int row=0; row<tableViewA.getItems().size();row++){
+            HSSFRow hssfRow= hssfSheetA.createRow(row+1);
+            for (int col=0; col<tableViewA.getColumns().size(); col++){
+                Object celValue = tableViewA.getColumns().get(col).getCellObservableValue(row).getValue();
+                try {
+                    if (celValue != null && Double.parseDouble(celValue.toString()) != 0.0) {
+                        hssfRow.createCell(col).setCellValue(Double.parseDouble(celValue.toString()));
+                    }
+                } catch (  NumberFormatException e ){
+                    hssfRow.createCell(col).setCellValue(celValue.toString());
+                }
+            }
+        }
+
+        for (int row=0; row<tableViewD.getItems().size();row++){
+            HSSFRow hssfRow= hssfSheetD.createRow(row+1);
+            for (int col=0; col<tableViewD.getColumns().size(); col++){
+                Object celValue = tableViewD.getColumns().get(col).getCellObservableValue(row).getValue();
+                try {
+                    if (celValue != null && Double.parseDouble(celValue.toString()) != 0.0) {
+                        hssfRow.createCell(col).setCellValue(Double.parseDouble(celValue.toString()));
+                    }
+                } catch (  NumberFormatException e ){
+                    hssfRow.createCell(col).setCellValue(celValue.toString());
+                }
+            }
+        }
+        //save excel file and close the workbook
+        try {
+            hssfWorkbook.write(new FileOutputStream(selectedFile));
+            hssfWorkbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
